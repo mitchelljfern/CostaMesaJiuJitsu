@@ -227,7 +227,8 @@ button { font: inherit; }
 /* Header */
 .header { --hfg: #ffffff; position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); z-index: 50; background: transparent; border-bottom: 1px solid transparent; transition: background 260ms var(--ease), border-color 260ms var(--ease), backdrop-filter 260ms var(--ease); }
 .header.scrolled { --hfg: var(--fg); background: var(--header-bg); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border-bottom-color: var(--line); }
-.header .wrap { max-width: 1440px; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
+.header .wrap { max-width: 1440px; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 88px; transition: min-height 300ms var(--ease); }
+.header.scrolled .wrap { min-height: 72px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--hfg); }
 .header-tools { display: flex; align-items: center; gap: 6px; }
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 8px; color: var(--hfg); background: transparent; border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: background 160ms var(--ease), color 160ms var(--ease); }
@@ -236,12 +237,24 @@ button { font: inherit; }
 .theme-btn .sun, html[data-mode="light"] .theme-btn .moon { display: none; }
 .header .theme-btn { display: none; }
 @media (min-width: 1100px) { .header .theme-btn { display: inline-flex; } }
-@media (max-width: 420px) { .brand-name { font-size: 13px; } .brand img { width: 32px; height: 32px; } }
 html[data-mode="light"] .theme-btn .sun { display: block; }
 .header-socials { display: none; }
 .header-tools .nav-text { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--hfg); opacity: 0.85; padding: 10px 6px; }
 .header-tools .nav-text:hover { opacity: 1; }
-.brand img { width: 36px; height: 36px; }
+/* Logo: big on load, shrinks once you start scrolling */
+.brand img { width: 56px; height: 56px; flex: none; transition: width 300ms var(--ease), height 300ms var(--ease); }
+.header.scrolled .brand img { width: 36px; height: 36px; }
+@media (min-width: 900px) {
+  .header .wrap { min-height: 104px; }
+  .header.scrolled .wrap { min-height: 76px; }
+  .brand img { width: 76px; height: 76px; }
+  .brand { gap: 14px; }
+}
+@media (max-width: 420px) {
+  .brand-name { font-size: 13px; }
+  .brand img { width: 50px; height: 50px; }
+  .header.scrolled .brand img { width: 34px; height: 34px; }
+}
 .brand-name { font-family: var(--font-display); font-weight: 800; font-size: 15px; line-height: 1; letter-spacing: 0.02em; text-transform: uppercase; white-space: nowrap; }
 .brand-name b { font-weight: 800; }
 .brand-name span { font-weight: 800; }
@@ -773,7 +786,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 <header class="header">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Costa Mesa Jiu Jitsu home">
-      <img src="photos/cmjj-badge-sm.png" width="44" height="44" alt="Costa Mesa Jiu Jitsu badge">
+      <img src="photos/cmjj-badge-sm.png" width="76" height="76" alt="Costa Mesa Jiu Jitsu badge">
       <span class="brand-name"><b>Costa Mesa</b><span>Jiu Jitsu</span></span>
     </a>
     <nav class="nav" aria-label="Main">

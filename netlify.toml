@@ -1,0 +1,30 @@
+# Costa Mesa Jiu Jitsu: Netlify settings
+#
+# This is a plain static site (one index.html plus the photos folder).
+# There is nothing to build, so Netlify just publishes the repo as-is.
+
+[build]
+  publish = "."
+  command = ""
+
+  # Only two branches ever deploy:
+  #   main     -> the live site (production)
+  #   staging  -> the staging site (staging--<site-name>.netlify.app)
+  # Every other branch and every pull request preview is skipped,
+  # so stray pushes never use Netlify build credits.
+  # (Netlify rule: exit 0 = skip the build, exit 1 = go ahead.)
+  ignore = "if [ \"$CONTEXT\" = \"production\" ] || [ \"$BRANCH\" = \"staging\" ]; then exit 1; else exit 0; fi"
+
+# Photos and videos: let browsers keep them for a week
+[[headers]]
+  for = "/photos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Basic security headers for every page
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

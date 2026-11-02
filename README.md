@@ -98,6 +98,15 @@ Search for `id="pricing"`. Each membership card has its price and a **Sign up** 
 - Real gym photos only, no stock.
 - When replacing a photo, keep the same file name so you don't have to edit `index.html`. Browsers may show the old one for up to a week, so if it needs to change right away, use a new file name and update the reference.
 
+### Social sharing image and title
+
+When someone shares the link (iMessage, Facebook, Instagram DMs, Google results), this is what shows:
+
+- **Image:** `photos/og-share.jpg`, 1200 × 630 px. Keep the title and blurb inside the left half so nothing gets cropped.
+- **Tags:** the `og:` and `twitter:` lines at the top of `index.html`, plus `<title>` and the meta description.
+- **Changing the image:** use a **new file name** (for example `og-share-2.jpg`) and update all three image URLs in `index.html`. Facebook and iMessage cache the old image for weeks, and a new name forces a refresh.
+- After it's live, paste the URL into https://developers.facebook.com/tools/debug/ and click **Scrape Again** to refresh Facebook's preview.
+
 ### Brand rules
 
 - Colors: near-black and white with one red accent (`#f0544f`). Red is only for buttons, stars and small highlights.

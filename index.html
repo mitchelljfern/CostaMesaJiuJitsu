@@ -1736,5 +1736,31 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   $('#year').textContent = new Date().getFullYear();
 })();
 </script>
+<script>
+// HighLevel (LeadConnector) chat widget: the same widget as the old WordPress site.
+// Loads shortly after the page finishes so it never slows the first screen.
+(function () {
+  function addChat() {
+    var s = document.createElement('script');
+    s.src = 'https://widgets.leadconnectorhq.com/loader.js';
+    s.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+    s.setAttribute('data-widget-id', '6a555e3882c5a91e7f43987e');
+    s.setAttribute('data-source', 'WEB_USER');
+    document.body.appendChild(s);
+    // On phones and tablets, lift the chat bubble above the bottom tab bar
+    var tries = 0, timer = setInterval(function () {
+      var w = document.querySelector('chat-widget');
+      if (w && w.shadowRoot && w.shadowRoot.querySelector('.lc_text-widget')) {
+        var st = document.createElement('style');
+        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important; } }';
+        w.shadowRoot.appendChild(st);
+        clearInterval(timer);
+      } else if (++tries > 80) { clearInterval(timer); }
+    }, 250);
+  }
+  if (document.readyState === 'complete') setTimeout(addChat, 1200);
+  else window.addEventListener('load', function () { setTimeout(addChat, 1200); });
+})();
+</script>
 </body>
 </html>

@@ -375,7 +375,7 @@ html[data-mode="light"] .theme-btn .sun { display: block; }
   .hero-media video { opacity: 0; transition: opacity 600ms var(--ease); }
   .hero-media video.ready { opacity: 1; }
 }
-@media (min-width: 1200px) { .hero .wrap { padding-block: 140px 72px; } }
+@media (min-width: 1200px) { .hero .wrap { padding-block: 140px 32px; } }
 
 /* Proof strip */
 .strip { padding-top: clamp(20px, 3vw, 36px); }
@@ -701,6 +701,14 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 /* Beginners + Open Mat: compact row right under the programs */
 #programs { padding-bottom: clamp(16px, 2vw, 24px); }
 #beginners { padding-top: 0; padding-bottom: clamp(56px, 8vw, 96px); }
+/* Desktop: tighter rhythm between sections (about 100px between the top sections) */
+@media (min-width: 900px) {
+  :root { --section: 72px; }
+  .hero .wrap { padding-bottom: 32px; }
+  #programs { padding-top: 64px; }
+  #beginners { padding-bottom: 32px; }
+  #schedule { padding-bottom: 32px; }
+}
 .feature-photo { aspect-ratio: 2.6 / 1; }
 .feature-photo img { object-position: 50% 72%; }
 .feature-body { padding: 18px 18px 20px; gap: 12px; }

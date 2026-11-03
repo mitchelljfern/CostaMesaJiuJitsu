@@ -1,0 +1,33 @@
+# Costa Mesa Jiu Jitsu redirects (Netlify)
+# Real pages always win over these rules. First match wins.
+# Old WordPress URLs go to their closest new page; anything else goes to the home page,
+# so nothing on the old site ends in a 404.
+
+# Old pages that have a new home
+/coach-brady-fink        /brady-fink/              301
+/author/coach-brady      /brady-fink/              301
+/beginners               /beginners-classes/       301
+/beginner                /beginners-classes/       301
+/free-class              /free-trial/              301
+/privates                /private-lessons/         301
+/memberships             /pricing/                 301
+/sms-terms               /terms-of-service/        301
+
+# Old pages folded into sections of the home page
+/schedule                /#schedule                301
+/coaches                 /#coaches                 301
+/youth                   /#kids                    301
+/kids                    /#kids                    301
+/contact                 /#contact                 301
+/store                   /#shop                    301
+/gear-suggestions        /#shop                    301
+/portfolio/*             /#shop                    301
+/project-type/*          /#shop                    301
+
+# Old sitemaps point to the new one
+/sitemap_index.xml       /sitemap.xml              301
+/*-sitemap.xml           /sitemap.xml              301
+/wp-sitemap.xml          /sitemap.xml              301
+
+# Everything else from the old site goes home
+/*                       /                         301

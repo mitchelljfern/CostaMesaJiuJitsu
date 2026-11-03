@@ -276,7 +276,7 @@ def header(active):
 '''
 
 FOOTER_LINKS = [('Home', '/'), ('Free trial', '/free-trial/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
-                ('Private lessons', '/private-lessons/'), ('Coach Brady Fink', '/brady-fink/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
+                ('Private lessons', '/private-lessons/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
                 ('FAQ', '/#faq'), ('Double Ops', 'https://www.doptraining.com'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
 
 def footer_links_html():

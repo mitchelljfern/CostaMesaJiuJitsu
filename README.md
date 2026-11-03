@@ -58,11 +58,26 @@ Opening `index.html` straight from your file browser mostly works too, but the v
 ## What's in here
 
 ```
-index.html          the whole site: content, styles and scripts in one file
-photos/             images (.webp), videos (.mp4), logos and icons
-netlify.toml        Netlify settings: what deploys, caching, security headers
-.github/CODEOWNERS  makes Mitchell the required reviewer for main
+index.html               home page: content, styles and scripts in one file
+free-trial/              /free-trial/ landing page (free class sign-up)
+beginners-classes/       /beginners-classes/ landing page ($99 for 8 classes)
+pricing/                 /pricing/ memberships page
+private-lessons/         /private-lessons/ request page
+brady-fink/              /brady-fink/ Coach Brady Fink bio + private lesson request
+privacy-policy/          privacy policy (wording copied exactly from the old site, do not edit)
+terms-of-service/        SMS terms of service (wording copied exactly from the old site, do not edit)
+assets/site.css          shared styles for the inner pages (a copy of the styles in index.html plus inner-page styles)
+assets/pages.js          shared script for the inner pages (menu, theme, FAQ, forms, chat widget)
+_redirects               every old WordPress URL forwarded to its new page or the home page (no 404s)
+sitemap.xml, robots.txt  search engine files
+photos/                  images (.webp), videos (.mp4), logos and icons
+netlify.toml             Netlify settings: what deploys, caching, security headers
+.github/CODEOWNERS       makes Mitchell the required reviewer for main
 ```
+
+**Styles:** the home page keeps its styles inline for speed. Inner pages load `assets/site.css`. If you change a shared style (buttons, colors, header) in `index.html`, make the same change in `assets/site.css`.
+
+**Header, footer and menu** are repeated in every page. If you change a nav link or footer link, update it in each page folder too.
 
 ---
 
@@ -84,7 +99,7 @@ A class time shows up in three spots. Update all three or they'll disagree:
    `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult and Beginners), `t-strike` amber (BOXHIIT), `t-open` green (Open Mat).
 2. **The "Next Class" box in the hero.** Search for `var SCHED`. One line per class:
    `[day, hour, minute, 'Name', 'Detail']`. Day: 0 is Sunday, 1 Monday, ... 6 Saturday. Hours are 24-hour (6:15 PM is `18,15`).
-3. **The free class form's class list.** Search for `id="cls"`. Each option is one class time.
+3. **The free class form's class list.** Search for `id="cls"`. Each option is one class time. The same list is also in `free-trial/index.html`, so update both.
 
 The program cards (Little Ninjas, Youth, Adult) also list their days and times. Search for `class="times"`.
 
@@ -107,6 +122,15 @@ When someone shares the link (iMessage, Facebook, Instagram DMs, Google results)
 - **Changing the image:** use a **new file name** (for example `og-share-2.jpg`) and update all three image URLs in `index.html`. Facebook and iMessage cache the old image for weeks, and a new name forces a refresh.
 - After it's live, paste the URL into https://developers.facebook.com/tools/debug/ and click **Scrape Again** to refresh Facebook's preview.
 
+### SEO and redirects
+
+- Every page has its own `<title>`, meta description, canonical URL, Open Graph tags and structured data (JSON-LD) in its `<head>`.
+- Canonical URLs and `sitemap.xml` use `https://costamesajiujitsu.com`. Share previews (`og:url`, `og:image`) use `https://costa-mesa-jiu-jitsu.netlify.app` until the domain moves to Netlify.
+- **When the domain moves:** find and replace `https://costa-mesa-jiu-jitsu.netlify.app` with `https://costamesajiujitsu.com` in every page, then submit `https://costamesajiujitsu.com/sitemap.xml` in Google Search Console.
+- Google tag `GT-5TGJHX46` (same as the old site) is in every page's `<head>`.
+- **Adding a new page:** create `new-page/index.html`, add it to `sitemap.xml`, and it will automatically take priority over the catch-all redirect.
+- **Redirects** live in `_redirects`. Real pages always win over redirect rules, and the last rule sends any unknown URL to the home page.
+
 ### Brand rules
 
 - Colors: near-black and white with one red accent (`#f0544f`). Red is only for buttons, stars and small highlights.
@@ -118,15 +142,15 @@ When someone shares the link (iMessage, Facebook, Instagram DMs, Google results)
 
 ## Forms (needs setup before launch)
 
-The site has three forms. Right now they only show a "thanks" message on screen. **They don't send the details anywhere yet.**
+The site's forms only show a "thanks" message on screen right now. **They don't send the details anywhere yet.**
 
 | Form | Where | Suggested tag |
 |---|---|---|
-| Free class | `id="trialForm"` | free trial |
-| Private lesson request | `id="privateForm"` | private lesson |
-| Rashguard backorder | `id="rashForm"` | rashguard backorder |
+| Free class | `index.html` and `free-trial/` (`id="trialForm"`) | free trial |
+| Private lesson request | `index.html`, `private-lessons/`, `brady-fink/` (`id="privateForm"`) | private lesson |
+| Rashguard backorder | `index.html` (`id="rashForm"`) | rashguard backorder |
 
-Each form's submit handler in the script at the bottom of `index.html` has a comment marking where to send the data, for example to the HighLevel webhook.
+The home page's submit handlers are in the script at the bottom of `index.html`. The inner pages share one handler in `assets/pages.js` (forms with a `data-lead` attribute). Each has a comment marking where to send the data, for example to the HighLevel webhook.
 
 ---
 

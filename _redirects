@@ -26,7 +26,12 @@
 
 # Old sitemaps point to the new one
 /sitemap_index.xml       /sitemap.xml              301
-/*-sitemap.xml           /sitemap.xml              301
+/post-sitemap.xml        /sitemap.xml              301
+/page-sitemap.xml        /sitemap.xml              301
+/portfolio-sitemap.xml   /sitemap.xml              301
+/category-sitemap.xml    /sitemap.xml              301
+/project-type-sitemap.xml/sitemap.xml              301
+/author-sitemap.xml      /sitemap.xml              301
 /wp-sitemap.xml          /sitemap.xml              301
 
 # Everything else from the old site goes home

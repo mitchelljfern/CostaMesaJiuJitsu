@@ -63,13 +63,15 @@ free-trial/              /free-trial/ landing page (free class sign-up)
 beginners-classes/       /beginners-classes/ landing page ($99 for 8 classes)
 pricing/                 /pricing/ memberships page
 private-lessons/         /private-lessons/ request page
-brady-fink/              /brady-fink/ Coach Brady Fink bio + private lesson request
+brady-fink/              /brady-fink/ Coach Brady Fink bio
+upcoming-tournaments/    /upcoming-tournaments/ SoCal tournament cards (built from tools/tournaments.json)
 privacy-policy/          privacy policy (wording copied exactly from the old site, do not edit)
 terms-of-service/        SMS terms of service (wording copied exactly from the old site, do not edit)
 assets/site.css          shared styles for the inner pages (a copy of the styles in index.html plus inner-page styles)
 assets/pages.js          shared script for the inner pages (menu, theme, FAQ, forms, chat widget)
 _redirects               every old WordPress URL forwarded to its new page or the home page (no 404s)
 sitemap.xml, robots.txt  search engine files
+tools/                   page builder scripts and the tournament list (see "Updating tournaments")
 photos/                  images (.webp), videos (.mp4), logos and icons
 netlify.toml             Netlify settings: what deploys, caching, security headers
 .github/CODEOWNERS       makes Mitchell the required reviewer for main
@@ -130,6 +132,22 @@ When someone shares the link (iMessage, Facebook, Instagram DMs, Google results)
 - Google tag `GT-5TGJHX46` (same as the old site) is in every page's `<head>`.
 - **Adding a new page:** create `new-page/index.html`, add it to `sitemap.xml`, and it will automatically take priority over the catch-all redirect.
 - **Redirects** live in `_redirects`. Real pages always win over redirect rules, and the last rule sends any unknown URL to the home page.
+
+### Updating tournaments
+
+The tournament cards are built from `tools/tournaments.json`. Each event has its dates, venue, Gi/NoGi, divisions, price tiers (with "until" dates) and registration links.
+
+1. Edit `tools/tournaments.json` (add, change or remove events).
+2. Rebuild the page: `python3 tools/tournaments.py . /no-old-pages tools/tournaments.json YYYY-MM-DD` (use today's date; it shows as "Updated" on the page).
+3. Check it locally, then push to `staging`.
+
+Past events hide themselves automatically, and each card's price moves to the next tier on its own as deadlines pass. Prices and dates change, so re-check the organizations' sites every month or so.
+
+### Coming back in January
+
+- **Coach Brady privates:** set `BRADY_PRIVATES = True` in `tools/build.py` and rebuild (`python3 tools/build.py . /no-old-pages`). This adds him back to the private lessons page, the private lesson forms and his own page.
+- **Waiver:** a ready-made online waiver is saved on the `waiver-draft` branch. Connect its form first (like the other forms), then merge it into `staging`.
+- **Kickboxing and yoga:** add them back to the schedule, programs and FAQ when they return.
 
 ### Brand rules
 

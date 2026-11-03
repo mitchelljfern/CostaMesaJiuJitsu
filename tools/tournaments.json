@@ -1,0 +1,749 @@
+{
+ "note": "More 2027 events, like the IBJJF Orange County and San Diego opens and NABJJF's spring events, haven't been announced yet. We'll add them as they're posted.",
+ "events": [
+  {
+   "org": "JJWL",
+   "org_full": "Jiu Jitsu World League",
+   "org_url": "https://www.jjworldleague.com",
+   "name": "California Championship II",
+   "start": "2026-11-07",
+   "end": "2026-11-07",
+   "city": "Long Beach, CA",
+   "venue": "Long Beach Arena",
+   "address": "300 E Ocean Blvd, Long Beach, CA 90802",
+   "street": "300 E Ocean Blvd",
+   "locality": "Long Beach",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Separate Gi and NoGi brackets on the same day.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "Youth to masters",
+   "divisions": "Youth (toddler to juvenile), adults and masters",
+   "levels": "Youth Gi by belt (white, gray, yellow, orange, green, blue). Youth NoGi by level: beginner, intermediate, advanced. Adults white to black belt.",
+   "closed": true,
+   "closed_note": "This event is sold out. Spectators can buy tickets at the door.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$139",
+     "until": "2026-10-27"
+    },
+    {
+     "label": "Final",
+     "amount": "$149",
+     "until": "2026-10-29"
+    }
+   ],
+   "price_note": "Register for Gi and get 10% off NoGi.",
+   "deadlines": [
+    {
+     "label": "Registration closed",
+     "date": "2026-10-29"
+    }
+   ],
+   "notes": [
+    "Check in first for a wristband, then weigh in at least 1 hour before your first match.",
+    "0.9 lb weight allowance.",
+    "Bracket times are texted the Thursday night before."
+   ],
+   "event_url": "https://www.jjworldleague.com/events/ca-champ-II-gi-adults",
+   "register_url": "https://www.jjworldleague.com/events/ca-champ-II-gi-adults"
+  },
+  {
+   "org": "NABJJF",
+   "org_full": "North American Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://nabjjf.com",
+   "name": "North American Grand Finale 2026",
+   "start": "2026-12-05",
+   "end": "2026-12-05",
+   "city": "Norwalk, CA",
+   "venue": "Cerritos College",
+   "address": "11110 Alondra Blvd, Norwalk, CA 90650",
+   "street": "11110 Alondra Blvd",
+   "locality": "Norwalk",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Gi and NoGi divisions at one event.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All belts",
+   "divisions": "Kids, juveniles, adults and masters",
+   "levels": "All belts, white to black.",
+   "prices": [
+    {
+     "label": "First 250 kids and 150 adults",
+     "amount": "$49.99",
+     "until": "2026-09-03",
+     "sold_out": true
+    },
+    {
+     "label": "Early",
+     "amount": "$79.99",
+     "until": "2026-09-24"
+    },
+    {
+     "label": "Early",
+     "amount": "$89.99",
+     "until": "2026-10-14"
+    },
+    {
+     "label": "Includes a free shirt",
+     "amount": "$99.99",
+     "until": "2026-10-28"
+    },
+    {
+     "label": "Regular",
+     "amount": "$109.99",
+     "until": "2026-11-11"
+    },
+    {
+     "label": "Final",
+     "amount": "$119.99",
+     "until": "2026-11-25"
+    }
+   ],
+   "price_note": "Optional registration insurance is $7.99 per athlete.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2026-11-25"
+    },
+    {
+     "label": "Division change deadline",
+     "date": "2026-11-28",
+     "text": "on SmoothComp"
+    },
+    {
+     "label": "Brackets posted",
+     "date": "2026-12-03"
+    }
+   ],
+   "notes": [
+    "Season finale worth 3x ranking points.",
+    "Same-day weigh-in from 7:30 AM. Kids get a 2 lb allowance; juveniles, adults and masters 0 lb.",
+    "Spectators $15 at the door (card only). Kids 6 and under free."
+   ],
+   "event_url": "https://nabjjf.com/events/the-2026-north-american-grand-finale",
+   "register_url": "https://nabjjf.smoothcomp.com/en/event/33469",
+   "register_label": "SmoothComp"
+  },
+  {
+   "org": "JJWL",
+   "org_full": "Jiu Jitsu World League",
+   "org_url": "https://www.jjworldleague.com",
+   "name": "The Finals SoCal 2026",
+   "start": "2026-12-05",
+   "end": "2026-12-05",
+   "city": "Del Mar, CA",
+   "venue": "Del Mar Fairgrounds",
+   "address": "2260 Jimmy Durante Blvd, Del Mar, CA 92014",
+   "street": "2260 Jimmy Durante Blvd",
+   "locality": "Del Mar",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Separate Gi and NoGi brackets on the same day.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "Youth to masters",
+   "divisions": "Youth (toddler to juvenile), adults and masters",
+   "levels": "Youth Gi by belt (white, gray, yellow, orange, green, blue). Youth NoGi by level: beginner, intermediate, advanced. Adults white to black belt.",
+   "prices": [
+    {
+     "label": "Presale (free rash guard until Nov 7)",
+     "amount": "$119",
+     "until": "2026-11-05"
+    },
+    {
+     "label": "Regular",
+     "amount": "$149",
+     "until": "2026-12-02"
+    }
+   ],
+   "price_note": "Same price for youth and adults. Register for Gi and get 10% off NoGi.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2026-12-02"
+    },
+    {
+     "label": "Weight class changes",
+     "text": "close 6 days before the event"
+    },
+    {
+     "label": "Bracket times",
+     "date": "2026-12-03",
+     "text": "sent by text"
+    }
+   ],
+   "notes": [
+    "Each youth competitor gets one free parent pass. Other spectators buy tickets at the door.",
+    "Check in for a wristband, then weigh in at least 1 hour before your first match. 0.9 lb allowance."
+   ],
+   "event_url": "https://www.jjworldleague.com/events/finals-2026-socal-gi-adults",
+   "register_links": [
+    {
+     "label": "Register: Youth Gi",
+     "url": "https://www.jjworldleague.com/registration/1000"
+    },
+    {
+     "label": "Register: Youth NoGi",
+     "url": "https://www.jjworldleague.com/registration/1001"
+    },
+    {
+     "label": "Register: Adult Gi",
+     "url": "https://www.jjworldleague.com/registration/1002"
+    },
+    {
+     "label": "Register: Adult NoGi",
+     "url": "https://www.jjworldleague.com/registration/1003"
+    }
+   ],
+   "register_url": "https://www.jjworldleague.com/registration/1002"
+  },
+  {
+   "org": "NABJJF",
+   "org_full": "North American Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://nabjjf.com",
+   "name": "All Americas Jiu Jitsu Tournament 2027",
+   "start": "2027-01-23",
+   "end": "2027-01-23",
+   "city": "Norwalk, CA",
+   "venue": "Cerritos College",
+   "address": "11110 Alondra Blvd, Norwalk, CA 90650",
+   "street": "11110 Alondra Blvd",
+   "locality": "Norwalk",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Gi and NoGi divisions at one event.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All belts",
+   "divisions": "Kids, juveniles, adults and masters",
+   "levels": "All belts, white to black. New for 2027: 12-month age brackets for kids, and a Debut Division for kids white belts in their first three NABJJF events.",
+   "prices": [
+    {
+     "label": "First 100 kids and 100 adults",
+     "amount": "$49.99",
+     "member": "$29.99",
+     "sold_out": true
+    },
+    {
+     "label": "Early",
+     "amount": "$79.99",
+     "member": "$49.99",
+     "until": "2026-10-21"
+    },
+    {
+     "label": "Early",
+     "amount": "$89.99",
+     "member": "$49.99",
+     "until": "2026-11-11"
+    },
+    {
+     "label": "Regular",
+     "amount": "$99.99",
+     "member": "$49.99",
+     "until": "2026-12-02"
+    },
+    {
+     "label": "Regular",
+     "amount": "$109.99",
+     "member": "$69.99",
+     "until": "2026-12-23"
+    },
+    {
+     "label": "Final",
+     "amount": "$119.99",
+     "member": "$69.99",
+     "until": "2027-01-13"
+    }
+   ],
+   "price_note": "Prices shown are non-member. Member prices apply only when you register on nabjjf.com. Each additional entry, like Gi plus NoGi, is 30% off.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2027-01-13"
+    },
+    {
+     "label": "Division change deadline",
+     "date": "2027-01-16"
+    },
+    {
+     "label": "Brackets posted",
+     "date": "2027-01-21"
+    }
+   ],
+   "notes": [
+    "Worth 2x ranking points.",
+    "Spectator day pass $11.99 online or $15 at the door."
+   ],
+   "event_url": "https://nabjjf.com/events/2027-all-americas-jiu-jitsu-tournament",
+   "register_url": "https://nabjjf.com/events/2027-all-americas-jiu-jitsu-tournament/register",
+   "register_label": "NABJJF"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Los Angeles Winter International Open 2027",
+   "start": "2027-01-30",
+   "end": "2027-01-31",
+   "city": "Los Angeles, CA",
+   "venue": "Los Angeles Convention Center, Hall H",
+   "address": "1201 S Figueroa St, Los Angeles, CA 90015",
+   "street": "1201 S Figueroa St",
+   "locality": "Los Angeles",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Separate Gi and NoGi championships the same weekend. Kids compete in their own event on Jan 31.",
+   "kids": false,
+   "adults": true,
+   "levels_short": "Juvenile to master",
+   "divisions": "Juvenile (born 2010 and 2011), adult and masters 1 to 7",
+   "levels": "Gi: juveniles white to purple; adults and masters 1 to 5 white to black; masters 6 and 7 blue to black. NoGi: blue to black only (no white belt divisions listed).",
+   "prices": [
+    {
+     "label": "Gi or NoGi, early",
+     "amount": "$143",
+     "until": "2027-01-01"
+    },
+    {
+     "label": "Gi or NoGi, regular",
+     "amount": "$174",
+     "until": "2027-01-22"
+    },
+    {
+     "label": "Combo (both events), early",
+     "amount": "$245",
+     "until": "2027-01-01"
+    },
+    {
+     "label": "Combo (both events), regular",
+     "amount": "$295",
+     "until": "2027-01-22"
+    }
+   ],
+   "price_note": "Open class sign-up is at the event for 1st to 3rd place medalists (no Gi open class for white belts). Spectators free.",
+   "deadlines": [
+    {
+     "label": "Team affiliation deadline",
+     "date": "2027-01-07"
+    },
+    {
+     "label": "Registration closes",
+     "date": "2027-01-22",
+     "text": "or earlier if it fills"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2027-01-23"
+    },
+    {
+     "label": "Registration check day",
+     "date": "2027-01-27"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2027-01-29"
+    }
+   ],
+   "notes": [
+    "You need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/los-angeles-winter-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_links": [
+    {
+     "label": "Register: Gi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3435&registrationId=false"
+    },
+    {
+     "label": "Register: NoGi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3436&registrationId=false"
+    }
+   ],
+   "register_url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3435&registrationId=false"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Los Angeles Winter Kids International Open 2027",
+   "start": "2027-01-31",
+   "end": "2027-01-31",
+   "city": "Los Angeles, CA",
+   "venue": "Los Angeles Convention Center, Hall H",
+   "address": "1201 S Figueroa St, Los Angeles, CA 90015",
+   "street": "1201 S Figueroa St",
+   "locality": "Los Angeles",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Separate kids Gi and NoGi championships on the same day.",
+   "kids": true,
+   "adults": false,
+   "levels_short": "Kids only",
+   "divisions": "Kids: Mightymite, Peewee, Junior and Teen (born 2012 to 2023)",
+   "levels": "NoGi: grey belts for Mightymites, up to green belt for Teens. Gi divisions haven't been posted yet.",
+   "prices": [
+    {
+     "label": "Gi or NoGi, early",
+     "amount": "$124",
+     "until": "2027-01-01"
+    },
+    {
+     "label": "Gi or NoGi, regular",
+     "amount": "$138",
+     "until": "2027-01-22"
+    },
+    {
+     "label": "Combo (both events), early",
+     "amount": "$212",
+     "until": "2027-01-01"
+    },
+    {
+     "label": "Combo (both events), regular",
+     "amount": "$235",
+     "until": "2027-01-22"
+    }
+   ],
+   "price_note": "No open class at the kids events. Spectators free.",
+   "deadlines": [
+    {
+     "label": "Team affiliation deadline",
+     "date": "2027-01-07"
+    },
+    {
+     "label": "Registration closes",
+     "date": "2027-01-22"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2027-01-23"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2027-01-29"
+    }
+   ],
+   "notes": [],
+   "event_url": "https://ibjjf.com/events/los-angeles-winter-kids-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_links": [
+    {
+     "label": "Register: Kids Gi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3437&registrationId=false"
+    },
+    {
+     "label": "Register: Kids NoGi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3438&registrationId=false"
+    }
+   ],
+   "register_url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3437&registrationId=false"
+  },
+  {
+   "org": "NAGA",
+   "org_full": "North American Grappling Association",
+   "org_url": "https://www.nagafighter.com",
+   "name": "San Diego Grappling & BJJ Championship",
+   "start": "2027-01-30",
+   "end": "2027-01-30",
+   "city": "San Diego, CA",
+   "venue": "Alliant International University Gym",
+   "address": "10455 Pomerado Rd, San Diego, CA 92131",
+   "street": "10455 Pomerado Rd",
+   "locality": "San Diego",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Gi and NoGi on one day, 8 AM to 5 PM. The order isn't posted yet.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All levels",
+   "divisions": "Kids (13 and under), teens (14 to 17), adults and masters (30+)",
+   "levels": "NoGi by experience: novice, beginner, intermediate, expert. Gi by belt, white to black. Absolute divisions for intermediate and expert.",
+   "prices": [],
+   "price_note": "NAGA posts prices and deadlines on its SmoothComp registration page.",
+   "deadlines": [],
+   "notes": [
+    "Adult expert NoGi absolute pays up to $1,000 cash, depending on entries.",
+    "Weigh in the night before or on event day, in shorts (no gi)."
+   ],
+   "event_url": "https://www.nagafighter.com/event/san-diego-grappling-bjj-championship-san-diego-ca-7/",
+   "register_url": "https://naga.smoothcomp.com/en/event/34870",
+   "register_label": "SmoothComp"
+  },
+  {
+   "org": "NAGA",
+   "org_full": "North American Grappling Association",
+   "org_url": "https://www.nagafighter.com",
+   "name": "Los Angeles Grappling & BJJ Championship",
+   "start": "2027-02-20",
+   "end": "2027-02-20",
+   "city": "Los Angeles, CA",
+   "venue": "",
+   "address": "",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "NAGA events usually run both Gi and NoGi. Details aren't posted yet.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "Details TBA",
+   "divisions": "Not posted yet",
+   "levels": "",
+   "prices": [],
+   "price_note": "Not published yet. This date is from NAGA's 2027 calendar, which notes dates can change.",
+   "deadlines": [],
+   "notes": [
+    "Venue not announced yet. NAGA's recent LA events were at the Los Angeles Convention Center."
+   ],
+   "event_url": "https://www.nagafighter.com/wp-content/uploads/nagacalendar.pdf",
+   "register_url": "https://www.nagafighter.com/wp-content/uploads/nagacalendar.pdf",
+   "register_label": "NAGA's calendar"
+  },
+  {
+   "org": "NABJJF",
+   "org_full": "North American Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://nabjjf.com",
+   "name": "Nationals Jiu-Jitsu Open 2027",
+   "start": "2027-02-28",
+   "end": "2027-02-28",
+   "city": "Fullerton, CA",
+   "venue": "Hope International University",
+   "address": "2500 Nutwood Ave, Fullerton, CA 92831",
+   "street": "2500 Nutwood Ave",
+   "locality": "Fullerton",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Gi and NoGi divisions at one event.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All belts",
+   "divisions": "Kids, juveniles, adults and masters",
+   "levels": "All belts, white to black. Kids white belts in their first three NABJJF events compete in a Debut Division.",
+   "prices": [
+    {
+     "label": "Early access, first 100 adults (kids spots full)",
+     "amount": "$49.99",
+     "member": "$29.99",
+     "until": "2026-11-10"
+    },
+    {
+     "label": "Early",
+     "amount": "$79.99",
+     "member": "$49.99",
+     "until": "2026-12-02"
+    },
+    {
+     "label": "Early",
+     "amount": "$89.99",
+     "member": "$49.99",
+     "until": "2026-12-23"
+    },
+    {
+     "label": "Regular",
+     "amount": "$99.99",
+     "member": "$49.99",
+     "until": "2027-01-06"
+    },
+    {
+     "label": "Regular",
+     "amount": "$109.99",
+     "member": "$69.99",
+     "until": "2027-01-27"
+    },
+    {
+     "label": "Final",
+     "amount": "$119.99",
+     "member": "$69.99",
+     "until": "2027-02-17"
+    }
+   ],
+   "price_note": "Prices shown are non-member. General and kids registration opens Nov 11. Each additional entry, like Gi plus NoGi, is 30% off.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2027-02-17"
+    },
+    {
+     "label": "Division change deadline",
+     "date": "2027-02-21"
+    },
+    {
+     "label": "Brackets posted",
+     "date": "2027-02-25"
+    }
+   ],
+   "notes": [
+    "Worth 2x ranking points.",
+    "Spectator tickets from $11.99."
+   ],
+   "event_url": "https://nabjjf.com/events/2027-nationals-jiu-jitsu-open",
+   "register_url": "https://nabjjf.com/events/2027-nationals-jiu-jitsu-open/register",
+   "register_label": "NABJJF"
+  },
+  {
+   "org": "ADCC",
+   "org_full": "ADCC (Abu Dhabi Combat Club)",
+   "org_url": "https://adcc-official.com",
+   "name": "ADCC US Open Los Angeles",
+   "start": "2027-01-09",
+   "end": "2027-01-09",
+   "city": "Pomona, CA",
+   "venue": "Fairplex",
+   "address": "1101 W McKinley Ave, Pomona, CA 91768",
+   "street": "1101 W McKinley Ave",
+   "locality": "Pomona",
+   "style": [
+    "NoGi"
+   ],
+   "style_note": "All ADCC Open events are NoGi only.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "Kids to masters",
+   "divisions": "Kids, teens, adults, masters and absolute",
+   "levels": "Beginner through advanced. Register in the skill division that matches your experience and competition history.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$125",
+     "until": "2027-01-03"
+    },
+    {
+     "label": "Final",
+     "amount": "$150",
+     "until": "2027-01-07"
+    }
+   ],
+   "price_note": "Each additional division is $75 (two divisions max per entry). Prices are from the event listing; confirm them on SmoothComp when you register.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2027-01-07",
+     "text": "11:59 PM, or when it fills"
+    },
+    {
+     "label": "Weigh-ins",
+     "date": "2027-01-08",
+     "text": "4 to 7 PM, with same-day weigh-ins for kids at 6 AM and adults 2 hours before their division"
+    }
+   ],
+   "notes": [
+    "0.5 kg (1.1 lb) weight allowance.",
+    "Match lengths: kids 4 min, teens 5 min, adults 6 min, masters 5 min.",
+    "Be at your mat at least 15 minutes before your match."
+   ],
+   "event_url": "https://adcc-official.com/pages/adcc-open-united-states",
+   "register_url": "https://adcc.smoothcomp.com/en/event/34249",
+   "register_label": "SmoothComp"
+  },
+  {
+   "org": "Grappling Industries",
+   "org_full": "Grappling Industries",
+   "org_url": "https://grapplingindustries.com",
+   "name": "Grappling Industries San Diego",
+   "start": "2026-11-21",
+   "end": "2026-11-21",
+   "city": "San Marcos, CA",
+   "venue": "Play By Play Productions",
+   "address": "1601 San Elijo Rd, San Marcos, CA 92078",
+   "street": "1601 San Elijo Rd",
+   "locality": "San Marcos",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Round robin format, so you get several matches per division.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All belts",
+   "divisions": "Kids, adults and masters, plus absolute for adults and masters (extra fee)",
+   "levels": "By belt rank. Gi competitors register at their true belt. NoGi competitors may register up one level.",
+   "prices": [
+    {
+     "label": "Entry",
+     "amount": "$90",
+     "until": "2026-11-17"
+    }
+   ],
+   "price_note": "Price is from the event listing; confirm it on SmoothComp when you register.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2026-11-17",
+     "text": "online only, 4 days before the event"
+    }
+   ],
+   "notes": [
+    "Spectators pay at the door."
+   ],
+   "event_url": "https://grapplingindustries.com/events/",
+   "register_url": "https://grapplingindustries.smoothcomp.com/en/event/27003",
+   "register_label": "SmoothComp"
+  },
+  {
+   "org": "Grappling Industries",
+   "org_full": "Grappling Industries",
+   "org_url": "https://grapplingindustries.com",
+   "name": "Grappling Industries San Diego",
+   "start": "2027-01-30",
+   "end": "2027-01-30",
+   "city": "San Marcos, CA",
+   "venue": "Play By Play Productions",
+   "address": "1601 San Elijo Rd, San Marcos, CA 92078",
+   "street": "1601 San Elijo Rd",
+   "locality": "San Marcos",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Round robin format, so you get several matches per division.",
+   "kids": true,
+   "adults": true,
+   "levels_short": "All belts",
+   "divisions": "Kids, adults and absolute",
+   "levels": "By belt rank.",
+   "prices": [
+    {
+     "label": "Early, one or two divisions",
+     "amount": "$90",
+     "until": "2027-01-09"
+    },
+    {
+     "label": "Late",
+     "amount": "$125",
+     "until": "2027-01-26"
+    }
+   ],
+   "price_note": "Prices are from the event listing; confirm them on SmoothComp when you register.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2027-01-26",
+     "text": "pre-registration only"
+    }
+   ],
+   "notes": [
+    "Spectator tickets are $15 at the door, cash only."
+   ],
+   "event_url": "https://grapplingindustries.com/events/",
+   "register_url": "https://grapplingindustries.smoothcomp.com/en/event/35332",
+   "register_label": "SmoothComp"
+  }
+ ]
+}

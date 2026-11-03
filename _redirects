@@ -2,6 +2,9 @@
 # Real pages always win over these rules. First match wins.
 # Old WordPress URLs go to their closest new page or the home page, so nothing on the old site ends in a 404.
 
+# Builder scripts and data are in the repo but not meant to be browsed
+/tools/*                 /                         301!
+
 # Old pages that have a new home
 /coach-brady-fink        /brady-fink/              301
 /author/coach-brady      /brady-fink/              301
@@ -40,7 +43,6 @@
 /activate                /                         301
 /create-account          /                         301
 /footer                  /                         301
-/upcoming-tournaments    /                         301
 /yoga                    /                         301
 /nogi-fundamentals-september-16th-2025 /                       301
 /category/*              /                         301

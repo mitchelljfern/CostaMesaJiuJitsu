@@ -758,6 +758,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 .cta-band { text-align: center; display: grid; gap: 16px; justify-items: center; }
 .cta-band .hero-actions { justify-content: center; }
 .coach-grid { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); max-width: 1000px; margin-inline: auto; }
+.coach-grid.one { max-width: 520px; grid-template-columns: minmax(0, 1fr) !important; }
 @media (min-width: 760px) { .coach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .coach-grid .coach { grid-template-columns: minmax(0, 1fr) !important; }
 .coach-grid .coach-photo { aspect-ratio: 4 / 3; height: auto; position: relative; display: block; }

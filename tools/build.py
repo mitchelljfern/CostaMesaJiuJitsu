@@ -91,10 +91,7 @@ css += '''
 .legal strong { color: var(--fg); font-weight: 700; }
 .legal a { color: var(--accent); }
 .legal-wrap { padding-block: calc(env(safe-area-inset-top, 0px) + 120px) 72px; }
-@media (max-width: 899px) {
-  .page-hero { padding-top: calc(env(safe-area-inset-top, 0px) + 168px); }
-  .legal-wrap { padding-top: calc(env(safe-area-inset-top, 0px) + 176px); }
-}
+
 @media (min-width: 900px) { .legal-wrap { padding-top: calc(env(safe-area-inset-top, 0px) + 150px); } }
 '''
 w('assets/site.css', css)
@@ -221,7 +218,7 @@ pages_js = r'''(function () {
       var wdg = document.querySelector('chat-widget');
       if (wdg && wdg.shadowRoot && wdg.shadowRoot.querySelector('.lc_text-widget')) {
         var st = document.createElement('style');
-        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; } }';
+        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important; } }';
         wdg.shadowRoot.appendChild(st); clearInterval(timer);
       } else if (++tries > 80) { clearInterval(timer); }
     }, 250);
@@ -253,7 +250,7 @@ QUICK_TABS = [('tab tab-primary', '/free-trial/', 'Free class'), ('tab', '/#sche
 def quick_tabs(active_tab):
     return '\n'.join(f'    <a class="{c}{" active" if h == active_tab else ""}" href="{h}"{" aria-current=\"page\"" if h == active_tab else ""}>{cta_svgs[i]}{t}</a>' for i, (c, h, t) in enumerate(QUICK_TABS))
 
-def header(active, active_tab=None):
+def header(active):
     links = '\n'.join(f'      <a href="{h}"{" class=\"active\" aria-current=\"page\"" if h == active else ""}>{t}</a>' for t, h in NAV)
     return f'''<header class="header on-page">
   <div class="wrap">
@@ -274,9 +271,6 @@ def header(active, active_tab=None):
       </button>
     </div>
   </div>
-  <nav class="cta-bar" aria-label="Quick actions">
-{quick_tabs(active_tab)}
-  </nav>
 </header>
 
 <div class="menu" id="menu" hidden>
@@ -321,6 +315,7 @@ def footer_links_html():
     return ''.join(out)
 
 def footer(active_tab=None):
+    tabs = quick_tabs(active_tab).replace('\n    <a', '\n  <a').replace('    <a', '  <a', 1)
     return f'''<footer class="footer">
   <div class="wrap">
     <div class="footer-brand">
@@ -334,6 +329,10 @@ def footer(active_tab=None):
     <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu at Double Ops. 369 E 17th St, Suite 10, Costa Mesa, CA 92627.</p>
   </div>
 </footer>
+
+<nav class="cta-bar" aria-label="Quick links">
+{tabs}
+</nav>
 '''
 
 ORG = {"@type": "SportsActivityLocation", "@id": SITE + "/#gym", "name": "Costa Mesa Jiu Jitsu",
@@ -402,7 +401,7 @@ HL_TRACKING = '''<!-- HighLevel external tracking: captures site form submission
 '''
 
 def page(title, desc, path, body, active_nav=None, active_tab=None, **kw):
-    return head(title, desc, path, **kw) + header(active_nav, active_tab) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + HL_TRACKING + '</body>\n</html>\n'
+    return head(title, desc, path, **kw) + header(active_nav) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + HL_TRACKING + '</body>\n</html>\n'
 
 def faq_html(qas, first_open=True):
     items = ''.join(f'      <details{" open" if (i == 0 and first_open) else ""}><summary>{q}</summary><div class="answer">{a}</div></details>\n' for i, (q, a) in enumerate(qas))

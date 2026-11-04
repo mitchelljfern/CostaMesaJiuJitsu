@@ -158,19 +158,14 @@ Past events hide themselves automatically, and each card's price moves to the ne
 
 ---
 
-## Forms (needs setup before launch)
+## Forms and leads
 
-The site's forms only show a "thanks" message on screen right now. **They don't send the details anywhere yet.**
+Every form (free class, kids class, private lessons, rashguard backorder) is captured two ways:
 
-| Form | Where | Suggested tag |
-|---|---|---|
-| Free class | `index.html` and `free-trial/` (`id="trialForm"`) | free trial |
-| Private lesson request | `index.html`, `private-lessons/`, `brady-fink/` (`id="privateForm"`) | private lesson |
-| Rashguard backorder | `index.html` (`id="rashForm"`) | rashguard backorder |
+1. **HighLevel** (main): the HighLevel external tracking script at the bottom of every page turns each submission into a contact, with the page and UTM tags. Submissions show in HighLevel under Sites > Forms > Submissions > External Forms. Form IDs: `trialForm` (free class, including the kids page), `privateForm` (private lessons), `rashForm` (rashguard).
+2. **Google Sheet backup**: each submission is also added as a row to the "CMJJ Website Leads (backup)" sheet through a Google Apps Script (`tools/google-sheet-backup.gs`, setup steps at the top of that file). The script's web app URL goes in `SHEET_BACKUP_URL` in two places: the script at the bottom of `index.html` and `pages_js` in `tools/build.py` (then rebuild). Leave it empty to switch the backup off.
 
-The home page's submit handlers are in the script at the bottom of `index.html`. The inner pages share one handler in `assets/pages.js` (forms with a `data-lead` attribute). Each has a comment marking where to send the data, for example to the HighLevel webhook.
-
----
+Ad tags (utm_source and friends) are remembered for the whole visit, so a lead is credited to the right ad even if the visitor clicks around first.
 
 ## Netlify settings (Mitchell)
 

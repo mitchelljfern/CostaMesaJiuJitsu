@@ -1554,6 +1554,23 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+  // Google Sheet lead backup (tools/google-sheet-backup.gs). Runs alongside HighLevel. Leave the URL empty to switch off.
+  var SHEET_BACKUP_URL = 'https://script.google.com/macros/s/AKfycbyZ0EI_Cq5wvFBlQ_vXDkqYB94jN8FJrmQJZ3XB3CKEXAgRZ8D8JnHimtU3FHQbKXPN/exec';
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  function adTags() {
+    var q = new URLSearchParams(location.search), o = {}, any = UTM_KEYS.some(function (k) { return q.get(k); });
+    if (any) { UTM_KEYS.forEach(function (k) { o[k] = q.get(k) || ''; }); try { sessionStorage.setItem('cmjj-utm', JSON.stringify(o)); } catch (e) {} return o; }
+    try { return JSON.parse(sessionStorage.getItem('cmjj-utm') || '{}'); } catch (e) { return {}; }
+  }
+  adTags();
+  function backupLead(form, label) {
+    if (!SHEET_BACKUP_URL || !window.fetch) return;
+    var d = new URLSearchParams(new FormData(form)), t = adTags();
+    d.set('form', label); d.set('page', location.pathname); d.set('referrer', document.referrer || '');
+    Object.keys(t).forEach(function (k) { d.set(k, t[k]); });
+    try { fetch(SHEET_BACKUP_URL, { method: 'POST', mode: 'no-cors', body: d, keepalive: true }); } catch (e) {}
+  }
+
   // Mobile menu
   var menu = $('#menu'), openBtn = $('#menuOpen'), closeBtn = $('#menuClose');
   function openMenu() { menu.hidden = false; openBtn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; closeBtn.focus(); }
@@ -1594,7 +1611,8 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
     var bad = $$('[required]', form).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
-    // Production: POST these fields to the gym's lead endpoint (HighLevel webhook or WPForms). This preview only confirms on screen.
+    // HighLevel's tracking script captures the submission; this also saves a backup row in the Google Sheet.
+    backupLead(form, 'Free class');
     $('#okName').textContent = ($('#name').value.trim().split(' ')[0]) || 'friend';
     $('#okPhone').textContent = $('#phone').value.trim();
     $('#okClass').textContent = cls.value;
@@ -1609,7 +1627,7 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
     var bad = $$('[required]', pForm).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
-    // Production: POST these fields to the gym's lead endpoint (HighLevel webhook) tagged "private lesson". This preview only confirms on screen.
+    backupLead(pForm, 'Private lesson');
     $('#pOkName').textContent = ($('#pName').value.trim().split(' ')[0]) || 'friend';
     $('#pOkPhone').textContent = $('#pPhone').value.trim();
     pForm.hidden = true; $('#privateOk').hidden = false; $('#privateOk').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1788,7 +1806,7 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
     var bad = $$('[required]', rForm).filter(function (el) { return !el.value; });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
-    // Production: POST name, phone, size and rank to the gym's lead endpoint (HighLevel webhook) tagged "rashguard backorder". This preview only confirms on screen.
+    backupLead(rForm, 'Rashguard backorder');
     $('#rOkName').textContent = ($('#rName').value.trim().split(' ')[0]) || 'friend';
     $('#rOkPhone').textContent = $('#rPhone').value.trim();
     $('#rOkWhat').textContent = $('#rSize').value + ', ' + $('#rRank').value.replace(' (kids)', '') + ' belt';

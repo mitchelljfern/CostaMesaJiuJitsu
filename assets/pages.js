@@ -3,6 +3,23 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Google Sheet lead backup (tools/google-sheet-backup.gs). Runs alongside HighLevel. Leave the URL empty to switch off.
+  var SHEET_BACKUP_URL = 'https://script.google.com/macros/s/AKfycbyZ0EI_Cq5wvFBlQ_vXDkqYB94jN8FJrmQJZ3XB3CKEXAgRZ8D8JnHimtU3FHQbKXPN/exec';
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  function adTags() {
+    var q = new URLSearchParams(location.search), o = {}, any = UTM_KEYS.some(function (k) { return q.get(k); });
+    if (any) { UTM_KEYS.forEach(function (k) { o[k] = q.get(k) || ''; }); try { sessionStorage.setItem('cmjj-utm', JSON.stringify(o)); } catch (e) {} return o; }
+    try { return JSON.parse(sessionStorage.getItem('cmjj-utm') || '{}'); } catch (e) { return {}; }
+  }
+  adTags();
+  function backupLead(form, label) {
+    if (!SHEET_BACKUP_URL || !window.fetch) return;
+    var d = new URLSearchParams(new FormData(form)), t = adTags();
+    d.set('form', label); d.set('page', location.pathname); d.set('referrer', document.referrer || '');
+    Object.keys(t).forEach(function (k) { d.set(k, t[k]); });
+    try { fetch(SHEET_BACKUP_URL, { method: 'POST', mode: 'no-cors', body: d, keepalive: true }); } catch (e) {}
+  }
+
   // Mobile menu
   var menu = $('#menu'), openBtn = $('#menuOpen'), closeBtn = $('#menuClose');
   if (menu && openBtn && closeBtn) {
@@ -60,7 +77,7 @@
   });
 
   // Lead forms: validate, then confirm on screen.
-  // Production: POST the fields to the gym's lead endpoint (HighLevel webhook), tagged with data-lead.
+  // HighLevel's tracking script captures each submission; backupLead also saves a row in the Google Sheet.
   $$('form[data-lead]').forEach(function (form) {
     var ok = $('#' + form.getAttribute('data-ok'));
     form.addEventListener('submit', function (e) {
@@ -72,6 +89,9 @@
       $$('[data-ok-name]', ok).forEach(function (s) { s.textContent = (name && name.value.trim().split(' ')[0]) || 'friend'; });
       $$('[data-ok-phone]', ok).forEach(function (s) { s.textContent = phone ? phone.value.trim() : ''; });
       $$('[data-ok-class]', ok).forEach(function (s) { s.textContent = cls ? cls.value : ''; });
+      var lbl = form.getAttribute('data-lead') || 'form';
+      if (location.pathname.indexOf('/kids-jiu-jitsu') === 0) lbl = 'kids free class';
+      backupLead(form, lbl.charAt(0).toUpperCase() + lbl.slice(1));
       form.hidden = true; ok.hidden = false; ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     $$('[required]', form).forEach(function (el) { el.addEventListener('input', function () { el.style.borderColor = ''; }); el.addEventListener('change', function () { el.style.borderColor = ''; }); });

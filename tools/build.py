@@ -535,7 +535,7 @@ bg_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Beginners program')}
-      <p class="kicker">Tuesdays at 7:30 PM<span class="tiny-star" aria-hidden="true">★</span>Join any week</p>
+      <p class="kicker">Tuesdays at 6:15 PM<span class="tiny-star" aria-hidden="true">★</span>Join any week</p>
       <h1 class="display h1">Beginners <em>Jiu Jitsu</em> Program</h1>
       <div class="price-tag"><span class="display">$99</span><small>for 6 weeks</small></div>
       <p class="lead">Build a real foundation with step-by-step basics and a black belt coach. Join any week: your 6 weeks start at your first class.</p>
@@ -560,8 +560,8 @@ bg_body = f'''<section class="page-hero">
       <div class="panel reveal">
         <p class="kicker">The details</p>
         <h2 class="display h3">When, where and what to wear</h2>
-        <div class="times"><div><b>Tuesday</b><span>7:30 PM</span></div></div>
-        <p>60-minute classes inside Double Ops, 369 E 17th St, Suite 10, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
+        <div class="times"><div><b>Tuesday</b><span>6:15 PM</span></div></div>
+        <p>You train in our beginner-friendly Tuesday NoGi class inside Double Ops, 369 E 17th St, Suite 10, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
         <p><b style="color:var(--fg)">How it works:</b> it's an ongoing program, so you can join any week. Your 6 weeks start at your first class. It's not a class pack, so classes can't be skipped or saved for later.</p>
         <p style="margin:0;color:var(--fg)"><b>Please wear proper NoGi attire:</b></p>
         {checks(["Rash guard", "Athletic shorts with no zippers or pockets", "Optional: spats", "Bring a water bottle"])}
@@ -592,13 +592,13 @@ bg_body = f'''<section class="page-hero">
 </section>'''
 w('beginners-classes/index.html', page(
     'Beginners Jiu Jitsu Program in Costa Mesa | 6 Weeks for $99',
-    'New to jiu jitsu? Our beginners program is 6 weeks for $99, Tuesdays at 7:30 PM in Costa Mesa, CA. Join any week. No experience needed, no contract.',
+    'New to jiu jitsu? Our beginners program is 6 weeks for $99, Tuesdays at 6:15 PM in Costa Mesa, CA. Join any week. No experience needed, no contract.',
     '/beginners-classes/', bg_body, active_nav='/beginners-classes/', active_tab='/beginners-classes/',
     ld=[ORG, crumbs_ld('Beginners program', '/beginners-classes/'), faq_ld(bg_faq),
-        {"@type": "Course", "name": "Beginners Jiu Jitsu Program", "description": "6-week beginner jiu jitsu program, Tuesdays at 7:30 PM, taught by a black belt coach. Join any week; your 6 weeks start at your first class.",
+        {"@type": "Course", "name": "Beginners Jiu Jitsu Program", "description": "6-week beginner jiu jitsu program, Tuesdays at 6:15 PM in the beginner-friendly NoGi class, taught by a black belt coach. Join any week; your 6 weeks start at your first class.",
          "provider": {"@id": SITE + "/#gym"},
          "offers": {"@type": "Offer", "price": "99", "priceCurrency": "USD", "category": "Paid", "url": SITE + "/beginners-classes/"},
-         "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "Onsite", "location": {"@id": SITE + "/#gym"}, "courseSchedule": {"@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Tuesday", "startTime": "19:30", "duration": "PT1H", "repeatCount": 6}}}]))
+         "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "Onsite", "location": {"@id": SITE + "/#gym"}, "courseSchedule": {"@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Tuesday", "startTime": "18:15", "duration": "PT1H", "repeatCount": 6}}}]))
 
 # ================================================================ /pricing/
 pricing_sec = grab('<div class="plans">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
@@ -629,7 +629,7 @@ pr_body = f'''<section class="page-hero">
         <span class="plan-for">New to jiu jitsu</span>
         <div class="plan-name">Beginners Jiu Jitsu Program</div>
         <div class="plan-price"><b>$99</b><span>for 6 weeks</span></div>
-        <p>Tuesdays at 7:30 PM with a black belt coach. Join any week. No sign-up fee, no contract.</p>
+        <p>Tuesdays at 6:15 PM with a black belt coach. Join any week. No sign-up fee, no contract.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="/beginners-classes/">Learn more</a></div>
       </div>
       <div class="panel reveal">

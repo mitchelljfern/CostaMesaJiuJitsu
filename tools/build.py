@@ -377,8 +377,12 @@ def head(title, desc, path, og_title=None, og_desc=None, image='/photos/og-share
 <a class="sr-only" href="#main">Skip to content</a>
 '''
 
+HL_TRACKING = '''<!-- HighLevel external tracking: captures site form submissions as HighLevel contacts -->
+<script src="https://link.msgsndr.com/js/external-tracking.js" data-tracking-id="tk_87a0beae75e04bf7aa983cbee612d188"></script>
+'''
+
 def page(title, desc, path, body, active_nav=None, active_tab=None, **kw):
-    return head(title, desc, path, **kw) + header(active_nav, active_tab) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n</body>\n</html>\n'
+    return head(title, desc, path, **kw) + header(active_nav, active_tab) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + HL_TRACKING + '</body>\n</html>\n'
 
 def faq_html(qas, first_open=True):
     items = ''.join(f'      <details{" open" if (i == 0 and first_open) else ""}><summary>{q}</summary><div class="answer">{a}</div></details>\n' for i, (q, a) in enumerate(qas))

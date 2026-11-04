@@ -79,7 +79,7 @@
     { "@type": "Offer", "name": "Free trial class", "price": "0", "priceCurrency": "USD" },
     { "@type": "Offer", "name": "Unlimited Adult Jiu Jitsu", "price": "195", "priceCurrency": "USD" },
     { "@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "195", "priceCurrency": "USD" },
-    { "@type": "Offer", "name": "Beginners Jiu Jitsu Program ($99 for 8 classes)", "price": "99", "priceCurrency": "USD" }
+    { "@type": "Offer", "name": "Beginners Jiu Jitsu Program ($99 for 6 weeks)", "price": "99", "priceCurrency": "USD" }
   ]
 }
 </script>
@@ -679,7 +679,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 @media (min-width: 900px) { .contact { grid-template-columns: 1fr 1fr; gap: 40px; } }
 
 /* Footer */
-.footer { border-top: 1px solid var(--line); padding-block: 36px calc(36px + env(safe-area-inset-bottom, 0px) + 72px); font-size: 13px; color: var(--fg-muted); }
+.footer { border-top: 1px solid var(--line); padding-block: 36px calc(36px + env(safe-area-inset-bottom, 0px)); font-size: 13px; color: var(--fg-muted); }
 .footer .wrap { display: grid; gap: 22px; }
 .footer-brand { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .footer-brand img:first-child { width: 56px; height: 56px; }
@@ -690,15 +690,22 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 .footer-links a:hover { color: var(--accent); }
 @media (min-width: 900px) { .footer { padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px)); } }
 
-/* Mobile sticky CTA bar */
-.cta-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--header-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); padding: 8px var(--gutter-r) calc(8px + env(safe-area-inset-bottom, 0px)) var(--gutter-l); display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 56px; padding: 6px 2px; border-radius: 8px; text-decoration: none; color: var(--fg); background: var(--bg-card); border: 1px solid var(--line); font-family: var(--font-body); font-weight: 700; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; transition: background 160ms var(--ease), border-color 160ms var(--ease); }
-.tab svg { width: 20px; height: 20px; }
+/* Mobile quick-action buttons: a second row in the header, visible right away */
+.cta-bar { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 2px var(--gutter-r) 10px var(--gutter-l); }
+.tab { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 5px; min-height: 40px; padding: 0 4px; border-radius: 8px; text-decoration: none; color: #fff; background: rgba(17,17,19,0.86); border: 1px solid rgba(255,255,255,0.22); font-family: var(--font-body); font-weight: 800; font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,0.25); transition: background 160ms var(--ease), border-color 160ms var(--ease); }
+.tab svg { width: 15px; height: 15px; flex: none; }
 .tab:active { transform: translateY(1px); }
-.tab.active { border-color: var(--fg); }
-.tab-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tab.active { border-color: #fff; }
+.tab-primary { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 6px 18px rgba(240,84,79,0.45); }
 .tab-primary.active { border-color: #fff; }
+html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var(--ink-950); border-color: var(--line-strong); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+@media (max-width: 440px) { .tab:not(.tab-primary) svg { display: none; } }
+@media (max-width: 360px) { .tab { font-size: 10px; letter-spacing: 0.02em; } }
 @media (min-width: 900px) { .cta-bar { display: none; } }
+@media (max-width: 899px) {
+  .hero .wrap { padding-top: 184px; }
+  section[id], div[id] { scroll-margin-top: 150px; }
+}
 
 /* Reveal: visible at rest, gentle lift on enter */
 .reveal { transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
@@ -847,6 +854,12 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       </button>
     </div>
   </div>
+  <nav class="cta-bar" aria-label="Quick actions">
+    <a class="tab tab-primary" href="#free-class"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Free class</a>
+    <a class="tab" href="#schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Schedule</a>
+    <a class="tab" href="#pricing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Pricing</a>
+    <a class="tab" href="#beginners"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg>Beginners</a>
+  </nav>
 </header>
 
 <div class="menu" id="menu" hidden>
@@ -981,12 +994,12 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         <div class="feature-body">
           <div class="feature-top">
             <div>
-              <div class="price-tag"><span class="display">$99</span><small>for 8 classes</small></div>
+              <div class="price-tag"><span class="display">$99</span><small>for 6 weeks</small></div>
               <h2 class="display feature-title">Beginners Jiu Jitsu Program</h2>
             </div>
           </div>
           <ul class="checks checks-2">
-            <li>Tuesday at 7:30 PM</li>
+            <li>Tuesdays at 7:30 PM, join any week</li>
             <li>Zero experience expected</li>
             <li>Escapes first, so you never feel stuck</li>
             <li>No sign-up fee, no contract</li>
@@ -1047,7 +1060,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         <a class="cls t-ninja" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">4:15 PM</span><div><div class="cls-name">Little Ninjas</div><div class="cls-sub">Ages 4 to 6</div></div></a>
         <a class="cls t-youth" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">5:00 PM</span><div><div class="cls-name">Youth Jiu Jitsu</div><div class="cls-sub">NoGi, ages 7 to 12</div></div></a>
         <a class="cls t-adult" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">6:15 PM</span><div><div class="cls-name">NoGi Jiu Jitsu</div><div class="cls-sub">Adult</div></div></a>
-        <a class="cls t-adult" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">7:30 PM</span><div><div class="cls-name">Beginners Jiu Jitsu Program</div><div class="cls-sub">$99 for 8 classes</div></div></a>
+        <a class="cls t-adult" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">7:30 PM</span><div><div class="cls-name">Beginners Jiu Jitsu Program</div><div class="cls-sub">$99 for 6 weeks</div></div></a>
       </div>
       <div class="day" data-day="3">
         <div class="day-head"><span class="day-name">Wednesday</span><span class="day-tag"></span></div>
@@ -1217,6 +1230,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         <p class="measure">We also partner with iLEAD, Sage Oak and Cabrillo Point Academy, so homeschool families can often use approved education funds for classes.</p>
         <div class="hero-actions" style="margin-top:8px">
           <a class="btn btn-primary" href="#free-class">Book a free kids class</a>
+          <a class="btn btn-outline" href="/kids-jiu-jitsu/">More about kids classes</a>
         </div>
       </div>
     </div>
@@ -1413,7 +1427,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <details><summary>Is the free class really free?</summary><div class="answer">Yes. One class, any program, no card required and no pressure to join. The only thing it does not cover is the beginners jiu jitsu program, which is its own $99 program.</div></details>
       <details><summary>Is jiu jitsu safe?</summary><div class="answer">Jiu jitsu is a grappling art, so there is no striking in our jiu jitsu classes. We teach tapping, posture and injury prevention from day one, and beginners never roll live until they are ready.</div></details>
       <details><summary>Can I just drop in?</summary><div class="answer">Yes, and we encourage it. Show up about 10 minutes before class. If it is your first time, booking the free class above helps us have a coach ready for you.</div></details>
-      <details><summary>Are there contracts?</summary><div class="answer">No long-term contracts. Memberships are monthly, the 10-class pack is a one-time purchase, and the beginners course is a one-time $99.</div></details>
+      <details><summary>Are there contracts?</summary><div class="answer">No long-term contracts. Memberships are monthly, the 10-class pack is a one-time purchase, and the beginners program is a one-time $99 for 6 weeks.</div></details>
       <details><summary>Do you offer private lessons?</summary><div class="answer">Yes, for kids and adults with Coach Tony. <a href="#privates">Send a quick request</a> or call or text 949-556-1178, and he will set it up around your schedule.</div></details>
       <details><summary>Where are you and where do I park?</summary><div class="answer">We are inside Double Ops at 369 E 17th St, Suite 10, Costa Mesa, in the Triangle Square area, with parking right outside.</div></details>
     </div>
@@ -1477,7 +1491,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <img class="only-dark" src="photos/dop-wordmark-white.png" width="150" height="17" alt="Double Ops" loading="lazy"><img class="only-light" src="photos/dop-wordmark-black.png" width="150" height="17" alt="Double Ops" loading="lazy">
     </div>
     <div class="footer-links">
-      <a href="/free-trial/">Free trial</a><a href="/beginners-classes/">Beginners program</a><a href="/pricing/">Pricing</a><a href="/private-lessons/">Private lessons</a><a href="/brady-fink/">Coach Brady Fink</a><a href="/upcoming-tournaments/">Tournaments</a><a href="#schedule">Schedule</a><a href="#shop">Shop</a><a href="#faq">FAQ</a><a href="https://www.doptraining.com" target="_blank" rel="noopener">Double Ops</a><a href="/terms-of-service/">SMS terms</a><a href="/privacy-policy/">Privacy</a>
+      <a href="/free-trial/">Free trial</a><a href="/beginners-classes/">Beginners program</a><a href="/pricing/">Pricing</a><a href="/private-lessons/">Private lessons</a><a href="/upcoming-tournaments/">Tournaments</a><a href="#schedule">Schedule</a><a href="#shop">Shop</a><a href="#faq">FAQ</a><a href="https://www.doptraining.com" target="_blank" rel="noopener">Double Ops</a><a href="/terms-of-service/">SMS terms</a><a href="/privacy-policy/">Privacy</a>
     </div>
     <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu at Double Ops. 369 E 17th St, Suite 10, Costa Mesa, CA 92627.</p>
   </div>
@@ -1533,12 +1547,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   </div>
 </div>
 
-<nav class="cta-bar" aria-label="Quick links">
-  <a class="tab tab-primary" href="#free-class"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Free class</a>
-  <a class="tab" href="#schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Schedule</a>
-  <a class="tab" href="#pricing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Pricing</a>
-  <a class="tab" href="#beginners"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg>Beginners</a>
-</nav>
+
 
 <script>
 (function () {
@@ -1682,7 +1691,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   // Next class countdown (visitor's local clock; classes are in Pacific time)
   var SCHED = [ // [day 0=Sun..6=Sat, hour, minute, name, sub]
     [1,15,30,'Little Ninjas','Ages 4 to 6'],[1,16,30,'Youth Jiu Jitsu','Ages 7 to 12'],[1,17,30,'NoGi Jiu Jitsu','Adult'],[1,18,45,'BOXHIIT','Boxing + HIIT'],
-    [2,16,15,'Little Ninjas','Ages 4 to 6'],[2,17,0,'Youth Jiu Jitsu','NoGi, ages 7 to 12'],[2,18,15,'NoGi Jiu Jitsu','Adult'],[2,19,30,'Beginners Jiu Jitsu Program','$99 for 8 classes'],
+    [2,16,15,'Little Ninjas','Ages 4 to 6'],[2,17,0,'Youth Jiu Jitsu','NoGi, ages 7 to 12'],[2,18,15,'NoGi Jiu Jitsu','Adult'],[2,19,30,'Beginners Jiu Jitsu Program','$99 for 6 weeks'],
     [3,18,45,'BOXHIIT','Boxing + HIIT'],
     [4,16,15,'Little Ninjas','Ages 4 to 6'],[4,17,0,'Youth Jiu Jitsu','Ages 7 to 12'],[4,18,15,'Gi Jiu Jitsu','Adult'],
     [5,10,35,'BOXHIIT','Boxing + HIIT'],[5,16,15,'Little Ninjas','Ages 4 to 6'],[5,17,0,'Youth Jiu Jitsu','NoGi, ages 7 to 12'],[5,18,15,'NoGi Jiu Jitsu','Adult'],
@@ -1806,7 +1815,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       var w = document.querySelector('chat-widget');
       if (w && w.shadowRoot && w.shadowRoot.querySelector('.lc_text-widget')) {
         var st = document.createElement('style');
-        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important; } }';
+        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; } }';
         w.shadowRoot.appendChild(st);
         clearInterval(timer);
       } else if (++tries > 80) { clearInterval(timer); }

@@ -18,8 +18,11 @@
 # Old pages folded into sections of the home page
 /schedule                /#schedule                301
 /coaches                 /#coaches                 301
-/youth                   /#kids                    301
-/kids                    /#kids                    301
+/youth                   /kids-jiu-jitsu/          301
+/kids                    /kids-jiu-jitsu/          301
+/youth-jiu-jitsu         /kids-jiu-jitsu/          301
+/kids-bjj                /kids-jiu-jitsu/          301
+/youth-bjj               /kids-jiu-jitsu/          301
 /contact                 /#contact                 301
 /store                   /#shop                    301
 /gear-suggestions        /#shop                    301

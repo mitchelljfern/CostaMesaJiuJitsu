@@ -99,7 +99,7 @@
       var wdg = document.querySelector('chat-widget');
       if (wdg && wdg.shadowRoot && wdg.shadowRoot.querySelector('.lc_text-widget')) {
         var st = document.createElement('style');
-        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important; } }';
+        st.textContent = '@media (max-width: 899px) { .lc_text-widget, .lc_text-widget--bubble { bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important; } }';
         wdg.shadowRoot.appendChild(st); clearInterval(timer);
       } else if (++tries > 80) { clearInterval(timer); }
     }, 250);

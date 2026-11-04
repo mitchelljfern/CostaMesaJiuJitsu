@@ -60,7 +60,7 @@ Opening `index.html` straight from your file browser mostly works too, but the v
 ```
 index.html               home page: content, styles and scripts in one file
 free-trial/              /free-trial/ landing page (free class sign-up)
-beginners-classes/       /beginners-classes/ landing page ($99 for 8 classes)
+beginners-classes/       /beginners-classes/ landing page ($99 for 6 weeks)
 pricing/                 /pricing/ memberships page
 private-lessons/         /private-lessons/ request page
 brady-fink/              /brady-fink/ Coach Brady Fink bio

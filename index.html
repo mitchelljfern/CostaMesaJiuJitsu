@@ -1167,9 +1167,9 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
           <label for="age">Who is the class for?</label>
           <select id="age" name="age" required>
             <option value="">Choose one</option>
-            <option value="adult">An adult (13+)</option>
-            <option value="youth">A kid, ages 7 to 12</option>
-            <option value="ninja">A little one, ages 4 to 6</option>
+            <option value="Adult (13+)" data-g="adult">An adult (13+)</option>
+            <option value="Kid, ages 7 to 12 (Youth)" data-g="youth">A kid, ages 7 to 12</option>
+            <option value="Ages 4 to 6 (Little Ninjas)" data-g="ninja">A little one, ages 4 to 6</option>
           </select>
         </div>
         <div class="field">
@@ -1584,7 +1584,7 @@ html[data-mode="light"] .tab:not(.tab-primary) { background: #ffffff; color: var
   // Free class form: filter class options by age group, then confirm
   var form = $('#trialForm'), age = $('#age'), cls = $('#cls');
   function filterClasses() {
-    var g = age.value;
+    var opt = age.options[age.selectedIndex], g = opt ? opt.getAttribute('data-g') : '';
     $$('optgroup', cls).forEach(function (og) { og.hidden = g && og.getAttribute('data-group') !== g; og.disabled = og.hidden; });
     cls.value = '';
   }

@@ -156,7 +156,7 @@ pages_js = r'''(function () {
   // Free class form: filter class options by age group
   var age = $('#age'), cls = $('#cls');
   if (age && cls) age.addEventListener('change', function () {
-    var g = age.value;
+    var opt = age.options[age.selectedIndex], g = opt ? opt.getAttribute('data-g') : '';
     $$('optgroup', cls).forEach(function (og) { og.hidden = g && og.getAttribute('data-group') !== g; og.disabled = og.hidden; });
     cls.value = '';
   });
@@ -800,7 +800,7 @@ kid_cards = kid_cards[:kid_cards.index('<a class="program reveal" href="#free-cl
 kid_cards = kid_cards.replace('href="#free-class"', 'href="#book"').replace('src="photos/', 'src="/photos/')
 reasons = grab('<div class="reasons"', '</div>\n    </div>\n  </div>\n</section>')
 reasons = reasons[:reasons.rindex('</div>\n  </div>\n</section>')]
-kid_form = trial_form.replace('<option value="adult">An adult (13+)</option>\n', '')
+kid_form = trial_form.replace('<option value="Adult (13+)" data-g="adult">An adult (13+)</option>\n', '')
 kid_form = kid_form[:kid_form.index('<optgroup label="Adults"')] + kid_form[kid_form.index('<optgroup label="Youth, ages 7 to 12"'):]
 kid_form = kid_form.replace('<label for="age">Who is the class for?</label>', '<label for="age">How old is your child?</label>')
 kids_faq = [

@@ -54,7 +54,7 @@
   // Free class form: filter class options by age group
   var age = $('#age'), cls = $('#cls');
   if (age && cls) age.addEventListener('change', function () {
-    var g = age.value;
+    var opt = age.options[age.selectedIndex], g = opt ? opt.getAttribute('data-g') : '';
     $$('optgroup', cls).forEach(function (og) { og.hidden = g && og.getAttribute('data-group') !== g; og.disabled = og.hidden; });
     cls.value = '';
   });

@@ -166,9 +166,24 @@ Past events hide themselves automatically, and each card's price moves to the ne
 Every form (free class, kids class, private lessons, rashguard backorder) is captured two ways:
 
 1. **HighLevel** (main): the HighLevel external tracking script at the bottom of every page turns each submission into a contact, with the page and UTM tags. Submissions show in HighLevel under Sites > Forms > Submissions > External Forms. Form IDs: `trialForm` (free class, including the kids page), `privateForm` (private lessons), `rashForm` (rashguard).
-2. **Google Sheet backup**: each submission is also added as a row to the "CMJJ Website Leads (backup)" sheet through a Google Apps Script (`tools/google-sheet-backup.gs`, setup steps at the top of that file). The script's web app URL goes in `SHEET_BACKUP_URL` in two places: the script at the bottom of `index.html` and `pages_js` in `tools/build.py` (then rebuild). Leave it empty to switch the backup off.
+2. **Google Sheet backup**: each submission is also checked for spam and added as a row to the "CMJJ Website Leads (backup)" sheet through a Google Apps Script (`tools/google-sheet-backup.gs`, setup steps at the top of that file). The script's web app URL goes in `SHEET_BACKUP_URL` in two places: the script at the bottom of `index.html` and `pages_js` in `tools/build.py` (then rebuild). Leave it empty to switch the backup off.
 
 Ad tags (utm_source and friends) are remembered for the whole visit, so a lead is credited to the right ad even if the visitor clicks around first.
+
+### Spam protection
+
+`assets/lead-gate.js` (loaded on every page) checks each form before it reaches HighLevel:
+
+- It catches the submit click first (HighLevel's tracker otherwise captures on the click itself), gets an **invisible Cloudflare Turnstile** token (no puzzle for visitors) and sends the lead to the Apps Script.
+- The Apps Script verifies the token and scores the lead: a hidden trap field, how fast it was sent, no taps or clicks, random-letter names, dotted-up Gmail addresses, links in the form. A filled trap or failed Turnstile check is spam on its own; otherwise it takes two warning signs.
+- Real leads go to the **Leads** tab and on to HighLevel. Spam goes to the **Spam** tab (with the reason) and never reaches HighLevel. Glance at the Spam tab now and then for anything real.
+- If the check doesn't answer within 9 seconds, the lead goes through anyway, so nothing real is lost.
+
+Keys: the Turnstile **site key** (public) goes in `TURNSTILE_SITEKEY` at the top of `assets/lead-gate.js`. The **secret key** goes only in the Apps Script, under Project Settings > Script Properties as `TURNSTILE_SECRET`.
+
+Form tags need `data-lead="..."` (the label in the sheet) and `data-ok="..."` (the id of the thank-you box) for the check to apply.
+
+Every real lead also sends a `generate_lead` event to Google Analytics (GA4 property G-9HM2039EZ2, through Google tag GT-5TGJHX46).
 
 ## Netlify settings (Mitchell)
 

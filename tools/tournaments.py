@@ -310,7 +310,7 @@ def event_ld(ev):
                        "availability": "https://schema.org/InStock"}
     return o
 
-html_page = page('Upcoming BJJ Tournaments in Southern California | Costa Mesa Jiu Jitsu',
+html_page = page('Upcoming BJJ Tournaments in SoCal | Costa Mesa Jiu Jitsu',
     'Upcoming IBJJF, NABJJF, NAGA, JJWL and ADCC jiu jitsu tournaments in Southern California: dates, Gi or NoGi, belts, prices, deadlines and how to register.',
     '/upcoming-tournaments/', body,
     ld=[ORG, crumbs_ld('Upcoming tournaments', '/upcoming-tournaments/'),

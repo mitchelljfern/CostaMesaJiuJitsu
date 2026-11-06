@@ -254,8 +254,8 @@ def header(active):
     links = '\n'.join(f'      <a href="{h}"{" class=\"active\" aria-current=\"page\"" if h == active else ""}>{t}</a>' for t, h in NAV)
     return f'''<header class="header on-page">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Costa Mesa Jiu Jitsu home">
-      <img src="/photos/cmjj-badge-sm.png" width="90" height="90" alt="Costa Mesa Jiu Jitsu badge">
+    <a class="brand" href="/">
+      <img src="/photos/cmjj-badge-sm.png" width="90" height="90" alt="">
       <span class="brand-name"><b>Costa Mesa</b><span>Jiu Jitsu</span></span>
     </a>
     <nav class="nav" aria-label="Main">
@@ -383,8 +383,8 @@ def head(title, desc, path, og_title=None, og_desc=None, image='/photos/og-share
 <meta name="twitter:image" content="{SHARE}{image}">
 
 <!-- Google tag (same tag as the old site) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={GTAG}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GTAG}');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GTAG}');
+window.addEventListener('load',function(){{var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={GTAG}';document.head.appendChild(s);}});</script>
 {ld_html}
 <script>(function(){{try{{var m=localStorage.getItem("cmjj-mode");if(m==="light")document.documentElement.setAttribute("data-mode","light");}}catch(e){{}}}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -397,7 +397,7 @@ def head(title, desc, path, og_title=None, og_desc=None, image='/photos/og-share
 '''
 
 HL_TRACKING = '''<!-- HighLevel external tracking: captures site form submissions as HighLevel contacts -->
-<script src="https://link.msgsndr.com/js/external-tracking.js" data-tracking-id="tk_87a0beae75e04bf7aa983cbee612d188"></script>
+<script>window.addEventListener('load',function(){{var s=document.createElement('script');s.src='https://link.msgsndr.com/js/external-tracking.js';s.setAttribute('data-tracking-id','tk_87a0beae75e04bf7aa983cbee612d188');document.body.appendChild(s);}});</script>
 '''
 
 def page(title, desc, path, body, active_nav=None, active_tab=None, **kw):
@@ -759,7 +759,7 @@ pl_body = f'''<section class="page-hero">
 </section>
 <script>document.addEventListener('click',function(e){{var a=e.target.closest('[data-coach]');if(!a)return;var s=document.getElementById('pCoach');if(s)s.value=a.getAttribute('data-coach');}});</script>'''
 w('private-lessons/index.html', page(
-    'Private Jiu Jitsu Lessons in Costa Mesa | Costa Mesa Jiu Jitsu',
+    'Private BJJ Lessons in Costa Mesa | Costa Mesa Jiu Jitsu',
     '1-on-1 jiu jitsu lessons for kids and adults with black belt Coach Tony Misitano in Costa Mesa, CA. Self-defense, competition prep or a head start.',
     '/private-lessons/', pl_body,
     ld=[ORG, crumbs_ld('Private lessons', '/private-lessons/'), faq_ld(pl_faq)]))
@@ -935,6 +935,8 @@ def legal_block(fn, start_pat, end_pat):
 
 if os.path.isdir(OLD):   # legal pages are copied word for word from the old site's saved HTML; skipped if it isn't available
     pp_block = legal_block('privacy_policy.html', '<h3 class="wp-block-heading"', '949-556-1178</a></p>')
+    _h = pp_block.index('<h3 class="lg">'); _e = pp_block.index('</h3>', _h)
+    pp_block = pp_block[:_h] + '<h1 class="lg">' + pp_block[_h + len('<h3 class="lg">'):_e] + '</h1>' + pp_block[_e + 5:]   # first heading is the page h1; wording unchanged
     tos_block = legal_block('terms_of_service.html', '<h1>SMS Terms of Service</h1>', 'reply with the keyword <strong>HELP</strong> for assistance.</p>')
     tos_block = tos_block.replace('<h1>', '<h1 class="tos-title">')
     for fn, blk, path, title, desc, name in [
@@ -1037,5 +1039,10 @@ urls = [('/', '1.0', 'weekly'), ('/free-trial/', '0.9', 'monthly'), ('/beginners
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
     f'  <url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod><changefreq>{c}</changefreq><priority>{p}</priority></url>\n' for u, p, c in urls) + '</urlset>\n'
 w('sitemap.xml', sm)
-w('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
+BOTS = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User',
+        'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot', 'Applebot-Extended', 'DuckDuckBot']
+w('robots.txt', '# Search engines and AI assistants are welcome to read and cite this site.\n'
+  + ''.join(f'User-agent: {b}\n' for b in BOTS) + 'Allow: /\nDisallow: /tools/\n\n'
+  + 'User-agent: *\nAllow: /\nDisallow: /tools/\n\n' + f'Sitemap: {SITE}/sitemap.xml\n')
+w('llms.txt', open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'llms.txt'), encoding='utf-8').read().replace('{SITE}', SITE))
 print('built', [u for u, _, _ in urls])

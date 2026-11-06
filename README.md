@@ -70,7 +70,8 @@ terms-of-service/        SMS terms of service (wording copied exactly from the o
 assets/site.css          shared styles for the inner pages (a copy of the styles in index.html plus inner-page styles)
 assets/pages.js          shared script for the inner pages (menu, theme, FAQ, forms, chat widget)
 _redirects               every old WordPress URL forwarded to its new page or the home page (no 404s)
-sitemap.xml, robots.txt  search engine files
+sitemap.xml, robots.txt  search engine files (robots.txt welcomes Google, Bing and the AI assistants by name)
+llms.txt                 plain-English summary of the gym for AI assistants (ChatGPT, Claude, Perplexity, Gemini)
 tools/                   page builder scripts and the tournament list (see "Updating tournaments")
 photos/                  images (.webp), videos (.mp4), logos and icons
 netlify.toml             Netlify settings: what deploys, caching, security headers
@@ -131,6 +132,8 @@ When someone shares the link (iMessage, Facebook, Instagram DMs, Google results)
 - **When the domain moves:** find and replace `https://costa-mesa-jiu-jitsu.netlify.app` with `https://costamesajiujitsu.com` in every page, then submit `https://costamesajiujitsu.com/sitemap.xml` in Google Search Console.
 - Google tag `GT-5TGJHX46` (same as the old site) is in every page's `<head>`.
 - **Adding a new page:** create `new-page/index.html`, add it to `sitemap.xml`, and it will automatically take priority over the catch-all redirect.
+- **`llms.txt` and `robots.txt` are generated** by `tools/build.py`. Edit `tools/llms.txt` (schedule, prices, links), then rebuild. Keep it in step with the site when the schedule or prices change.
+- **Staging is hidden from Google.** Staging builds add an `X-Robots-Tag: noindex` header (see `[context.staging]` in `netlify.toml`). The live site never gets it.
 - **Redirects** live in `_redirects`. Real pages always win over redirect rules, and the last rule sends any unknown URL to the home page.
 
 ### Updating tournaments

@@ -128,7 +128,7 @@ When someone shares the link (iMessage, Facebook, Instagram DMs, Google results)
 ### SEO and redirects
 
 - Every page has its own `<title>`, meta description, canonical URL, Open Graph tags and structured data (JSON-LD) in its `<head>`.
-- Canonical URLs and `sitemap.xml` use `https://costamesajiujitsu.com`. Share previews (`og:url`, `og:image`) use `https://costa-mesa-jiu-jitsu.netlify.app` until the domain moves to Netlify.
+- Canonical URLs and `sitemap.xml` use `https://costamesajiujitsu.com`. Share previews (`og:url`, `og:image`) use it too.
 - **When the domain moves:** find and replace `https://costa-mesa-jiu-jitsu.netlify.app` with `https://costamesajiujitsu.com` in every page, then submit `https://costamesajiujitsu.com/sitemap.xml` in Google Search Console.
 - Google tag `GT-5TGJHX46` (same as the old site) is in every page's `<head>`.
 - **Adding a new page:** create `new-page/index.html`, add it to `sitemap.xml`, and it will automatically take priority over the catch-all redirect.

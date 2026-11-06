@@ -9,7 +9,7 @@ import html, json, os, re, sys
 
 REPO, OLD = sys.argv[1], sys.argv[2]
 SITE = 'https://costamesajiujitsu.com'            # canonical domain (search engines)
-SHARE = 'https://costa-mesa-jiu-jitsu.netlify.app'  # share previews until DNS moves
+SHARE = SITE  # domain now on Netlify
 TODAY = '2026-11-03'
 GTAG = 'GT-5TGJHX46'
 PHONE, PHONE_TEL, EMAIL = '949-556-1178', '+19495561178', 'info@costamesajiujitsu.com'

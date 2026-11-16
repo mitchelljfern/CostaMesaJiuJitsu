@@ -270,15 +270,12 @@ html[data-mode="light"] .theme-btn .sun { display: block; }
 
 /* Octopus tentacles: pieces cut from the logo art rise from behind specific cards.
    The card sits on top (z-index 1), so the cut base of each piece is always hidden behind it.
-   They rise into view when their section scrolls in, then sway very slightly. */
+   Their motion follows the scroll: they slide up from behind the card, then reach and curl as you scroll past. */
 .has-grip { position: relative; }
 .has-grip > :not(.grip) { position: relative; z-index: 1; }
-.grip { position: absolute; z-index: 0; bottom: calc(100% - var(--sink)); width: var(--gw); pointer-events: none; transform: rotate(var(--tilt, 0deg)); transform-origin: 50% 100%; transition: transform 1300ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 500ms ease; }
-html.grip-js .grip:not(.out) { opacity: 0; transform: translateY(72%) rotate(var(--tilt, 0deg)); }
-.grip img { display: block; width: 100%; height: auto; transform-origin: 50% 100%; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35)); }
-.grip img { animation: sway 7s ease-in-out 1.3s infinite alternate; }
-@keyframes sway { from { transform: rotate(-1.6deg); } to { transform: rotate(1.4deg); } }
-@media (prefers-reduced-motion: reduce) { html.grip-js .grip:not(.out) { opacity: 1; transform: rotate(var(--tilt, 0deg)); } .grip img { animation: none; } }
+.grip { position: absolute; z-index: 0; bottom: calc(100% - var(--sink)); width: var(--gw); pointer-events: none; transform-origin: 50% 100%;
+  transform: translate(var(--dx, 0px), calc(var(--rise, 0) * 92%)) rotate(calc(var(--tilt, 0deg) + var(--rot, 0deg))); will-change: transform; }
+.grip img { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35)); }
 html[data-mode="light"] .grip img { filter: drop-shadow(0 8px 14px rgba(5,20,25,0.18)); }
 /* where each one sits: --gw width, --sink how much hides behind the card, --tilt a slight lean */
 .g-programs { --gw: clamp(104px, 12.5vw, 196px); --sink: calc(var(--gw) * 0.82); right: 5%; --tilt: 4deg; }
@@ -1929,20 +1926,37 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 <!-- HighLevel external tracking: captures site form submissions as HighLevel contacts -->
 <script>window.addEventListener('load',function(){if(window.CMJJ_PREVIEW)return;var s=document.createElement('script');s.src='https://link.msgsndr.com/js/external-tracking.js';s.setAttribute('data-tracking-id','tk_87a0beae75e04bf7aa983cbee612d188');document.body.appendChild(s);});</script>
 <script>
-// Tentacles rise from behind their cards when the group scrolls into view.
-// They are visible by default; this only adds the rise-in, and reveals anything left over after 4 seconds.
+// Tentacles move with the scroll: as a group comes up the screen its tentacle slides up from behind
+// the card, then keeps reaching and curling side to side while you scroll past. Scroll back and it sinks.
+// Without this script (or with reduced motion) they simply sit fully out.
 (function () {
-  var g = Array.prototype.slice.call(document.querySelectorAll('.grip')); if (!g.length || !('IntersectionObserver' in window)) return;
-  function show(el) { el.classList.add('out'); }
-  g.forEach(function (el) { var r = el.parentNode.getBoundingClientRect(); if (r.top < innerHeight) show(el); });
-  document.documentElement.classList.add('grip-js');
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { var els = e.target.querySelectorAll(':scope > .grip'); Array.prototype.forEach.call(els, function (el, i) { setTimeout(function () { show(el); }, 250 + i * 300); }); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -12% 0px' });
-  g.forEach(function (el) { if (!el.classList.contains('out')) io.observe(el.parentNode); });
-  window.addEventListener('scroll', function late() {
-    clearTimeout(late.t); late.t = setTimeout(function () { g.forEach(function (el) { if (el.parentNode.getBoundingClientRect().top < innerHeight) show(el); }); }, 4000);
-  }, { passive: true });
+  var g = Array.prototype.slice.call(document.querySelectorAll('.grip'));
+  if (!g.length || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var items = g.map(function (el, i) { return { el: el, box: el.parentNode, seed: i * 1.7, dir: i % 2 ? -1 : 1 }; });
+  var raf = 0;
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function frame() {
+    raf = 0;
+    var vh = window.innerHeight;
+    items.forEach(function (it) {
+      if (it.el.offsetParent === null) return;                 // hidden on this screen size
+      var top = it.box.getBoundingClientRect().top;
+      if (top > vh * 1.2 || top < -vh * 1.5) return;          // off screen: leave as is
+      var maxScroll = document.documentElement.scrollHeight - vh, finalTop = top - (maxScroll - window.scrollY);
+      var full = Math.max(vh * 0.48, finalTop + 40);                            // groups near the page end can't scroll as high
+      var p = Math.max(0, Math.min(1, (vh * 0.98 - top) / Math.max(120, vh * 0.98 - full)));   // 0 = hidden, 1 = fully out
+      var travel = (full - top) / vh;                                           // keeps growing while you scroll past
+      var reach = Math.max(0, travel);
+      var rot = it.dir * (Math.sin(reach * 3.4 + it.seed) * 6 - 3 * (1 - ease(p)));
+      it.el.style.setProperty('--rise', (1 - ease(p)).toFixed(3));
+      it.el.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+      it.el.style.setProperty('--dx', (it.dir * Math.sin(reach * 2.2 + it.seed) * 6).toFixed(1) + 'px');
+    });
+  }
+  function onScroll() { if (!raf) raf = requestAnimationFrame(frame); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  frame();
 })();
 </script>
 </body>

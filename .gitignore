@@ -3,3 +3,4 @@ Thumbs.db
 .netlify/
 node_modules/
 *.zip
+!photos/brand/cmjj-brand-kit.zip

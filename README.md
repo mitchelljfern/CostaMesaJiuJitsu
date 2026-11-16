@@ -1,5 +1,14 @@
 # Costa Mesa Jiu Jitsu website
 
+> **`rebrand` branch: the 2026 octopus brand (design preview, launching December).**
+> Preview: the separate Netlify project `cmjj-rebrand-preview` (never the live site).
+> Done so far: the landing page (`index.html`) and the brand kit (`/brand-kit/`). Inner pages still use the old brand.
+> - New logo files, icons, favicons, share image and the brand kit zip live in `photos/brand/`.
+> - Tentacles: `assets/tentacles.js` draws them from the page layout; the landing page opts in with `<main data-tentacles>`.
+> - Preview switch: `window.CMJJ_PREVIEW=true` near the top of `index.html` turns off Google Analytics, HighLevel tracking and chat, the spam check and the lead sheet. **At launch delete that line and the `<meta name="robots" content="noindex">` line** in `index.html` (keep noindex on `/brand-kit/`).
+> - Member account link (header, menu, footer): https://eldojo.ossdojo.com/member
+> - Share image source: `tools/brand/og-share.html` (screenshot it at 1200 × 630).
+
 The website for Costa Mesa Jiu Jitsu at Double Ops, 369 E 17th St, Suite 10, Costa Mesa, CA.
 
 | | URL | Updates when |

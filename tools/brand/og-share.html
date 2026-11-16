@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=Manrope:wght@600;700&family=Montserrat:wght@800&display=swap">
+<style>
+html,body{margin:0}
+body{width:1200px;height:630px;overflow:hidden;background:#06090b;position:relative;font-family:Manrope,sans-serif;color:#fff}
+.glow{position:absolute;right:-120px;top:-60px;width:820px;height:760px;background:radial-gradient(closest-side,rgba(16,210,230,.22),rgba(16,210,230,0) 72%)}
+.logo{position:absolute;right:26px;top:92px;width:610px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
+.txt{position:absolute;left:72px;top:120px;width:520px}
+.k{font:600 15px/1 Manrope;letter-spacing:.24em;text-transform:uppercase;color:#93a3a9;display:flex;align-items:center;gap:12px}
+.ring{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#013243 0 30%,#f9d1a8 34%);box-shadow:0 0 0 1.5px #000}
+h1{margin:22px 0 0;font:800 66px/.98 Montserrat;text-transform:uppercase;letter-spacing:-.02em}
+h1 em{font-style:normal;color:#10d2e6;display:block}
+p{margin:22px 0 0;font:600 23px/1.45 Manrope;color:#d2dde0;max-width:470px}
+.url{position:absolute;left:72px;bottom:62px;display:flex;align-items:center;gap:14px;font:700 18px/1 Manrope;letter-spacing:.06em}
+.btn{background:#10d2e6;color:#04171b;padding:14px 20px;border-radius:8px;text-transform:uppercase;font-weight:800;letter-spacing:.1em;font-size:15px}
+.belt{position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#05090b 0 74%,#f60a05 74% 86%,#05090b 86%);box-shadow:inset 0 2px 0 #10d2e6}
+#t{position:absolute;left:0;top:0}
+</style></head><body>
+<div class="glow"></div>
+<svg id="t" width="1200" height="630"></svg>
+<img class="logo" src="/photos/brand/cmjj-logo-1200.webp" alt="">
+<div class="txt">
+  <div class="k">Costa Mesa, CA<span class="ring"></span>Inside Double Ops</div>
+  <h1>Jiu Jitsu <em>for everyone</em></h1>
+  <p>Kids from age 4, adult Gi and NoGi, and a 6-week beginners program. First class free.</p>
+</div>
+<div class="url"><span class="btn">Try a free class</span>costamesajiujitsu.com</div>
+<div class="belt"></div>
+<script src="/assets/tentacles.js"></script>
+<script>
+document.getElementById('t').innerHTML = CMJJTentacle.build({ points: [[1236, 560], [1150, 600], [1060, 560], [990, 600]], w: 30, side: 1, curl: { r: 26, turns: 1.2, dir: -1 } }).g;
+</script>
+</body></html>

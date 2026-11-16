@@ -1,0 +1,32 @@
+COSTA MESA JIU JITSU: BRAND COLORS (2026 octopus brand)
+
+Abyss           #06090B   RGB 6 9 11        CMYK print as rich black 60 40 40 100
+                Backgrounds. The main color.
+Deep Current    #013243   RGB 1 50 67       CMYK 99 25 0 74
+                Shadows, dark panels, ring centers.
+Tentacle Cyan   #10D2E6   RGB 16 210 230    CMYK 93 9 0 10
+                Buttons, links, the octopus. Means "do this".
+Glow            #68FAFF   RGB 104 250 255   CMYK 59 2 0 0
+                Highlights, hover states, outer rims.
+Eye Red         #F60A05   RGB 246 10 5      CMYK 0 96 98 4
+                Emphasis only: "Jiu Jitsu", review stars, the belt bar. Keep it tiny.
+Sucker Sand     #F9D1A8   RGB 249 209 168   CMYK 0 16 33 2
+                Sucker rings and warm details.
+White           #FFFFFF   RGB 255 255 255   CMYK 0 0 0 0
+Deep Cyan       #00778A   RGB 0 119 138     CMYK 100 14 0 46
+                Cyan text and links on light backgrounds (plain cyan is too faint on white).
+
+Mix: about 58% abyss, 16% deep current, 12% white, 9% cyan, 3% sand, 2% red.
+
+Text pairings that pass contrast:
+  Cyan on abyss 10.8:1 (any size)      Abyss on cyan 10:1 (buttons)
+  White on deep current 13.6:1         Deep cyan on white 5.2:1
+  Red on abyss 5.3:1 (bold or large)   Never cyan text on white (1.8:1)
+
+CMYK values are conversions from screen color. Ask the printer for a proof before a big run.
+
+FONTS (all free on Google Fonts)
+  Headlines:   Montserrat ExtraBold 800, uppercase
+  Varsity:     Graduate (merch, numbers, short callouts)
+  Body:        Manrope 500 to 800
+  Numbers:     Bebas Neue (times, prices, phone numbers)

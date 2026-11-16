@@ -273,28 +273,42 @@ html[data-mode="light"] .theme-btn .sun { display: block; }
    They rise into view when their section scrolls in, then sway very slightly. */
 .has-grip { position: relative; }
 .has-grip > :not(.grip) { position: relative; z-index: 1; }
-.grip { position: absolute; z-index: 0; bottom: calc(100% - var(--sink)); width: var(--gw); pointer-events: none; opacity: 0; transform: translateY(72%) rotate(var(--tilt, 0deg)); transform-origin: 50% 100%; transition: transform 1300ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 500ms ease; }
+.grip { position: absolute; z-index: 0; bottom: calc(100% - var(--sink)); width: var(--gw); pointer-events: none; transform: rotate(var(--tilt, 0deg)); transform-origin: 50% 100%; transition: transform 1300ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 500ms ease; }
+html.grip-js .grip:not(.out) { opacity: 0; transform: translateY(72%) rotate(var(--tilt, 0deg)); }
 .grip img { display: block; width: 100%; height: auto; transform-origin: 50% 100%; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35)); }
-.grip.out { opacity: 1; transform: translateY(0) rotate(var(--tilt, 0deg)); }
-.grip.out img { animation: sway 7s ease-in-out 1.3s infinite alternate; }
+.grip img { animation: sway 7s ease-in-out 1.3s infinite alternate; }
 @keyframes sway { from { transform: rotate(-1.6deg); } to { transform: rotate(1.4deg); } }
-@media (prefers-reduced-motion: reduce) { .grip { opacity: 1; transform: rotate(var(--tilt, 0deg)); } .grip.out img { animation: none; } }
+@media (prefers-reduced-motion: reduce) { html.grip-js .grip:not(.out) { opacity: 1; transform: rotate(var(--tilt, 0deg)); } .grip img { animation: none; } }
 html[data-mode="light"] .grip img { filter: drop-shadow(0 8px 14px rgba(5,20,25,0.18)); }
-/* where each one sits (--gw width, --sink how much hides behind the card) */
-.g-programs { --gw: clamp(92px, 10.5vw, 164px); --sink: calc(var(--gw) * 0.62); right: 6%; --tilt: 4deg; }
-.g-pricing { --gw: clamp(104px, 11.5vw, 176px); --sink: calc(var(--gw) * 0.5); right: 2.5%; --tilt: -3deg; }
-.g-coach { --gw: clamp(84px, 9.5vw, 144px); --sink: calc(var(--gw) * 0.82); left: 4%; --tilt: -5deg; }
-.coaches.has-grip { margin-top: 64px; }
-.g-contact { --gw: clamp(132px, 15vw, 232px); --sink: calc(var(--gw) * 0.3); right: 9%; }
+/* where each one sits: --gw width, --sink how much hides behind the card, --tilt a slight lean */
+.g-programs { --gw: clamp(104px, 12.5vw, 196px); --sink: calc(var(--gw) * 0.82); right: 5%; --tilt: 4deg; }
+.g-schedule { --gw: clamp(110px, 11.5vw, 178px); --sink: calc(var(--gw) * 0.42); right: 1.5%; --tilt: -2deg; }
+.g-pricing { --gw: clamp(112px, 13vw, 200px); --sink: calc(var(--gw) * 0.6); right: 2.5%; --tilt: -3deg; }
+.g-free { --gw: clamp(100px, 11vw, 172px); --sink: calc(var(--gw) * 0.95); right: 7%; --tilt: 3deg; }
+.g-kids { --gw: clamp(92px, 10.5vw, 164px); --sink: calc(var(--gw) * 1.14); left: 6%; --tilt: -4deg; }
+.g-coach { --gw: clamp(96px, 11vw, 168px); --sink: calc(var(--gw) * 0.95); left: 4%; --tilt: -5deg; }
+.g-privates { --gw: clamp(104px, 12vw, 184px); --sink: calc(var(--gw) * 0.6); right: 5%; --tilt: 2deg; }
+.g-shop { --gw: clamp(104px, 11.5vw, 176px); --sink: calc(var(--gw) * 0.42); right: 3%; --tilt: 3deg; }
+.g-contact { --gw: clamp(140px, 16vw, 250px); --sink: calc(var(--gw) * 0.3); right: 9%; }
+.g-foot-l { --gw: clamp(84px, 10vw, 150px); --sink: calc(var(--gw) * 0.6); left: 5%; --tilt: -4deg; }
+.g-foot-r { --gw: clamp(80px, 9.5vw, 144px); --sink: calc(var(--gw) * 0.82); right: 6%; --tilt: 5deg; }
 .g-contact img { filter: drop-shadow(0 -6px 22px rgba(16,210,230,0.18)); }
+.grip.d-only { display: none; }
+@media (min-width: 900px) { .grip.d-only { display: block; } }
+/* the footer gets an opaque top layer so tentacles can rise from behind its edge */
+.footer.has-grip { position: relative; border-top: 0; margin-top: clamp(24px, 4vw, 56px); }
+.footer.has-grip::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--bg); border-top: 1px solid var(--line); }
+.footer.has-grip > .wrap { z-index: 2; }
 @media (min-width: 900px) { .contact.has-grip .g-contact { right: calc(25% - var(--gw) / 2); } }
 /* on phones, give each group a little headroom so nothing rises into text above it */
 @media (max-width: 899px) {
   .programs.has-grip { margin-top: 84px; }
   .plans.has-grip { margin-top: 100px; }
+  .split.has-grip, .products.has-grip { margin-top: 72px; }
+  .footer.has-grip { margin-top: 56px; }
   .contact.has-grip { margin-top: 96px; }
   .coaches.has-grip { margin-top: 56px; }
-  .g-programs, .g-pricing { right: 5%; }
+  .g-programs, .g-pricing, .g-shop { right: 5%; }
 }
 .header-tools .nav-text { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--hfg); opacity: 0.85; padding: 10px 6px; }
 .header-tools .nav-text:hover { opacity: 1; }
@@ -986,7 +1000,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <p class="lead">Every program is taught from the ground up. Pick the one that fits, and we will meet you where you are.</p>
     </div>
     <div class="programs has-grip">
-      <span class="grip g-programs" aria-hidden="true"><img src="photos/brand/tentacle-hook-lean.webp" width="420" height="724" alt="" loading="lazy" decoding="async"></span>
+      <span class="grip g-programs" aria-hidden="true"><img src="photos/brand/tentacle-hook-lean.webp" width="420" height="724" alt="" decoding="async"></span>
 
       <a class="program reveal" href="#free-class">
         <div class="program-photo"><img src="photos/little-ninjas.webp" width="1000" height="750" alt="Coach guiding two young kids in white gis on the mat" loading="lazy" decoding="async"></div>
@@ -1099,7 +1113,8 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <button type="button" data-i="5"><b aria-hidden="true">S</b><small>Sat<span class="sr-only">urday</span></small></button>
       <button type="button" data-i="6"><b aria-hidden="true">S</b><small>Sun<span class="sr-only">day</span></small></button>
     </div>
-    <div class="week" id="week">
+    <div class="week has-grip" id="week">
+      <span class="grip g-schedule d-only" aria-hidden="true"><img src="photos/brand/tentacle-curl-lean.webp" width="420" height="428" alt="" decoding="async"></span>
       <div class="day" data-day="1">
         <div class="day-head"><span class="day-name">Monday</span><span class="day-tag"></span></div>
         <a class="cls t-ninja" href="https://www.doptraining.com/book#" target="_blank" rel="noopener"><span class="cls-time">3:30 PM</span><div><div class="cls-name">Little Ninjas</div><div class="cls-sub">Ages 4 to 6</div></div></a>
@@ -1153,7 +1168,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <h2 class="display h2">Simple pricing</h2>
     </div>
     <div class="plans has-grip">
-      <span class="grip g-pricing" aria-hidden="true"><img src="photos/brand/tentacle-curl-rise.webp" width="420" height="619" alt="" loading="lazy" decoding="async"></span>
+      <span class="grip g-pricing" aria-hidden="true"><img src="photos/brand/tentacle-curl-rise.webp" width="420" height="619" alt="" decoding="async"></span>
       <div class="plan featured reveal">
         <span class="plan-for">Most popular</span>
         <div class="plan-name">Unlimited Adult</div>
@@ -1194,7 +1209,8 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 <section class="section form-band mat-band" id="free-class">
   <div class="mat-bg" aria-hidden="true"><picture><source media="(max-width: 767px)" srcset="photos/mats-tall.webp"><img src="photos/mats-wide.webp" width="1920" height="1440" alt="" loading="lazy" decoding="async"></picture></div>
   <div class="wrap">
-    <div class="form-grid">
+    <div class="form-grid has-grip">
+      <span class="grip g-free d-only" aria-hidden="true"><img src="photos/brand/tentacle-hook-rise.webp" width="420" height="764" alt="" decoding="async"></span>
       <div class="form-side">
         <p class="kicker">Free trial</p>
         <h2 class="display h2">Your first class is on us</h2>
@@ -1273,7 +1289,8 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 
 <section class="section" id="kids">
   <div class="wrap">
-    <div class="split">
+    <div class="split has-grip">
+      <span class="grip g-kids" aria-hidden="true"><img src="photos/brand/tentacle-hook-lean-flip.webp" width="420" height="724" alt="" decoding="async"></span>
       <div class="split-photo reveal"><video class="lazy-video" muted loop playsinline preload="none" poster="photos/g-coaching.webp" data-src="photos/kids.mp4" aria-label="Kids gi class watching the coach demonstrate"></video></div>
       <div class="section-head" style="margin-bottom:0">
         <p class="kicker">For parents</p>
@@ -1298,7 +1315,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 <section class="section section-dark" id="coaches">
   <div class="wrap">
     <div class="coaches coaches-one has-grip">
-      <span class="grip g-coach" aria-hidden="true"><img src="photos/brand/tentacle-hook-rise-flip.webp" width="420" height="764" alt="" loading="lazy" decoding="async"></span>
+      <span class="grip g-coach" aria-hidden="true"><img src="photos/brand/tentacle-hook-rise-flip.webp" width="420" height="764" alt="" decoding="async"></span>
       <div class="coach reveal">
         <div class="coach-photo"><img src="photos/coach-tony.webp" width="640" height="640" alt="Coach Tony Misitano smiling in a black gi" loading="lazy" decoding="async"></div>
         <div class="coach-body">
@@ -1315,7 +1332,8 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 
 <section class="section form-band" id="privates">
   <div class="wrap">
-    <div class="form-grid">
+    <div class="form-grid has-grip">
+      <span class="grip g-privates d-only" aria-hidden="true"><img src="photos/brand/tentacle-curl-rise-flip.webp" width="420" height="619" alt="" decoding="async"></span>
       <div class="form-side">
         <p class="kicker">Private lessons</p>
         <h2 class="display h2">Train 1-on-1 with Coach Tony</h2>
@@ -1420,7 +1438,8 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <h2 class="display h2">Gear up</h2>
       <p class="lead">Official Costa Mesa Jiu Jitsu gear for the mat and everywhere else.</p>
     </div>
-    <div class="products">
+    <div class="products has-grip">
+      <span class="grip g-shop" aria-hidden="true"><img src="photos/brand/tentacle-curl-lean-flip.webp" width="420" height="428" alt="" decoding="async"></span>
       <div class="product reveal">
         <button class="product-photo" type="button" data-open-modal="rashModal" aria-label="Request a ranked rashguard"><img src="photos/shop-rashguard.webp" width="600" height="600" alt="Black ranked short sleeve rashguard" loading="lazy" decoding="async"><span class="stock-tag">Backorder</span></button>
         <div class="product-body">
@@ -1493,7 +1512,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <h2 class="display h2">Come say hi</h2>
     </div>
     <div class="contact has-grip">
-      <span class="grip g-contact" aria-hidden="true"><img src="photos/brand/octopus-peek.webp" width="420" height="420" alt="" loading="lazy" decoding="async"></span>
+      <span class="grip g-contact" aria-hidden="true"><img src="photos/brand/octopus-peek.webp" width="420" height="420" alt="" decoding="async"></span>
       <div class="contact-card">
         <div class="contact-row">
           <span class="contact-label">Call or text</span>
@@ -1537,7 +1556,9 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 
 </main>
 
-<footer class="footer">
+<footer class="footer has-grip">
+  <span class="grip g-foot-l" aria-hidden="true"><img src="photos/brand/tentacle-curl-rise-flip.webp" width="420" height="619" alt="" decoding="async"></span>
+  <span class="grip g-foot-r" aria-hidden="true"><img src="photos/brand/tentacle-hook-lean.webp" width="420" height="724" alt="" decoding="async"></span>
   <div class="wrap">
     <div class="footer-brand">
       <img src="photos/brand/cmjj-logo-360.webp" width="360" height="246" alt="Costa Mesa Jiu Jitsu" loading="lazy">
@@ -1908,14 +1929,20 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 <!-- HighLevel external tracking: captures site form submissions as HighLevel contacts -->
 <script>window.addEventListener('load',function(){if(window.CMJJ_PREVIEW)return;var s=document.createElement('script');s.src='https://link.msgsndr.com/js/external-tracking.js';s.setAttribute('data-tracking-id','tk_87a0beae75e04bf7aa983cbee612d188');document.body.appendChild(s);});</script>
 <script>
-// Tentacles rise from behind their cards when the group scrolls into view
+// Tentacles rise from behind their cards when the group scrolls into view.
+// They are visible by default; this only adds the rise-in, and reveals anything left over after 4 seconds.
 (function () {
-  var g = document.querySelectorAll('.grip'); if (!g.length) return;
-  if (!('IntersectionObserver' in window)) { g.forEach(function (el) { el.classList.add('out'); }); return; }
+  var g = Array.prototype.slice.call(document.querySelectorAll('.grip')); if (!g.length || !('IntersectionObserver' in window)) return;
+  function show(el) { el.classList.add('out'); }
+  g.forEach(function (el) { var r = el.parentNode.getBoundingClientRect(); if (r.top < innerHeight) show(el); });
+  document.documentElement.classList.add('grip-js');
   var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { var el = e.target.querySelector('.grip'); setTimeout(function () { el.classList.add('out'); }, 350); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -18% 0px' });
-  g.forEach(function (el) { io.observe(el.parentNode); });
+    es.forEach(function (e) { if (e.isIntersecting) { var els = e.target.querySelectorAll(':scope > .grip'); Array.prototype.forEach.call(els, function (el, i) { setTimeout(function () { show(el); }, 250 + i * 300); }); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  g.forEach(function (el) { if (!el.classList.contains('out')) io.observe(el.parentNode); });
+  window.addEventListener('scroll', function late() {
+    clearTimeout(late.t); late.t = setTimeout(function () { g.forEach(function (el) { if (el.parentNode.getBoundingClientRect().top < innerHeight) show(el); }); }, 4000);
+  }, { passive: true });
 })();
 </script>
 </body>

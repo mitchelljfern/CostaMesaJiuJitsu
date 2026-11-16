@@ -4,7 +4,7 @@
 > Preview: the separate Netlify project `cmjj-rebrand-preview` (never the live site).
 > Done so far: the landing page (`index.html`) and the brand kit (`/brand-kit/`). Inner pages still use the old brand.
 > - New logo files, icons, favicons, share image and the brand kit zip live in `photos/brand/`.
-> - Tentacles: `assets/tentacles.js` draws them from the page layout; the landing page opts in with `<main data-tentacles>`.
+> - Tentacles: cutouts from the logo art (`photos/brand/tentacle-*.webp`) placed behind card groups with `.has-grip` + `<span class="grip g-...">`. The card sits on top so the cut end stays hidden; `--gw` sets the width and `--sink` how much hides behind the card. They rise in when the section scrolls into view.
 > - Preview switch: `window.CMJJ_PREVIEW=true` near the top of `index.html` turns off Google Analytics, HighLevel tracking and chat, the spam check and the lead sheet. **At launch delete that line and the `<meta name="robots" content="noindex">` line** in `index.html` (keep noindex on `/brand-kit/`).
 > - Member account link (header, menu, footer): https://eldojo.ossdojo.com/member
 > - Share image source: `tools/brand/og-share.html` (screenshot it at 1200 × 630).

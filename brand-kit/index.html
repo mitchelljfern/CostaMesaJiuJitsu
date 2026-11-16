@@ -101,7 +101,12 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
 .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: #93a3a9; }
 .hero-meta b { color: #fff; font-weight: 700; }
 .hero .btn-outline { color: #fff; border-color: rgba(150,225,235,0.32); }
-.hero-tent { position: absolute; z-index: -1; left: 0; bottom: 0; width: 100%; height: 100%; pointer-events: none; }
+.tent-demo { position: relative; overflow: hidden; }
+.tent-demo .mini { position: absolute; z-index: 1; left: 10%; right: 10%; bottom: -12px; height: 42%; border-radius: 12px; background: #111b1f; border: 1px solid rgba(150,225,235,0.18); box-shadow: 0 -10px 30px rgba(0,0,0,0.35); }
+.tent-demo .mini::before { content: ""; position: absolute; left: 16px; top: 16px; width: 44%; height: 10px; border-radius: 3px; background: rgba(255,255,255,0.75); box-shadow: 0 20px 0 -2px rgba(255,255,255,0.22), 0 36px 0 -2px rgba(255,255,255,0.22); }
+.tent-demo img { position: absolute; z-index: 0; bottom: 18%; height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.4)); }
+.tent-demo .t1 { width: 26%; right: 16%; transform: rotate(4deg); }
+.tent-demo .t2 { width: 24%; left: 17%; bottom: 22%; transform: rotate(-5deg); }
 @media (min-width: 960px) { .hero .wrap { grid-template-columns: 1fr 1.05fr; } .hero-logo { justify-self: end; } }
 
 /* sections */
@@ -279,7 +284,6 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
 <main>
 
 <section class="hero">
-  <svg class="hero-tent" id="heroTent" aria-hidden="true"></svg>
   <div class="wrap">
     <div style="display:grid;gap:20px">
       <p class="kicker">Costa Mesa Jiu Jitsu<span class="ring"></span>Launching December 2026</p>
@@ -478,8 +482,8 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
     </div>
     <div class="grid g3">
       <article class="card">
-        <div class="el-tile"><svg id="tentDemo" viewBox="0 0 400 300" aria-label="Octopus tentacle illustration"></svg></div>
-        <div class="card-body"><h3>The tentacle</h3><p>Curls in from an edge and wraps a corner. On the website they draw in as you scroll. Keep them at the edges, never across faces or text.</p><div class="dl"><a href="/photos/brand/tentacle-right.svg" download>SVG <small>from right</small></a><a href="/photos/brand/tentacle-left.svg" download>SVG <small>from left</small></a><a href="/photos/brand/tentacle-curl.svg" download>SVG <small>curl</small></a></div></div>
+        <div class="el-tile tent-demo" role="img" aria-label="Two tentacles rising from behind a card"><img class="t2" src="/photos/brand/tentacle-hook-rise-flip.webp" width="420" height="764" alt="" loading="lazy"><img class="t1" src="/photos/brand/tentacle-curl-rise.webp" width="420" height="619" alt="" loading="lazy"><span class="mini"></span></div>
+        <div class="card-body"><h3>The tentacle</h3><p>Cut straight from the logo art. A tentacle always rises from behind something, a card, a photo or the edge of the frame, with its cut end hidden. Never floating on its own, never across faces or text.</p><div class="dl"><a href="/photos/brand/tentacle-hook-rise.png" download>PNG <small>hook</small></a><a href="/photos/brand/tentacle-curl-rise.png" download>PNG <small>curl</small></a><a href="/photos/brand/tentacle-hook-lean.png" download>PNG <small>S-curve</small></a></div></div>
       </article>
       <article class="card">
         <div class="el-tile"><div class="rings-demo" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
@@ -568,14 +572,14 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
 <section class="section" id="download" style="border-bottom:0">
   <div class="wrap">
     <div class="pack">
-      <p class="kicker" style="color:#93a3a9">Everything in one file<span class="ring"></span>About 16 MB</p>
+      <p class="kicker" style="color:#93a3a9">Everything in one file<span class="ring"></span>About 17 MB</p>
       <h2 class="display">Download the whole kit</h2>
       <ul>
         <li><span class="ring"></span> Full-color logo, PNG in 3 sizes</li>
         <li><span class="ring"></span> One-color logos: white, black, cyan</li>
         <li><span class="ring"></span> App icon, profile picture, octopus head</li>
         <li><span class="ring"></span> Favicons and the link share image</li>
-        <li><span class="ring"></span> Tentacle, sucker ring and belt bar SVGs</li>
+        <li><span class="ring"></span> Tentacle cutouts (PNG), sucker ring and belt bar</li>
         <li><span class="ring"></span> Color codes (CSS, plus a cheat sheet)</li>
       </ul>
       <div class="hero-actions"><a class="btn btn-primary" href="/photos/brand/cmjj-brand-kit.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download the kit (.zip)</a><a class="btn btn-outline" href="/photos/brand/cmjj-colors.txt" download>Color cheat sheet</a></div>
@@ -593,7 +597,6 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/assets/tentacles.js"></script>
 <script>
 (function () {
   var COLORS = [
@@ -620,18 +623,6 @@ html:not([data-mode="light"]) .sun, html[data-mode="light"] .moon { display: non
     box.appendChild(b);
   });
 
-  // tentacle demo + hero tentacle
-  var T = window.CMJJTentacle;
-  if (T) {
-    document.getElementById('tentDemo').innerHTML = T.build({ points: [[430, 40], [320, 70], [250, 140], [215, 200]], w: 46, side: -1, curl: { r: 40, turns: 1.2, dir: -1 } }).g;
-    var ht = document.getElementById('heroTent');
-    function hero() {
-      var r = ht.getBoundingClientRect(), w = r.width, h = r.height;
-      ht.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-      ht.innerHTML = w < 900 ? '' : T.build({ points: [[w + 40, h - 34], [w * 0.9, h - 70], [w * 0.82, h - 44], [w * 0.77, h - 74]], w: Math.min(40, w * 0.026), side: -1, curl: { r: Math.min(34, w * 0.022), turns: 1.15, dir: 1 } }).g;
-    }
-    hero(); window.addEventListener('resize', function () { clearTimeout(hero.t); hero.t = setTimeout(hero, 150); });
-  }
 
   // light / dark (shared with the main site)
   var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');

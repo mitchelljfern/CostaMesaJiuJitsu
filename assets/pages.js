@@ -91,7 +91,7 @@
       $$('[data-ok-class]', ok).forEach(function (s) { s.textContent = cls ? cls.value : ''; });
       var lbl = form.getAttribute('data-lead') || 'form';
       if (location.pathname.indexOf('/kids-jiu-jitsu') === 0) lbl = 'kids free class';
-      backupLead(form, lbl.charAt(0).toUpperCase() + lbl.slice(1));
+      if (!e.__gated) backupLead(form, lbl.charAt(0).toUpperCase() + lbl.slice(1));   // the spam check (assets/lead-gate.js) already saved it
       form.hidden = true; ok.hidden = false; ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     $$('[required]', form).forEach(function (el) { el.addEventListener('input', function () { el.style.borderColor = ''; }); el.addEventListener('change', function () { el.style.borderColor = ''; }); });

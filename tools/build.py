@@ -9,7 +9,7 @@ import html, json, os, re, sys
 
 REPO, OLD = sys.argv[1], sys.argv[2]
 SITE = 'https://costamesajiujitsu.com'            # canonical domain (search engines)
-SHARE = 'https://costa-mesa-jiu-jitsu.netlify.app'  # share previews until DNS moves
+SHARE = SITE  # domain now on Netlify
 TODAY = '2026-11-03'
 GTAG = 'GT-5TGJHX46'
 PHONE, PHONE_TEL, EMAIL = '949-556-1178', '+19495561178', 'info@costamesajiujitsu.com'
@@ -190,7 +190,7 @@ pages_js = r'''(function () {
       $$('[data-ok-class]', ok).forEach(function (s) { s.textContent = cls ? cls.value : ''; });
       var lbl = form.getAttribute('data-lead') || 'form';
       if (location.pathname.indexOf('/kids-jiu-jitsu') === 0) lbl = 'kids free class';
-      backupLead(form, lbl.charAt(0).toUpperCase() + lbl.slice(1));
+      if (!e.__gated) backupLead(form, lbl.charAt(0).toUpperCase() + lbl.slice(1));   // the spam check (assets/lead-gate.js) already saved it
       form.hidden = true; ok.hidden = false; ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     $$('[required]', form).forEach(function (el) { el.addEventListener('input', function () { el.style.borderColor = ''; }); el.addEventListener('change', function () { el.style.borderColor = ''; }); });
@@ -391,6 +391,7 @@ window.addEventListener('load',function(){{var s=document.createElement('script'
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@500;600;700;800&family=Montserrat:wght@800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/lead-gate.js" defer></script>
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
@@ -414,8 +415,8 @@ def checks(items):
     return '<ul class="checks">' + ''.join(f'<li>{i}</li>' for i in items) + '</ul>'
 
 # ---------------------------------------------------------------- reusable forms
-trial_form = grab('<form class="form" id="trialForm" novalidate>', '</form>')
-trial_form = trial_form.replace('<form class="form" id="trialForm" novalidate>', '<form class="form" id="trialForm" novalidate data-lead="free trial" data-ok="formOk">')
+trial_form = grab('<form class="form" id="trialForm" novalidate data-lead="free class" data-ok="formOk">', '</form>')
+trial_form = trial_form.replace('<form class="form" id="trialForm" novalidate data-lead="free class" data-ok="formOk">', '<form class="form" id="trialForm" novalidate data-lead="free trial" data-ok="formOk">')
 trial_ok = '''<div class="form-ok" id="formOk" hidden>
         <p class="kicker">You're in</p>
         <p class="display">See you on the mat</p>
@@ -427,8 +428,8 @@ trial_ok = '''<div class="form-ok" id="formOk" hidden>
 BRADY_PRIVATES = False
 
 def private_form(coach=None):
-    f = grab('<form class="form" id="privateForm" novalidate>', '</form>')
-    f = f.replace('<form class="form" id="privateForm" novalidate>', '<form class="form" id="privateForm" novalidate data-lead="private lesson" data-ok="privateOk">')
+    f = grab('<form class="form" id="privateForm" novalidate data-lead="private lesson" data-ok="privateOk">', '</form>')
+    f = f.replace('<form class="form" id="privateForm" novalidate data-lead="private lesson" data-ok="privateOk">', '<form class="form" id="privateForm" novalidate data-lead="private lesson" data-ok="privateOk">')
     sel = lambda c: ' selected' if coach == c else ''
     coach_field = f'''<div class="field">
           <label for="pCoach">Preferred coach</label>

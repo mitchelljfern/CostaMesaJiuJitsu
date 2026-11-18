@@ -17,9 +17,9 @@
 <meta property="og:site_name" content="Costa Mesa Jiu Jitsu">
 <meta property="og:title" content="Costa Mesa Jiu Jitsu | Kids &amp; Adult BJJ | First Class Free">
 <meta property="og:description" content="Kids and adult Brazilian Jiu Jitsu in a friendly, ego-free gym inside Double Ops. Beginners welcome. Your first class is free.">
-<meta property="og:url" content="https://costa-mesa-jiu-jitsu.netlify.app/">
-<meta property="og:image" content="https://costa-mesa-jiu-jitsu.netlify.app/photos/og-share.jpg">
-<meta property="og:image:secure_url" content="https://costa-mesa-jiu-jitsu.netlify.app/photos/og-share.jpg">
+<meta property="og:url" content="https://costamesajiujitsu.com/">
+<meta property="og:image" content="https://costamesajiujitsu.com/photos/og-share.jpg">
+<meta property="og:image:secure_url" content="https://costamesajiujitsu.com/photos/og-share.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Costa Mesa Jiu Jitsu | Kids &amp; Adult BJJ | First Class Free">
 <meta name="twitter:description" content="Kids and adult Brazilian Jiu Jitsu in a friendly, ego-free gym inside Double Ops. Beginners welcome. Your first class is free.">
-<meta name="twitter:image" content="https://costa-mesa-jiu-jitsu.netlify.app/photos/og-share.jpg">
+<meta name="twitter:image" content="https://costamesajiujitsu.com/photos/og-share.jpg">
 <meta name="twitter:image:alt" content="Costa Mesa Jiu Jitsu: kids and adult Jiu Jitsu in a friendly, ego-free gym. First class free. 369 E 17th St, Costa Mesa, California.">
 
 <!-- Google tag (same tag as the old site) -->
@@ -51,8 +51,8 @@ window.addEventListener('load',function(){var s=document.createElement('script')
   "url": "https://costamesajiujitsu.com/",
   "telephone": "+1-949-556-1178",
   "email": "info@costamesajiujitsu.com",
-  "image": "https://costa-mesa-jiu-jitsu.netlify.app/photos/og-share.jpg",
-  "logo": "https://costa-mesa-jiu-jitsu.netlify.app/photos/cmjj-badge.png",
+  "image": "https://costamesajiujitsu.com/photos/og-share.jpg",
+  "logo": "https://costamesajiujitsu.com/photos/cmjj-badge.png",
   "priceRange": "$99 - $260",
   "address": {
     "@type": "PostalAddress",
@@ -820,6 +820,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   .ig-actions { width: 100%; }
 }
 </style>
+<script src="/assets/lead-gate.js" defer></script>
 </head>
 <body>
 
@@ -1149,7 +1150,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         <p class="form-fine">Prefer to talk to a person? Call or text <a href="tel:+19495561178" style="color:var(--fg)">949-556-1178</a>.</p>
       </div>
 
-      <form class="form" id="trialForm" novalidate>
+      <form class="form" id="trialForm" novalidate data-lead="free class" data-ok="formOk">
         <div class="form-row">
           <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
@@ -1269,7 +1270,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         <p class="form-fine">Rather talk now? Call or text <a href="tel:+19495561178">949-556-1178</a>.</p>
       </div>
 
-      <form class="form" id="privateForm" novalidate>
+      <form class="form" id="privateForm" novalidate data-lead="private lesson" data-ok="privateOk">
         <div class="form-row">
           <div class="field"><label for="pName">Name</label><input id="pName" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="pPhone">Phone</label><input id="pPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
@@ -1494,7 +1495,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   <div class="modal-backdrop" data-close-modal></div>
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="rashTitle">
     <button class="modal-close" type="button" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <form id="rashForm" novalidate>
+    <form id="rashForm" novalidate data-lead="rashguard backorder" data-ok="rashOk">
       <p class="kicker">Backorder<span class="tiny-star" aria-hidden="true">★</span>$53.95</p>
       <h3 class="display h3" id="rashTitle">Request a ranked rashguard</h3>
       <p class="modal-note">Tell us your size and rank. We will text you when it is ready to pick up.</p>
@@ -1612,7 +1613,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
     // HighLevel's tracking script captures the submission; this also saves a backup row in the Google Sheet.
-    backupLead(form, 'Free class');
+    if (!e.__gated) backupLead(form, 'Free class');   // the spam check (assets/lead-gate.js) already saved it
     $('#okName').textContent = ($('#name').value.trim().split(' ')[0]) || 'friend';
     $('#okPhone').textContent = $('#phone').value.trim();
     $('#okClass').textContent = cls.value;
@@ -1627,7 +1628,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
     var bad = $$('[required]', pForm).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
-    backupLead(pForm, 'Private lesson');
+    if (!e.__gated) backupLead(pForm, 'Private lesson');
     $('#pOkName').textContent = ($('#pName').value.trim().split(' ')[0]) || 'friend';
     $('#pOkPhone').textContent = $('#pPhone').value.trim();
     pForm.hidden = true; $('#privateOk').hidden = false; $('#privateOk').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1806,7 +1807,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
     var bad = $$('[required]', rForm).filter(function (el) { return !el.value; });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) { bad[0].focus(); return; }
-    backupLead(rForm, 'Rashguard backorder');
+    if (!e.__gated) backupLead(rForm, 'Rashguard backorder');
     $('#rOkName').textContent = ($('#rName').value.trim().split(' ')[0]) || 'friend';
     $('#rOkPhone').textContent = $('#rPhone').value.trim();
     $('#rOkWhat').textContent = $('#rSize').value + ', ' + $('#rRank').value.replace(' (kids)', '') + ' belt';

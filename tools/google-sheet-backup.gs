@@ -77,13 +77,21 @@ function judge(p, ts) {
   const name = String(p.name || '').trim();
   const email = String(p.email || '').trim().toLowerCase();
   const local = email.split('@')[0] || '';
-  const caseFlips = (name.match(/[a-z](?=[A-Z])|[A-Z](?=[a-z])/g) || []).length;
+  const caps = (name.slice(1).match(/[A-Z]/g) || []).length;
+  const dots = (local.match(/\./g) || []).length;
 
   if (ts === null) add(1, 'no Turnstile token');
   if (p.ms && Number(p.ms) < 3000) add(1, 'sent within 3 seconds of opening the page');
   if (p.touched === '0') add(1, 'no tap, click or keypress on the page');
-  if (name && !/\s/.test(name) && name.length >= 10 && caseFlips >= 8) add(1, 'random-letter name');
-  if (/@(gmail|googlemail)\./.test(email) && (local.match(/\./g) || []).length >= 3) add(1, 'dotted-up Gmail address');
+  // Bots seen on the site: one-word random-letter names ("VntxReJJywsegiWVFQl") and Gmail addresses full of dots
+  if (name && !/\s/.test(name) && name.length >= 12) {
+    add(1, 'long one-word name');
+    if (caps >= 4) add(1, 'random capitals in the name');
+  }
+  if (/@(gmail|googlemail)\./.test(email) && dots >= 3) {
+    add(1, 'dotted-up Gmail address');
+    if (dots >= 5) add(1, 'very dotted Gmail address');
+  }
   if (/https?:|www\.|<a |\[url/i.test([name, p.goal, p.when].join(' '))) add(2, 'link in the form');
   if (p.host && OUR_HOSTS.indexOf(String(p.host).toLowerCase()) === -1) add(1, 'sent from another website');
 

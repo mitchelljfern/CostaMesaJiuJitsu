@@ -7,7 +7,8 @@
  *   3. The Apps Script verifies the token, scores the lead and saves it:
  *        real lead -> "Leads" tab, and this script releases the submission so HighLevel captures it
  *        spam      -> "Spam" tab only; HighLevel never sees it and the bot just gets a thank-you screen
- *   If the check itself fails to answer (timeout, Google down), the lead goes through so nothing real is lost.
+ *   The browser also runs the same warning-sign check, so obvious bots are stopped even if the Apps Script
+ *   doesn't answer. If neither flags it, the lead goes through, so nothing real is lost.
  *
  * Settings: TURNSTILE_SITEKEY (public key from Cloudflare) and SHEET_URL (Apps Script web app URL).
  */
@@ -95,6 +96,20 @@
     if (id != null && id !== false && window.turnstile) { try { window.turnstile.reset(id); } catch (e) {} }
   }
 
+  // Same warning signs the Apps Script uses. Two or more = spam. Checked here too so obvious bots are
+  // stopped even if the Apps Script is slow or out of date.
+  function suspect(d) {
+    var why = [], name = String(d.get('name') || '').trim(), email = String(d.get('email') || '').trim().toLowerCase();
+    var local = email.split('@')[0] || '', caps = (name.slice(1).match(/[A-Z]/g) || []).length, dots = (local.match(/\./g) || []).length;
+    if (d.get('hp')) { why.push('trap', 'trap'); }
+    if (Number(d.get('ms')) < 3000) why.push('fast');
+    if (d.get('touched') === '0') why.push('no-touch');
+    if (name && !/\s/.test(name) && name.length >= 12) { why.push('one-word-name'); if (caps >= 4) why.push('random-caps'); }
+    if (/@(gmail|googlemail)\./.test(email) && dots >= 3) { why.push('dotted-gmail'); if (dots >= 5) why.push('very-dotted'); }
+    if (/https?:|www\.|<a /i.test(name + ' ' + (d.get('goal') || ''))) why.push('link', 'link');
+    return why;
+  }
+
   function invalid(f) {
     var bad = Array.prototype.filter.call(f.querySelectorAll('[required]'), function (el) {
       return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
@@ -140,17 +155,19 @@
       d.set('hp', d.get(HP) || ''); d.delete(HP);
       d.set('ms', String(Date.now() - started)); d.set('touched', touched ? '1' : '0');
       d.set('cf_token', token); d.set('host', location.hostname);
+      var flags = suspect(d), localSpam = flags.length >= 2;
+      d.set('client_flags', flags.join(','));
       function finish(spam) {
         if (settled) return; settled = true;
         f.__sending = false; busy(f, false); resetToken(f);
         if (spam) quietThanks(f); else release(f);
       }
-      if (!SHEET_URL || !window.fetch) return finish(false);
-      var timer = setTimeout(function () { finish(false); }, 9000);   // no answer: let it through
+      if (!SHEET_URL || !window.fetch) return finish(localSpam);
+      var timer = setTimeout(function () { finish(localSpam); }, 9000);   // no answer: go with the local check
       fetch(SHEET_URL, { method: 'POST', body: d })
         .then(function (r) { return r.json(); })
-        .then(function (j) { clearTimeout(timer); finish(!!(j && j.spam)); })
-        .catch(function () { clearTimeout(timer); finish(false); });
+        .then(function (j) { clearTimeout(timer); finish(localSpam || !!(j && j.spam)); })
+        .catch(function () { clearTimeout(timer); finish(localSpam); });
     });
   }
 

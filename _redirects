@@ -40,7 +40,6 @@
 /wp-sitemap.xml          /sitemap.xml              301
 
 # Every other old WordPress page goes to the home page
-/waiver                  /                         301
 /class-recaps            /                         301
 /members                 /                         301
 /activate                /                         301

@@ -305,7 +305,7 @@ def header(active):
 </div>
 '''
 
-FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
+FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Waiver', '/waiver/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
                 ('Kids jiu jitsu', '/kids-jiu-jitsu/'), ('Private lessons', '/private-lessons/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
                 ('FAQ', '/#faq'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
 
@@ -402,8 +402,8 @@ HL_TRACKING = '''<!-- HighLevel external tracking: captures site form submission
 <script>window.addEventListener('load',function(){{var s=document.createElement('script');s.src='https://link.msgsndr.com/js/external-tracking.js';s.setAttribute('data-tracking-id','tk_87a0beae75e04bf7aa983cbee612d188');document.body.appendChild(s);}});</script>
 '''
 
-def page(title, desc, path, body, active_nav=None, active_tab=None, **kw):
-    return head(title, desc, path, **kw) + header(active_nav) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + HL_TRACKING + '</body>\n</html>\n'
+def page(title, desc, path, body, active_nav=None, active_tab=None, hl=True, **kw):
+    return head(title, desc, path, **kw) + header(active_nav) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + (HL_TRACKING if hl else '') + '</body>\n</html>\n'
 
 def faq_html(qas, first_open=True):
     items = ''.join(f'      <details{" open" if (i == 0 and first_open) else ""}><summary>{q}</summary><div class="answer">{a}</div></details>\n' for i, (q, a) in enumerate(qas))
@@ -422,6 +422,7 @@ trial_ok = '''<div class="form-ok" id="formOk" hidden>
         <p class="kicker">You're in</p>
         <p class="display">See you on the mat</p>
         <p>Thanks, <span data-ok-name>friend</span>. We'll text <span data-ok-phone></span> shortly to confirm <span data-ok-class></span>. Show up 10 minutes early and wear something comfortable with no zippers.</p>
+        <p>Save time at the front desk: <a href="/waiver/">sign your waiver online</a> before you come.</p>
         <p class="form-fine">Questions before then? Call or text 949-556-1178.</p>
       </div>'''
 
@@ -460,6 +461,7 @@ ft_faq = [
     ("Do I need any experience?", "No. Most of our students started with zero experience, and the coaches walk you through everything. If you want a slower on-ramp, the <a href=\"/beginners-classes/\">beginners jiu jitsu program</a> is built exactly for that."),
     ("What should I wear?", "Athletic clothes with no zippers, buttons or pockets. A rash guard and shorts work great. Bring a water bottle."),
     ("How old do kids need to be?", "Little Ninjas starts at age 4. Youth Jiu Jitsu is ages 7 to 12. Teens 13 and up train in the adult classes."),
+    ("Do I need to sign a waiver?", "Yes. Every student needs a signed waiver before training, and parents or guardians sign for anyone under 18. It takes about 3 minutes <a href=\"/waiver/\">online</a>."),
     ("Where are you?", "2428 Newport Blvd, Costa Mesa, CA 92627."),
 ]
 ft_body = f'''<section class="page-hero">
@@ -924,6 +926,41 @@ w('kids-jiu-jitsu/index.html', page(
          "offers": [{"@type": "Offer", "name": "Free trial class", "price": "0", "priceCurrency": "USD"},
                     {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "195", "priceCurrency": "USD"}]}]))
 
+# ================================================================ /waiver/
+# Online liability waiver. Agreement text: tools/waiver-terms.html. Page: tools/waiver-page.html. Script: assets/waiver.js.
+# Signed waivers go to the Google Apps Script (tools/google-sheet-backup.gs), which builds the PDF from the
+# frozen copy at /waiver/terms/<WAIVER_VERSION>.html and emails it. DRAFT pending attorney review.
+# Changing the agreement text? Bump WAIVER_VERSION (old versions stay published so old signatures still match).
+WAIVER_VERSION = '2026-11-22'
+ENTITY_LEGAL = ''   # legal name of the company that owns the gym, e.g. 'Example Holdings LLC'. Shown in section 1.
+WAIVER_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyZ0EI_Cq5wvFBlQ_vXDkqYB94jN8FJrmQJZ3XB3CKEXAgRZ8D8JnHimtU3FHQbKXPN/exec'
+_tools = os.path.dirname(os.path.abspath(__file__))
+terms = open(os.path.join(_tools, 'waiver-terms.html'), encoding='utf-8').read()
+terms = re.sub(r'^<!--.*?-->\s*', '', terms, flags=re.S)
+terms = terms.replace('{{ENTITY}}', (', owned and operated by ' + ENTITY_LEGAL) if ENTITY_LEGAL else ', and the business entity that owns and operates it')
+INIT_LABELS = {'risk': 'Assumption of risk', 'release': 'Release', 'indemnity': 'Indemnity', 'info': 'Info sheets', 'minors': 'Minors'}
+def _init_box(m):
+    k = m.group(1)
+    hid = ' hidden' if k == 'minors' else ''
+    req = '' if k == 'minors' else ' required'
+    return (f'<div class="w-init" data-init="{k}"{hid}><label for="init_{k}">Initials <span class="sr-only">for {INIT_LABELS[k]}</span></label>'
+            f'<input id="init_{k}" name="init_{k}" type="text" maxlength="4" autocomplete="off" autocapitalize="characters"{req}></div>')
+terms_page = re.sub(r'<!--INIT:(\w+)-->', _init_box, terms)
+terms_frozen = re.sub(r'\s*<!--INIT:\w+-->', '', terms)
+wv_body = (open(os.path.join(_tools, 'waiver-page.html'), encoding='utf-8').read()
+           .replace('{{CRUMBS}}', crumbs('Waiver')).replace('{{TERMS}}', terms_page)
+           .replace('{{VERSION}}', WAIVER_VERSION).replace('{{SHEET_URL}}', WAIVER_SHEET_URL))
+w('waiver/index.html', page(
+    'Liability Waiver | Costa Mesa Jiu Jitsu',
+    'Sign the Costa Mesa Jiu Jitsu liability waiver online before your first class. Parents or guardians sign for students under 18.',
+    '/waiver/', wv_body, noindex=True, hl=False,
+    ld=[ORG, crumbs_ld('Waiver', '/waiver/')]))
+# Frozen copy for the signed PDFs. Never edit a published version; add a new one.
+w('waiver/terms/' + WAIVER_VERSION + '.html',
+  '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">\n'
+  '<title>Costa Mesa Jiu Jitsu waiver, version ' + WAIVER_VERSION + '</title></head>\n<body>\n<!--TERMS-->\n'
+  + terms_frozen.strip() + '\n<!--/TERMS-->\n</body></html>\n')
+
 # ================================================================ legal pages (wording copied exactly)
 def legal_block(fn, start_pat, end_pat):
     s = open(os.path.join(OLD, fn), encoding='utf-8').read(); b = s.find('<body')
@@ -992,7 +1029,6 @@ redirects = '''# Costa Mesa Jiu Jitsu redirects (Netlify)
 /wp-sitemap.xml          /sitemap.xml              301
 
 # Every other old WordPress page goes to the home page
-/waiver                  /                         301
 /class-recaps            /                         301
 /members                 /                         301
 /activate                /                         301

@@ -440,10 +440,9 @@ def private_form(coach=None):
             <option{sel("Coach Brady Fink")}>Coach Brady Fink</option>
           </select>
         </div>
-        <div class="field">
-          <label for="pGoal">'''
+        <button class="btn btn-primary btn-block" type="submit">'''
     if BRADY_PRIVATES:
-        f = f.replace('<div class="field">\n          <label for="pGoal">', coach_field, 1)
+        f = f.replace('<button class="btn btn-primary btn-block" type="submit">', coach_field, 1)
         f = f.replace('No payment now. Coach Tony will text you to set it up.', 'No payment now. A coach will text you to set it up. Pricing varies by coach.')
     return f
 private_ok = f'''<div class="form-ok" id="privateOk" hidden>
@@ -609,7 +608,7 @@ pr_faq = [
     ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
     ("Can I try a class before I buy?", "Yes. Your first class is free, any program, kids or adults. <a href=\"/free-trial/\">Book your free class</a>."),
     ("How does the Family Add-On work?", "Add a second family member to any unlimited membership for $120 a month. Call or text 949-556-1178 or email info@costamesajiujitsu.com to set it up."),
-    ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing and options before anything is booked."),
+    ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing before anything is booked. Lessons are for 1 to 4 people, and groups split the cost."),
 ]
 pr_body = f'''<section class="page-hero">
   <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
@@ -634,10 +633,10 @@ pr_body = f'''<section class="page-hero">
         <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="/beginners-classes/">Learn more</a></div>
       </div>
       <div class="panel reveal">
-        <span class="plan-for">1-on-1</span>
+        <span class="plan-for">Solo or small group</span>
         <div class="plan-name">Private Lessons</div>
-        <div class="plan-price"><b style="font-size:40px">1-on-1</b><span>with Coach Tony</span></div>
-        <p>Kids and adults, any level, built around your goals.</p>
+        <div class="plan-price"><b>1 to 4</b><span>people, split the cost</span></div>
+        <p>Bring a training partner, your kid or the whole family. Kids and adults, any level, with Coach Tony.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="/private-lessons/">Request a private lesson</a></div>
       </div>
     </div>
@@ -699,24 +698,24 @@ BRADY_CTA = r'''<section class="section form-band">
   </div>
 </section>'''
 pl_faq = [
-    ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing and options before anything is booked."),
+    ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing before anything is booked. Bring up to 3 more people and you split the cost."),
     ("Who are private lessons for?", "Kids and adults at any level, from nervous first-timers who want a head start to competitors fixing a specific position."),
-    ("Can I bring a friend or family member?", "Yes. Lessons can be solo, with a friend, or as a family."),
+    ("Can I bring a friend or family member?", "Yes. Private lessons are for 1 to 4 people, and groups split the cost. Parent and kid lessons are popular, and so are family lessons where the parents train along with the kids."),
     ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Costa Mesa."),
 ]
 pl_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Private lessons')}
-      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true"></span>Kids and adults</p>
-      <h1 class="display h1">Train <em>1-on-1</em></h1>
-      <p class="lead">The fastest way to get better. Tell us a little about what you want to work on, and Coach Tony will reach out to find a time and walk you through options.</p>
+      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true"></span>Kids, adults and families</p>
+      <h1 class="display h1">Train private, <em>split the cost</em></h1>
+      <p class="lead">The fastest way to get better, with Coach Tony's full attention. Come solo, or bring up to 3 more people and split the cost: a training partner, your kid, or the whole family.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#request">Request a private lesson</a>
         <a class="btn btn-outline" href="#team">Meet Coach Tony</a>
       </div>
     </div>
-    <div class="page-hero-media"><img src="/photos/g-coaching.webp" width="800" height="800" alt="Coach teaching a kids jiu jitsu technique one-on-one" fetchpriority="high" decoding="async"></div>
+    <div class="page-hero-media"><img src="/photos/g-coaching.webp" width="800" height="800" alt="Coach teaching a kids jiu jitsu technique in a private lesson" fetchpriority="high" decoding="async"></div>
   </div>
 </section>
 
@@ -744,7 +743,7 @@ pl_body = f'''<section class="page-hero">
       <div class="form-side">
         <p class="kicker">Request a lesson</p>
         <h2 class="display h2">Tell us what you want to work on</h2>
-        {checks(["Kids and adults, any level", "Built around your goals, from self-defense to competition", "Great for nervous beginners who want a head start", "Solo, with a friend, or as a family"])}
+        {checks(["Groups of 2, 3 or 4 split the cost", "Parent and kid lessons: learn together, practice at home", "Family lessons when parents train along with the kids", "Kids and adults, any level, built around your goals"])}
         <p class="form-fine">Rather talk now? Call or text <a href="tel:{PHONE_TEL}">{PHONE}</a>.</p>
       </div>
       {private_form()}
@@ -762,7 +761,7 @@ pl_body = f'''<section class="page-hero">
 <script>document.addEventListener('click',function(e){{var a=e.target.closest('[data-coach]');if(!a)return;var s=document.getElementById('pCoach');if(s)s.value=a.getAttribute('data-coach');}});</script>'''
 w('private-lessons/index.html', page(
     'Private BJJ Lessons in Costa Mesa | Costa Mesa Jiu Jitsu',
-    '1-on-1 jiu jitsu lessons for kids and adults with black belt Coach Tony Misitano in Costa Mesa, CA. Self-defense, competition prep or a head start.',
+    'Private jiu jitsu lessons for 1 to 4 people with black belt Coach Tony Misitano in Costa Mesa, CA. Split the cost with a partner, your kid or the whole family.',
     '/private-lessons/', pl_body,
     ld=[ORG, crumbs_ld('Private lessons', '/private-lessons/'), faq_ld(pl_faq)]))
 

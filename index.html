@@ -1319,13 +1319,13 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <span class="grip g-privates d-only" aria-hidden="true"><img src="photos/brand/tentacle-curl-rise-flip.webp" width="420" height="619" alt="" decoding="async"></span>
       <div class="form-side">
         <p class="kicker">Private lessons</p>
-        <h2 class="display h2">Train 1-on-1 with Coach Tony</h2>
-        <p class="lead">The fastest way to get better. Tell us a little about what you want to work on, and Coach Tony will reach out to find a time and walk you through options.</p>
+        <h2 class="display h2">Train private, split the cost</h2>
+        <p class="lead">The fastest way to get better, with Coach Tony's full attention. Come solo, or bring up to 3 more people and split the cost: a training partner, your kid, or the whole family.</p>
         <ul class="checks">
-          <li>Kids and adults, any level</li>
-          <li>Built around your goals, from self-defense to competition</li>
-          <li>Great for nervous beginners who want a head start</li>
-          <li>Solo, with a friend, or as a family</li>
+          <li>Groups of 2, 3 or 4 split the cost</li>
+          <li>Parent and kid lessons: learn together, practice at home</li>
+          <li>Family lessons when parents train along with the kids</li>
+          <li>Kids and adults, any level, built around your goals</li>
         </ul>
         <p class="form-fine">Rather talk now? Call or text <a href="tel:+19495561178">949-556-1178</a>.</p>
       </div>
@@ -1341,12 +1341,26 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
             <label for="pWho">Who is it for?</label>
             <select id="pWho" name="who" required>
               <option value="">Choose one</option>
-              <option>Me (adult)</option>
+              <option>Just me</option>
               <option>My child</option>
-              <option>Me and a friend</option>
+              <option>Me and my child</option>
               <option>Our family</option>
+              <option>Me and friends</option>
             </select>
           </div>
+          <div class="field">
+            <label for="pPeople">How many people?</label>
+            <select id="pPeople" name="people" required>
+              <option value="">Choose one</option>
+              <option>1 person</option>
+              <option>2 people</option>
+              <option>3 people</option>
+              <option>4 people (max)</option>
+            </select>
+          </div>
+        </div>
+        <p class="form-fine">Groups of 2 to 4 split the cost.</p>
+        <div class="form-row">
           <div class="field">
             <label for="pWhen">Best time for you?</label>
             <select id="pWhen" name="when" required>
@@ -1358,18 +1372,18 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
               <option>Weekends</option>
             </select>
           </div>
-        </div>
-        <div class="field">
-          <label for="pGoal">What do you want to work on?</label>
-          <select id="pGoal" name="goal">
-            <option value="">Optional</option>
-            <option>Getting started from zero</option>
-            <option>Self-defense</option>
-            <option>Competition prep</option>
-            <option>Fixing a specific position or technique</option>
-            <option>Fitness and confidence</option>
-            <option>Not sure yet</option>
-          </select>
+          <div class="field">
+            <label for="pGoal">What to work on?</label>
+            <select id="pGoal" name="goal">
+              <option value="">Optional</option>
+              <option>Getting started from zero</option>
+              <option>Self-defense</option>
+              <option>Competition prep</option>
+              <option>A specific position or technique</option>
+              <option>Fitness and confidence</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
         </div>
         <button class="btn btn-primary btn-block" type="submit">Request a private lesson</button>
         <p class="form-fine">No payment now. Coach Tony will text you to set it up.</p>
@@ -1483,7 +1497,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
       <details><summary>Is jiu jitsu safe?</summary><div class="answer">Jiu jitsu is a grappling art, so there is no striking in our jiu jitsu classes. We teach tapping, posture and injury prevention from day one, and beginners never roll live until they are ready.</div></details>
       <details><summary>Can I just drop in?</summary><div class="answer">Yes, and we encourage it. Show up about 10 minutes before class. If it is your first time, booking the free class above helps us have a coach ready for you.</div></details>
       <details><summary>Are there contracts?</summary><div class="answer">No long-term contracts. Memberships are monthly, the 10-class pack is a one-time purchase, and the beginners program is a one-time $99 for 6 weeks.</div></details>
-      <details><summary>Do you offer private lessons?</summary><div class="answer">Yes, for kids and adults with Coach Tony. <a href="#privates">Send a quick request</a> or call or text 949-556-1178, and he will set it up around your schedule.</div></details>
+      <details><summary>Do you offer private lessons?</summary><div class="answer">Yes, with Coach Tony, for 1 to 4 people. Groups split the cost, and parent and kid lessons are a favorite. <a href="#privates">Send a quick request</a> or call or text 949-556-1178, and he will set it up around your schedule.</div></details>
       <details><summary>Where are you located?</summary><div class="answer">We are at 2428 Newport Blvd, Costa Mesa, CA 92627. <a href="https://www.google.com/maps/search/?api=1&query=Costa+Mesa+Jiu+Jitsu+2428+Newport+Blvd+Costa+Mesa+CA+92627" target="_blank" rel="noopener">Get directions</a>.</div></details>
     </div>
   </div>
@@ -1632,6 +1646,7 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
     var d = new URLSearchParams(new FormData(form)), t = adTags();
     d.set('form', label); d.set('page', location.pathname); d.set('referrer', document.referrer || '');
     Object.keys(t).forEach(function (k) { d.set(k, t[k]); });
+    if (d.get('people')) d.set('who', [d.get('who'), d.get('people')].filter(Boolean).join(', '));
     try { fetch(SHEET_BACKUP_URL, { method: 'POST', mode: 'no-cors', body: d, keepalive: true }); } catch (e) {}
   }
 

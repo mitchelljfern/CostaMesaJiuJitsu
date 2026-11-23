@@ -7,6 +7,7 @@
 - Programs: Little Ninjas (ages 4 to 6), Youth Jiu Jitsu (ages 7 to 12), adult Gi and NoGi Jiu Jitsu, Saturday Open Mat
 - Head coach: Tony Misitano, Brazilian Jiu Jitsu black belt. Black belt coaching every class.
 - First class: free for kids and adults
+- Private lessons: 1 to 4 people per lesson, groups split the cost. Parent and kid lessons and family lessons are popular.
 - Beginners Jiu Jitsu Program: 6 weeks for $99. Meets Tuesdays at 6:15 PM in the beginner-friendly NoGi class. Join any week; your 6 weeks start at your first class.
 - Memberships: Unlimited Adult $195/month, Unlimited Kids $195/month, Family Add-On $120/month, 10-Class Pack $260 one time
 - Booking, memberships and payments: the member portal at https://eldojo.ossdojo.com/member
@@ -24,7 +25,7 @@
 - [Kids and youth jiu jitsu]({SITE}/kids-jiu-jitsu/): Little Ninjas and Youth classes, ages 4 to 12
 - [Beginners program]({SITE}/beginners-classes/): 6 weeks for $99
 - [Pricing]({SITE}/pricing/): memberships and class packs
-- [Private lessons]({SITE}/private-lessons/): 1-on-1 lessons with a black belt coach
+- [Private lessons]({SITE}/private-lessons/): private lessons for 1 to 4 people with a black belt coach; groups split the cost (parent and kid, family, or training partners)
 - [Upcoming tournaments]({SITE}/upcoming-tournaments/): Southern California BJJ tournaments
 - [Coach Brady Fink]({SITE}/brady-fink/): coach bio
 

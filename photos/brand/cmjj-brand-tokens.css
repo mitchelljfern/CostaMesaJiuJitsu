@@ -1,0 +1,20 @@
+/* Costa Mesa Jiu Jitsu brand tokens (2026 octopus brand). Drop into any project. */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Graduate&family=Manrope:wght@500;600;700;800&family=Montserrat:wght@300;800&display=swap');
+:root {
+  --cmjj-abyss: #06090b;
+  --cmjj-deep: #013243;
+  --cmjj-cyan: #10d2e6;
+  --cmjj-glow: #68faff;
+  --cmjj-red: #f60a05;
+  --cmjj-sand: #f9d1a8;
+  --cmjj-white: #ffffff;
+  --cmjj-deep-cyan: #00778a;   /* cyan text on light backgrounds */
+  --cmjj-font-headline: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;   /* weight 800, uppercase */
+  --cmjj-font-varsity: 'Graduate', 'Rockwell', Georgia, serif;
+  --cmjj-font-body: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  --cmjj-font-numbers: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+}
+/* the sucker ring bullet */
+.cmjj-ring { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; background: radial-gradient(circle, var(--cmjj-deep) 0 30%, var(--cmjj-sand) 34% 100%); box-shadow: 0 0 0 1.5px rgba(0,0,0,0.55); }
+/* the belt bar divider */
+.cmjj-belt { height: 6px; width: 72px; border-radius: 1px; background: linear-gradient(90deg, var(--cmjj-abyss) 0 58%, var(--cmjj-red) 58% 80%, var(--cmjj-abyss) 80%); box-shadow: 0 0 0 1px var(--cmjj-cyan); }

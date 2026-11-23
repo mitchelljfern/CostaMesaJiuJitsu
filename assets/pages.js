@@ -40,7 +40,7 @@
   var root = document.documentElement, meta = $('meta[name="theme-color"]');
   function applyMode(mode) {
     if (mode === 'light') root.setAttribute('data-mode', 'light'); else root.removeAttribute('data-mode');
-    if (meta) meta.setAttribute('content', mode === 'light' ? '#f5f5f6' : '#111113');
+    if (meta) meta.setAttribute('content', mode === 'light' ? '#f2f6f7' : '#070c0e');
     $$('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'); });
     try { localStorage.setItem('cmjj-mode', mode); } catch (e) {}
   }
@@ -83,7 +83,7 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var bad = $$('[required]', form).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
-      bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
+      bad.forEach(function (el) { el.style.borderColor = '#ff2a24'; });
       if (bad.length) { bad[0].focus(); return; }
       var name = $('[name="name"]', form), phone = $('[name="phone"]', form);
       $$('[data-ok-name]', ok).forEach(function (s) { s.textContent = (name && name.value.trim().split(' ')[0]) || 'friend'; });

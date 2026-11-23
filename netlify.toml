@@ -5,7 +5,9 @@
 
 [build]
   publish = "."
-  command = ""
+  # Any Netlify project other than the real site (like the rebrand preview) gets a no-index header,
+  # so preview copies never show up in Google. The real site is unaffected.
+  command = "if [ \"$SITE_NAME\" != \"costa-mesa-jiu-jitsu\" ]; then printf '/*\\n  X-Robots-Tag: noindex, nofollow\\n' > _headers; fi"
 
   # Only two branches ever deploy:
   #   main     -> the live site (production)

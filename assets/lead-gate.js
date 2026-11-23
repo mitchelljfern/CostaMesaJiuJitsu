@@ -13,6 +13,7 @@
  * Settings: TURNSTILE_SITEKEY (public key from Cloudflare) and SHEET_URL (Apps Script web app URL).
  */
 (function () {
+  if (window.CMJJ_PREVIEW) return;   // rebrand preview: forms only show their thank-you screen
   var TURNSTILE_SITEKEY = '';
   var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyZ0EI_Cq5wvFBlQ_vXDkqYB94jN8FJrmQJZ3XB3CKEXAgRZ8D8JnHimtU3FHQbKXPN/exec';
   var HP = 'company_site';                 // hidden spam-trap field; people never see or fill it

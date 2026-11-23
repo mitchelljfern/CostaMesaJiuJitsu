@@ -50,7 +50,7 @@ function doPost(e) {
       if (ALERT_EMAIL) {
         MailApp.sendEmail({
           to: ALERT_EMAIL,
-          subject: 'New website lead: ' + (p.form || 'form') + ' from ' + (p.name || 'someone'),
+          subject: 'New CMJJ Site Lead: ' + (p.form || 'form') + ' from ' + (p.name || 'someone'),
           body: ['Form: ' + p.form, 'Name: ' + p.name, 'Phone: ' + p.phone, 'Email: ' + p.email,
                  'Who / age: ' + (p.age || p.who || ''), 'Class: ' + classOrItem, 'Page: ' + p.page,
                  'Source: ' + [p.utm_source, p.utm_campaign].filter(String).join(' / ')].join('\n')

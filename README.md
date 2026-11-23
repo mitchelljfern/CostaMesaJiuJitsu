@@ -1,15 +1,12 @@
 # Costa Mesa Jiu Jitsu website
 
-> **`rebrand` branch: the 2026 octopus brand (design preview, launching December).**
-> Preview: the separate Netlify project `cmjj-rebrand-preview` (never the live site).
-> Done so far: the landing page (`index.html`) and the brand kit (`/brand-kit/`). Inner pages still use the old brand.
-> - New logo files, icons, favicons, share image and the brand kit zip live in `photos/brand/`.
-> - Tentacles: cutouts from the logo art (`photos/brand/tentacle-*.webp`) placed behind card groups with `.has-grip` + `<span class="grip g-...">`. The card sits on top so the cut end stays hidden; `--gw` sets the width and `--sink` how much hides behind the card. Their motion is tied to scrolling: they slide up from behind the card as the section comes up the screen, then reach and curl while you scroll past (script at the bottom of `index.html`). With reduced motion or no script they just sit fully out.
-> - Preview switch: `window.CMJJ_PREVIEW=true` near the top of `index.html` turns off Google Analytics, HighLevel tracking and chat, the spam check and the lead sheet. **At launch delete that line and the `<meta name="robots" content="noindex">` line** in `index.html` (keep noindex on `/brand-kit/`).
-> - Member account link (header, menu, footer): https://eldojo.ossdojo.com/member
+> **2026 octopus brand (launched Nov 2026).** Costa Mesa Jiu Jitsu is its own gym at **2428 Newport Blvd, Costa Mesa, CA 92627** (no longer inside Double Ops).
+> - Booking, memberships, payments and the member account all go to the El Dojo portal: https://eldojo.ossdojo.com/member (`BOOK` in `tools/build.py`).
+> - Logo files, icons, favicons, share image and the brand kit zip live in `photos/brand/`; the brand guide is at `/brand-kit/` (noindex).
+> - Tentacles: cutouts from the logo art (`photos/brand/tentacle-*.webp`) placed behind card groups with `.has-grip` + `<span class="grip g-...">`. The card sits on top so the cut end stays hidden. On the home page they move with the scroll (script at the bottom of `index.html`).
 > - Share image source: `tools/brand/og-share.html` (screenshot it at 1200 × 630).
 
-The website for Costa Mesa Jiu Jitsu at Double Ops, 369 E 17th St, Suite 10, Costa Mesa, CA.
+The website for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Costa Mesa, CA 92627.
 
 | | URL | Updates when |
 |---|---|---|
@@ -103,12 +100,12 @@ A class time shows up in three spots. Update all three or they'll disagree:
 
 1. **The weekly schedule cards.** Search for `id="week"`. Each day is a `<div class="day" data-day="...">` with one link per class:
    ```html
-   <a class="cls t-adult" href="https://www.doptraining.com/book#" ...>
+   <a class="cls t-adult" href="https://eldojo.ossdojo.com/member" ...>
      <span class="cls-time">6:15 PM</span> ... Adult Jiu Jitsu ... NoGi
    </a>
    ```
    The color comes from the second class name:
-   `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult and Beginners), `t-strike` amber (BOXHIIT), `t-open` green (Open Mat).
+   `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult and Beginners), `t-open` green (Open Mat).
 2. **The "Next Class" box in the hero.** Search for `var SCHED`. One line per class:
    `[day, hour, minute, 'Name', 'Detail']`. Day: 0 is Sunday, 1 Monday, ... 6 Saturday. Hours are 24-hour (6:15 PM is `18,15`).
 3. **The free class form's class list.** Search for `id="cls"`. Each option is one class time. The same list is also in `free-trial/index.html`, so update both.
@@ -117,7 +114,7 @@ The program cards (Little Ninjas, Youth, Adult) also list their days and times. 
 
 ### Prices and purchase links
 
-Search for `id="pricing"`. Each membership card has its price and a **Sign up** link that goes straight to that plan's checkout on doptraining.com. The Beginners Jiu Jitsu Program card (search `id="beginners"`) links to its Stripe checkout.
+Search for `id="pricing"`. Each membership card has its price and a **Sign up** link that goes to the El Dojo member portal. The Beginners Jiu Jitsu Program card (search `id="beginners"`) links to its Stripe checkout.
 
 ### Photos
 

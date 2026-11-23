@@ -14,8 +14,7 @@ TODAY = '2026-11-03'
 GTAG = 'GT-5TGJHX46'
 PHONE, PHONE_TEL, EMAIL = '949-556-1178', '+19495561178', 'info@costamesajiujitsu.com'
 STRIPE_BEGINNERS = 'https://buy.stripe.com/14AeVc7cR1OzcwNcEU3Nm00'
-PLAN = 'https://www.doptraining.com/book#/pricing/buy/r/823/loc/859?plan_type=plan&amp;id='
-ALL_PLANS = 'https://www.doptraining.com/book#/pricing/r/823/loc/859?group=0'
+BOOK = 'https://eldojo.ossdojo.com/member'   # El Dojo member portal: booking, memberships, payments
 
 index = open(os.path.join(REPO, 'index.html'), encoding='utf-8').read()
 
@@ -139,7 +138,7 @@ pages_js = r'''(function () {
   var root = document.documentElement, meta = $('meta[name="theme-color"]');
   function applyMode(mode) {
     if (mode === 'light') root.setAttribute('data-mode', 'light'); else root.removeAttribute('data-mode');
-    if (meta) meta.setAttribute('content', mode === 'light' ? '#f5f5f6' : '#111113');
+    if (meta) meta.setAttribute('content', mode === 'light' ? '#f2f6f7' : '#070c0e');
     $$('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'); });
     try { localStorage.setItem('cmjj-mode', mode); } catch (e) {}
   }
@@ -182,7 +181,7 @@ pages_js = r'''(function () {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var bad = $$('[required]', form).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
-      bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
+      bad.forEach(function (el) { el.style.borderColor = '#ff2a24'; });
       if (bad.length) { bad[0].focus(); return; }
       var name = $('[name="name"]', form), phone = $('[name="phone"]', form);
       $$('[data-ok-name]', ok).forEach(function (s) { s.textContent = (name && name.value.trim().split(' ')[0]) || 'friend'; });
@@ -239,6 +238,7 @@ ICONS = {
 header_socials = grab('<div class="header-socials">', '</div>')
 theme_btn = grab('<button class="icon-btn theme-btn" type="button" data-theme-toggle', '</button>')
 menu_socials = grab('<div class="menu-socials">', '</div>')
+account_btn = grab('<a class="icon-btn account-btn"', '</a>')
 cta_svgs = re.findall(r'<a class="tab[^"]*" href="#[^"]+">(<svg.*?</svg>)', grab('<nav class="cta-bar"', '</nav>'), re.S)
 
 NAV = [('Programs', '/#programs'), ('Beginners', '/beginners-classes/'), ('Schedule', '/#schedule'),
@@ -255,8 +255,8 @@ def header(active):
     return f'''<header class="header on-page">
   <div class="wrap">
     <a class="brand" href="/">
-      <img src="/photos/cmjj-badge-sm.png" width="90" height="90" alt="">
-      <span class="brand-name"><b>Costa Mesa</b><span>Jiu Jitsu</span></span>
+      <img src="/photos/brand/cmjj-logo-240.webp" srcset="/photos/brand/cmjj-logo-240.webp 240w, /photos/brand/cmjj-logo-360.webp 360w, /photos/brand/cmjj-logo-520.webp 520w" sizes="180px" width="240" height="164" alt="">
+      <span class="brand-name sr-only"><b>Costa Mesa</b><span>Jiu Jitsu</span></span>
     </a>
     <nav class="nav" aria-label="Main">
 {links}
@@ -264,6 +264,7 @@ def header(active):
     <div class="header-tools">
       {header_socials}
       {theme_btn}
+      {account_btn}
       <a class="btn btn-primary header-cta" href="/free-trial/">Try a free class</a>
       <button class="menu-btn" type="button" id="menuOpen" aria-expanded="false" aria-controls="menu">
       Menu
@@ -282,6 +283,7 @@ def header(active):
     </div>
   </div>
   <ul class="menu-list">
+    <li><a href="https://eldojo.ossdojo.com/member" target="_blank" rel="noopener">Member account <span>→</span></a></li>
     <li><a href="/">Home <span>→</span></a></li>
     <li><a href="/#programs">Programs <span>→</span></a></li>
     <li><a href="/#schedule">Schedule <span>→</span></a></li>
@@ -303,9 +305,9 @@ def header(active):
 </div>
 '''
 
-FOOTER_LINKS = [('Home', '/'), ('Free trial', '/free-trial/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
+FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
                 ('Kids jiu jitsu', '/kids-jiu-jitsu/'), ('Private lessons', '/private-lessons/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
-                ('FAQ', '/#faq'), ('Double Ops', 'https://www.doptraining.com'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
+                ('FAQ', '/#faq'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
 
 def footer_links_html():
     out = []
@@ -319,14 +321,12 @@ def footer(active_tab=None):
     return f'''<footer class="footer">
   <div class="wrap">
     <div class="footer-brand">
-      <img src="/photos/cmjj-badge-sm.png" width="56" height="56" alt="Costa Mesa Jiu Jitsu" loading="lazy">
-      <span class="sep" aria-hidden="true"></span>
-      <img class="only-dark" src="/photos/dop-wordmark-white.png" width="150" height="17" alt="Double Ops" loading="lazy"><img class="only-light" src="/photos/dop-wordmark-black.png" width="150" height="17" alt="Double Ops" loading="lazy">
+      <img src="/photos/brand/cmjj-logo-360.webp" width="360" height="246" alt="Costa Mesa Jiu Jitsu" loading="lazy">
     </div>
     <div class="footer-links">
       {footer_links_html()}
     </div>
-    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu at Double Ops. 369 E 17th St, Suite 10, Costa Mesa, CA 92627.</p>
+    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu. 2428 Newport Blvd, Costa Mesa, CA 92627.</p>
   </div>
 </footer>
 
@@ -337,8 +337,8 @@ def footer(active_tab=None):
 
 ORG = {"@type": "SportsActivityLocation", "@id": SITE + "/#gym", "name": "Costa Mesa Jiu Jitsu",
        "url": SITE + "/", "telephone": "+1-949-556-1178", "email": EMAIL,
-       "image": SHARE + "/photos/og-share.jpg",
-       "address": {"@type": "PostalAddress", "streetAddress": "369 E 17th St, Suite 10", "addressLocality": "Costa Mesa",
+       "image": SHARE + "/photos/brand/og-share-2026.jpg", "logo": SITE + "/photos/brand/cmjj-logo-1600.png",
+       "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd", "addressLocality": "Costa Mesa",
                    "addressRegion": "CA", "postalCode": "92627", "addressCountry": "US"}}
 
 def crumbs_ld(name, path):
@@ -350,7 +350,7 @@ def faq_ld(qas):
     return {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q,
             "acceptedAnswer": {"@type": "Answer", "text": re.sub('<[^>]+>', '', a)}} for q, a in qas]}
 
-def head(title, desc, path, og_title=None, og_desc=None, image='/photos/og-share.jpg', ld=None, og_type='website', noindex=False):
+def head(title, desc, path, og_title=None, og_desc=None, image='/photos/brand/og-share-2026.jpg', ld=None, og_type='website', noindex=False):
     og_title = og_title or title; og_desc = og_desc or desc
     e = html.escape
     graph = {"@context": "https://schema.org", "@graph": ld or []}
@@ -364,10 +364,11 @@ def head(title, desc, path, og_title=None, og_desc=None, image='/photos/og-share
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{SITE}{path}">
 {'<meta name="robots" content="noindex, follow">' if noindex else '<meta name="robots" content="index, follow, max-image-preview:large">'}
-<meta name="theme-color" content="#111113">
+<meta name="theme-color" content="#070c0e">
 <meta name="color-scheme" content="dark">
-<link rel="icon" href="/photos/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="/photos/apple-touch-icon.png">
+<link rel="icon" href="/photos/brand/favicon.ico" sizes="any">
+<link rel="icon" href="/photos/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/photos/brand/apple-touch-icon.png">
 
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Costa Mesa Jiu Jitsu">
@@ -460,22 +461,22 @@ ft_faq = [
     ("Do I need any experience?", "No. Most of our students started with zero experience, and the coaches walk you through everything. If you want a slower on-ramp, the <a href=\"/beginners-classes/\">beginners jiu jitsu program</a> is built exactly for that."),
     ("What should I wear?", "Athletic clothes with no zippers, buttons or pockets. A rash guard and shorts work great. Bring a water bottle."),
     ("How old do kids need to be?", "Little Ninjas starts at age 4. Youth Jiu Jitsu is ages 7 to 12. Teens 13 and up train in the adult classes."),
-    ("Where are you?", "Inside Double Ops at 369 E 17th St, Suite 10, Costa Mesa, in the Triangle Square area, with parking right outside."),
+    ("Where are you?", "2428 Newport Blvd, Costa Mesa, CA 92627."),
 ]
 ft_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Free trial')}
-      <p class="kicker">Free trial<span class="tiny-star" aria-hidden="true">★</span>Costa Mesa, CA</p>
+      <p class="kicker">Free trial<span class="tiny-star" aria-hidden="true"></span>Costa Mesa, CA</p>
       <h1 class="display h1">Your first class is <em>free</em></h1>
       <p class="lead">Whether you're a beginner, an experienced practitioner, or someone seeking a fun way to stay active, our gym offers options for everyone.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#book">Book my free class</a>
         <a class="btn btn-outline" href="/#schedule">See the schedule</a>
       </div>
-      <p class="kicker">No card<span class="tiny-star" aria-hidden="true">★</span>No contract<span class="tiny-star" aria-hidden="true">★</span>Kids and adults</p>
+      <p class="kicker">No card<span class="tiny-star" aria-hidden="true"></span>No contract<span class="tiny-star" aria-hidden="true"></span>Kids and adults</p>
     </div>
-    <div class="page-hero-media"><img src="/photos/hero-tall.webp" width="900" height="1125" alt="Adults training NoGi jiu jitsu at Double Ops in Costa Mesa" fetchpriority="high" decoding="async"></div>
+    <div class="page-hero-media"><img src="/photos/hero-tall.webp" width="900" height="1125" alt="Adults training NoGi jiu jitsu at Costa Mesa Jiu Jitsu" fetchpriority="high" decoding="async"></div>
   </div>
 </section>
 
@@ -514,7 +515,7 @@ ft_body = f'''<section class="page-hero">
 </section>'''
 w('free-trial/index.html', page(
     'Free Jiu Jitsu Class in Costa Mesa | Costa Mesa Jiu Jitsu',
-    'Try your first jiu jitsu class free at Costa Mesa Jiu Jitsu inside Double Ops. Kids from age 4 and adults, Gi and NoGi. No experience, no card, no contract.',
+    'Try your first jiu jitsu class free at Costa Mesa Jiu Jitsu on Newport Blvd. Kids from age 4 and adults, Gi and NoGi. No experience, no card, no contract.',
     '/free-trial/', ft_body, active_tab='/free-trial/',
     og_title='Your First Jiu Jitsu Class Is Free | Costa Mesa Jiu Jitsu',
     ld=[ORG, crumbs_ld('Free trial', '/free-trial/'), faq_ld(ft_faq)]))
@@ -535,7 +536,7 @@ bg_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Beginners program')}
-      <p class="kicker">Tuesdays at 6:15 PM<span class="tiny-star" aria-hidden="true">★</span>Join any week</p>
+      <p class="kicker">Tuesdays at 6:15 PM<span class="tiny-star" aria-hidden="true"></span>Join any week</p>
       <h1 class="display h1">Beginners <em>Jiu Jitsu</em> Program</h1>
       <div class="price-tag"><span class="display">$99</span><small>for 6 weeks</small></div>
       <p class="lead">Build a real foundation with step-by-step basics and a black belt coach. Join any week: your 6 weeks start at your first class.</p>
@@ -543,7 +544,7 @@ bg_body = f'''<section class="page-hero">
         <a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Reserve my spot</a>
         <a class="btn btn-outline" href="#faq">Read the FAQ</a>
       </div>
-      <p class="kicker">No sign-up fee<span class="tiny-star" aria-hidden="true">★</span>No contract<span class="tiny-star" aria-hidden="true">★</span>No auto-renew</p>
+      <p class="kicker">No sign-up fee<span class="tiny-star" aria-hidden="true"></span>No contract<span class="tiny-star" aria-hidden="true"></span>No auto-renew</p>
     </div>
     <div class="page-hero-media"><img src="/photos/beginners-tall.webp" width="900" height="1200" alt="Coach demonstrating a jiu jitsu control position to beginners" fetchpriority="high" decoding="async"></div>
   </div>
@@ -561,7 +562,7 @@ bg_body = f'''<section class="page-hero">
         <p class="kicker">The details</p>
         <h2 class="display h3">When, where and what to wear</h2>
         <div class="times"><div><b>Tuesday</b><span>6:15 PM</span></div></div>
-        <p>You train in our beginner-friendly Tuesday NoGi class inside Double Ops, 369 E 17th St, Suite 10, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
+        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
         <p><b style="color:var(--fg)">How it works:</b> it's an ongoing program, so you can join any week. Your 6 weeks start at your first class. It's not a class pack, so classes can't be skipped or saved for later.</p>
         <p style="margin:0;color:var(--fg)"><b>Please wear proper NoGi attire:</b></p>
         {checks(["Rash guard", "Athletic shorts with no zippers or pockets", "Optional: spats", "Bring a water bottle"])}
@@ -582,7 +583,7 @@ bg_body = f'''<section class="page-hero">
 
 <section class="section">
   <div class="wrap cta-band">
-    <p class="kicker">6 weeks<span class="tiny-star" aria-hidden="true">★</span>$99<span class="tiny-star" aria-hidden="true">★</span>Join any week</p>
+    <p class="kicker">6 weeks<span class="tiny-star" aria-hidden="true"></span>$99<span class="tiny-star" aria-hidden="true"></span>Join any week</p>
     <h2 class="display h2">Start from zero, the right way</h2>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Reserve my spot</a>
@@ -601,8 +602,8 @@ w('beginners-classes/index.html', page(
          "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "Onsite", "location": {"@id": SITE + "/#gym"}, "courseSchedule": {"@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Tuesday", "startTime": "18:15", "duration": "PT1H", "repeatCount": 6}}}]))
 
 # ================================================================ /pricing/
-pricing_sec = grab('<div class="plans">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
-pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"')
+pricing_sec = grab('<div class="plans has-grip">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
+pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"').replace('src="photos/', 'src="/photos/')
 pr_faq = [
     ("Are there contracts?", "No long-term contracts. Memberships are monthly, the 10-class pack is a one-time purchase, and the beginners program is a one-time $99 for 6 weeks."),
     ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
@@ -614,7 +615,7 @@ pr_body = f'''<section class="page-hero">
   <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
     <div class="page-hero-copy">
       {crumbs('Pricing')}
-      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true">★</span>No long-term contracts</p>
+      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true"></span>No long-term contracts</p>
       <h1 class="display h1">Simple <em>pricing</em></h1>
       <p class="lead">Costa Mesa Jiu Jitsu membership options. Train unlimited, add a family member, or grab a class pack. Your first class is always free.</p>
     </div>
@@ -640,7 +641,7 @@ pr_body = f'''<section class="page-hero">
         <div class="hero-actions"><a class="btn btn-primary" href="/private-lessons/">Request a private lesson</a></div>
       </div>
     </div>
-    <p class="plans-all"><a class="link" href="{ALL_PLANS}" target="_blank" rel="noopener">See all memberships, including Double Ops classes →</a></p>
+    <p class="plans-all"><a class="link" href="{BOOK}" target="_blank" rel="noopener">See all memberships and book classes →</a></p>
   </div>
 </section>
 
@@ -690,7 +691,7 @@ BRADY_CTA = r'''<section class="section form-band">
   <div class="wrap cta-band">
     <p class="kicker">Train at Costa Mesa Jiu Jitsu</p>
     <h2 class="display h2">Your first class is free</h2>
-    <p class="lead" style="margin-inline:auto">Kids and adults, Gi and NoGi, with black belt coaching inside Double Ops in Costa Mesa.</p>
+    <p class="lead" style="margin-inline:auto">Kids and adults, Gi and NoGi, with black belt coaching in Costa Mesa.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="/free-trial/">Book my free class</a>
       <a class="btn btn-outline" href="/#schedule">See the schedule</a>
@@ -701,13 +702,13 @@ pl_faq = [
     ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing and options before anything is booked."),
     ("Who are private lessons for?", "Kids and adults at any level, from nervous first-timers who want a head start to competitors fixing a specific position."),
     ("Can I bring a friend or family member?", "Yes. Lessons can be solo, with a friend, or as a family."),
-    ("Where are lessons held?", "On the mats inside Double Ops at 369 E 17th St, Suite 10, Costa Mesa."),
+    ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Costa Mesa."),
 ]
 pl_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Private lessons')}
-      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true">★</span>Kids and adults</p>
+      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true"></span>Kids and adults</p>
       <h1 class="display h1">Train <em>1-on-1</em></h1>
       <p class="lead">The fastest way to get better. Tell us a little about what you want to work on, and Coach Tony will reach out to find a time and walk you through options.</p>
       <div class="hero-actions">
@@ -770,7 +771,7 @@ bf_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Coach Brady Fink')}
-      <p class="kicker">Brazilian Jiu Jitsu black belt<span class="tiny-star" aria-hidden="true">★</span>MMA coach</p>
+      <p class="kicker">Brazilian Jiu Jitsu black belt<span class="tiny-star" aria-hidden="true"></span>MMA coach</p>
       <h1 class="display h1">Coach <em>Brady Fink</em></h1>
       <p class="lead">Brady Fink is a Brazilian Jiu Jitsu Black Belt &amp; Martial Artist with over two decades of experience in competing in Brazilian Jiu Jitsu, MMA, and coaching at the highest levels of the sport.</p>
       <div class="hero-actions">
@@ -837,14 +838,14 @@ kids_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Kids jiu jitsu')}
-      <p class="kicker">Ages 4 to 12<span class="tiny-star" aria-hidden="true">★</span>Costa Mesa, CA</p>
+      <p class="kicker">Ages 4 to 12<span class="tiny-star" aria-hidden="true"></span>Costa Mesa, CA</p>
       <h1 class="display h1">Kids <em>Jiu Jitsu</em></h1>
       <p class="lead">Confidence that lasts longer than a trophy. Our kids program is built around three things: staying safe, staying calm, and treating people well.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#book">Book a free kids class</a>
         <a class="btn btn-outline" href="#programs">See class times</a>
       </div>
-      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true">★</span>No contracts<span class="tiny-star" aria-hidden="true">★</span>Parents welcome to watch</p>
+      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true"></span>No contracts<span class="tiny-star" aria-hidden="true"></span>Parents welcome to watch</p>
     </div>
     <div class="page-hero-media"><img src="/photos/g-highfive.webp" width="800" height="800" alt="Two kids in white gis high-fiving at Costa Mesa Jiu Jitsu" fetchpriority="high" decoding="async"></div>
   </div>
@@ -876,7 +877,7 @@ kids_body = f'''<section class="page-hero">
         <div class="plan-name">Unlimited Kids</div>
         <div class="plan-price"><b>$195</b><span>/ month</span></div>
         <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, up to four days a week.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="{PLAN}35614" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
+        <div class="hero-actions"><a class="btn btn-primary" href="{BOOK}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
       <div class="panel reveal">
         <span class="plan-for">Families</span>
@@ -938,11 +939,12 @@ if os.path.isdir(OLD):   # legal pages are copied word for word from the old sit
     pp_block = legal_block('privacy_policy.html', '<h3 class="wp-block-heading"', '949-556-1178</a></p>')
     _h = pp_block.index('<h3 class="lg">'); _e = pp_block.index('</h3>', _h)
     pp_block = pp_block[:_h] + '<h1 class="lg">' + pp_block[_h + len('<h3 class="lg">'):_e] + '</h1>' + pp_block[_e + 5:]   # first heading is the page h1; wording unchanged
+    pp_block = re.sub(r'369 E 17th St,? Suite 10', '2428 Newport Blvd', pp_block)   # Nov 2026 move; the only change to the policy text
     tos_block = legal_block('terms_of_service.html', '<h1>SMS Terms of Service</h1>', 'reply with the keyword <strong>HELP</strong> for assistance.</p>')
     tos_block = tos_block.replace('<h1>', '<h1 class="tos-title">')
     for fn, blk, path, title, desc, name in [
         ('privacy-policy/index.html', pp_block, '/privacy-policy/', 'Privacy Policy | Costa Mesa Jiu Jitsu',
-         'Privacy Policy for Costa Mesa Jiu Jitsu at Double Ops, 369 E 17th St Suite 10, Costa Mesa, CA 92627.', 'Privacy Policy'),
+         'Privacy Policy for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Costa Mesa, CA 92627.', 'Privacy Policy'),
         ('terms-of-service/index.html', tos_block, '/terms-of-service/', 'SMS Terms of Service | Costa Mesa Jiu Jitsu',
          'SMS Terms of Service for the Costa Mesa Jiu Jitsu text messaging program: message frequency, rates, opting out with STOP and help with HELP.', 'SMS Terms of Service')]:
         body = f'<div class="legal-wrap"><div class="wrap"><article class="legal">\n{blk}\n</article></div></div>'
@@ -1028,7 +1030,7 @@ w('404.html', '''<!doctype html>
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=/">
 <script>location.replace('/');</script>
-<style>html,body{margin:0;height:100%;background:#111113;color:#fff;font-family:Manrope,'Helvetica Neue',Arial,sans-serif}body{display:grid;place-items:center;text-align:center}a{color:#f0544f}</style>
+<style>html,body{margin:0;height:100%;background:#070c0e;color:#fff;font-family:Manrope,'Helvetica Neue',Arial,sans-serif}body{display:grid;place-items:center;text-align:center}a{color:#f0544f}</style>
 </head>
 <body><p>Taking you to <a href="/">Costa Mesa Jiu Jitsu</a>...</p></body>
 </html>

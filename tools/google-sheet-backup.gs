@@ -284,6 +284,6 @@ function testWaiverEmail() {
   const out = handleWaiver({ kind: 'waiver', mode: 'both', name: 'Mitchell Testing', dob: '1990-01-01', email: 'mitchell@socialupgrades.com', phone: '9495550123',
     relationship: 'Parent', minor_1_name: 'Kid Testing', minor_1_dob: '2016-05-05', minor_1_sig: 'Kid Testing', emergency_name: 'Test Contact', emergency_phone: '9495550199',
     emergency_relationship: 'Spouse', medical: '', init_risk: 'MT', init_release: 'MT', init_indemnity: 'MT', init_info: 'MT', init_minors: 'MT', media: 'no',
-    typed_name: 'Mitchell Testing', version: '2026-11-22', host: 'costamesajiujitsu.com', page: '/waiver/', ms: '120000' });
+    typed_name: 'Mitchell Testing', version: '2026-11-22', host: 'staging--costa-mesa-jiu-jitsu.netlify.app', page: '/waiver/', ms: '120000' });
   Logger.log(out.getContent());
 }

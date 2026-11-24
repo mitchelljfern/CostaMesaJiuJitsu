@@ -1,12 +1,12 @@
 # Costa Mesa Jiu Jitsu website
 
-> **2026 octopus brand (launched Nov 2026).** Costa Mesa Jiu Jitsu is its own gym at **2428 Newport Blvd, Costa Mesa, CA 92627** (no longer inside Double Ops).
+> **2026 octopus brand (launched Nov 2026).** Costa Mesa Jiu Jitsu is its own gym at **2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627** (no longer inside Double Ops).
 > - Booking, memberships, payments and the member account all go to the El Dojo portal: https://eldojo.ossdojo.com/member (`BOOK` in `tools/build.py`).
 > - Logo files, icons, favicons, share image and the brand kit zip live in `photos/brand/`; the brand guide is at `/brand-kit/` (noindex).
 > - Tentacles: cutouts from the logo art (`photos/brand/tentacle-*.webp`) placed behind card groups with `.has-grip` + `<span class="grip g-...">`. The card sits on top so the cut end stays hidden. On the home page they move with the scroll (script at the bottom of `index.html`).
 > - Share image source: `tools/brand/og-share.html` (screenshot it at 1200 × 630).
 
-The website for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Costa Mesa, CA 92627.
+The website for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627.
 
 | | URL | Updates when |
 |---|---|---|

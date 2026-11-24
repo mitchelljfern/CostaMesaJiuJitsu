@@ -326,7 +326,7 @@ def footer(active_tab=None):
     <div class="footer-links">
       {footer_links_html()}
     </div>
-    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu. 2428 Newport Blvd, Costa Mesa, CA 92627.</p>
+    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu. 2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627.</p>
   </div>
 </footer>
 
@@ -338,7 +338,7 @@ def footer(active_tab=None):
 ORG = {"@type": "SportsActivityLocation", "@id": SITE + "/#gym", "name": "Costa Mesa Jiu Jitsu",
        "url": SITE + "/", "telephone": "+1-949-556-1178", "email": EMAIL,
        "image": SHARE + "/photos/brand/og-share-2026.jpg", "logo": SITE + "/photos/brand/cmjj-logo-1600.png",
-       "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd", "addressLocality": "Costa Mesa",
+       "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd, Unit 7", "addressLocality": "Costa Mesa",
                    "addressRegion": "CA", "postalCode": "92627", "addressCountry": "US"}}
 
 def crumbs_ld(name, path):
@@ -462,7 +462,7 @@ ft_faq = [
     ("What should I wear?", "Athletic clothes with no zippers, buttons or pockets. A rash guard and shorts work great. Bring a water bottle."),
     ("How old do kids need to be?", "Little Ninjas starts at age 4. Youth Jiu Jitsu is ages 7 to 12. Teens 13 and up train in the adult classes."),
     ("Do I need to sign a waiver?", "Yes. Every student needs a signed waiver before training, and parents or guardians sign for anyone under 18. It takes about 3 minutes <a href=\"/waiver/\">online</a>."),
-    ("Where are you?", "2428 Newport Blvd, Costa Mesa, CA 92627."),
+    ("Where are you?", "2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627."),
 ]
 ft_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -563,7 +563,7 @@ bg_body = f'''<section class="page-hero">
         <p class="kicker">The details</p>
         <h2 class="display h3">When, where and what to wear</h2>
         <div class="times"><div><b>Tuesday</b><span>6:15 PM</span></div></div>
-        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
+        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Unit 7, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
         <p><b style="color:var(--fg)">How it works:</b> it's an ongoing program, so you can join any week. Your 6 weeks start at your first class. It's not a class pack, so classes can't be skipped or saved for later.</p>
         <p style="margin:0;color:var(--fg)"><b>Please wear proper NoGi attire:</b></p>
         {checks(["Rash guard", "Athletic shorts with no zippers or pockets", "Optional: spats", "Bring a water bottle"])}
@@ -703,7 +703,7 @@ pl_faq = [
     ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing before anything is booked. Bring up to 3 more people and you split the cost."),
     ("Who are private lessons for?", "Kids and adults at any level, from nervous first-timers who want a head start to competitors fixing a specific position."),
     ("Can I bring a friend or family member?", "Yes. Private lessons are for 1 to 4 people, and groups split the cost. Parent and kid lessons are popular, and so are family lessons where the parents train along with the kids."),
-    ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Costa Mesa."),
+    ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Unit 7, Costa Mesa."),
 ]
 pl_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -967,7 +967,7 @@ w('waiver/terms/' + WAIVER_VERSION + '.html',
 # registration. Do not reword the text messaging lines.
 for fn, src, path, title, desc, name in [
     ('privacy-policy/index.html', 'legal-privacy.html', '/privacy-policy/', 'Privacy Policy | Costa Mesa Jiu Jitsu',
-     'Privacy Policy for Costa Mesa Jiu Jitsu, including the text messaging program. 2428 Newport Blvd, Costa Mesa, CA 92627.', 'Privacy Policy'),
+     'Privacy Policy for Costa Mesa Jiu Jitsu, including the text messaging program. 2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627.', 'Privacy Policy'),
     ('terms-of-service/index.html', 'legal-sms-terms.html', '/terms-of-service/', 'SMS Terms | Costa Mesa Jiu Jitsu',
      'SMS Terms for the Costa Mesa Jiu Jitsu text messaging program: what we text, message frequency, rates, opting out with STOP and help with HELP.', 'SMS Terms')]:
     blk = open(os.path.join(REPO, 'tools', src), encoding='utf-8').read().strip()

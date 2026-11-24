@@ -113,7 +113,7 @@
 
   function invalid(f) {
     var bad = Array.prototype.filter.call(f.querySelectorAll('[required]'), function (el) {
-      return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
+      return (el.type === 'checkbox' ? !el.checked : !el.value) || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
     });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) bad[0].focus();

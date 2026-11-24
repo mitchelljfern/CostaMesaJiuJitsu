@@ -10,7 +10,7 @@ The website for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Costa Mesa, CA 92627.
 
 | | URL | Updates when |
 |---|---|---|
-| **Live site** | https://costa-mesa-jiu-jitsu.netlify.app | Mitchell merges a pull request into `main` |
+| **Live site** | https://costamesajiujitsu.com | Mitchell merges a pull request into `main` |
 | **Staging site** | https://staging--costa-mesa-jiu-jitsu.netlify.app | Anyone merges or pushes to `staging` |
 
 > **The one rule:** never push to `main`. `main` is the live site and is locked. Do your work on `staging`. Mitchell reviews it there and decides when it goes live.
@@ -71,8 +71,8 @@ pricing/                 /pricing/ memberships page
 private-lessons/         /private-lessons/ request page
 brady-fink/              /brady-fink/ Coach Brady Fink bio
 upcoming-tournaments/    /upcoming-tournaments/ SoCal tournament cards (built from tools/tournaments.json)
-privacy-policy/          privacy policy (wording copied exactly from the old site, do not edit)
-terms-of-service/        SMS terms of service (wording copied exactly from the old site, do not edit)
+privacy-policy/          privacy policy (built from tools/legal-privacy.html)
+terms-of-service/        SMS terms (built from tools/legal-sms-terms.html)
 assets/site.css          shared styles for the inner pages (a copy of the styles in index.html plus inner-page styles)
 assets/pages.js          shared script for the inner pages (menu, theme, FAQ, forms, chat widget)
 _redirects               every old WordPress URL forwarded to its new page or the home page (no 404s)
@@ -168,6 +168,8 @@ Past events hide themselves automatically, and each card's price moves to the ne
 ---
 
 ## Forms and leads
+
+**Text message consent (carrier requirement).** Every lead form that asks for a phone number has an unchecked, required consent checkbox right under the phone field (`<label class="consent">`, field name `sms_consent`). The phone carriers review this wording, plus `/privacy-policy/` and `/terms-of-service/`, to approve the gym's texting number. Do not pre-check the box, make it optional, or reword it. The policy wording lives in `tools/legal-privacy.html` and `tools/legal-sms-terms.html` and matches the El Dojo portal pages (eldojo.ossdojo.com/privacy and /sms-terms); edit those files and rebuild, and keep the text messaging lines word for word.
 
 Every form (free class, kids class, private lessons, rashguard backorder) is captured two ways:
 

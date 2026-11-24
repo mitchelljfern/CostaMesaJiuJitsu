@@ -169,7 +169,7 @@ Past events hide themselves automatically, and each card's price moves to the ne
 
 ## Forms and leads
 
-**Text message consent (carrier requirement).** Every lead form that asks for a phone number has an unchecked, required consent checkbox right under the phone field (`<label class="consent">`, field name `sms_consent`). The phone carriers review this wording, plus `/privacy-policy/` and `/terms-of-service/`, to approve the gym's texting number. Do not pre-check the box, make it optional, or reword it. The policy wording lives in `tools/legal-privacy.html` and `tools/legal-sms-terms.html` and matches the El Dojo portal pages (eldojo.ossdojo.com/privacy and /sms-terms); edit those files and rebuild, and keep the text messaging lines word for word.
+**Text message consent (carrier requirement).** Every lead form that asks for a phone number has an unchecked, required consent checkbox at the bottom of the form, just above the submit button (`<label class="consent">`, field name `sms_consent`). The phone carriers review this wording, plus `/privacy-policy/` and `/terms-of-service/`, to approve the gym's texting number. Do not pre-check the box, make it optional, or reword it. The policy wording lives in `tools/legal-privacy.html` and `tools/legal-sms-terms.html` and matches the El Dojo portal pages (eldojo.ossdojo.com/privacy and /sms-terms); edit those files and rebuild, and keep the text messaging lines word for word.
 
 Every form (free class, kids class, private lessons, rashguard backorder) is captured two ways:
 

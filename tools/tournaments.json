@@ -1,5 +1,5 @@
 {
- "note": "More 2027 events, like the IBJJF Orange County and San Diego opens and NABJJF's spring events, haven't been announced yet. We'll add them as they're posted.",
+ "note": "IBJJF has only posted its calendar through March 2027. Worlds, Masters Worlds, Jiu-Jitsu CON and the summer and fall opens in Los Angeles, Orange County and San Diego will be added as they're announced, along with NABJJF's spring events, the JJWL 2027 season and any UFC BJJ Open stops near Southern California.",
  "events": [
   {
    "org": "JJWL",
@@ -156,9 +156,14 @@
    "levels": "Youth Gi by belt (white, gray, yellow, orange, green, blue). Youth NoGi by level: beginner, intermediate, advanced. Adults white to black belt.",
    "prices": [
     {
-     "label": "Presale (free rash guard until Nov 7)",
+     "label": "Presale",
      "amount": "$119",
      "until": "2026-11-05"
+    },
+    {
+     "label": "Early",
+     "amount": "$129",
+     "until": "2026-11-24"
     },
     {
      "label": "Regular",
@@ -482,7 +487,8 @@
    ],
    "event_url": "https://www.nagafighter.com/event/san-diego-grappling-bjj-championship-san-diego-ca-7/",
    "register_url": "https://naga.smoothcomp.com/en/event/34870",
-   "register_label": "SmoothComp"
+   "register_label": "SmoothComp",
+   "checked": "2026-11-22"
   },
   {
    "org": "NAGA",
@@ -490,7 +496,7 @@
    "org_url": "https://www.nagafighter.com",
    "name": "Los Angeles Grappling & BJJ Championship",
    "start": "2027-02-20",
-   "end": "2027-02-20",
+   "end": "2027-02-21",
    "city": "Los Angeles, CA",
    "venue": "",
    "address": "",
@@ -505,7 +511,7 @@
    "divisions": "Not posted yet",
    "levels": "",
    "prices": [],
-   "price_note": "Not published yet. This date is from NAGA's 2027 calendar, which notes dates can change.",
+   "price_note": "Not published yet. These dates are from NAGA's 2027 calendar, which notes dates can change.",
    "deadlines": [],
    "notes": [
     "Venue not announced yet. NAGA's recent LA events were at the Los Angeles Convention Center."
@@ -538,16 +544,17 @@
    "levels": "All belts, white to black. Kids white belts in their first three NABJJF events compete in a Debut Division.",
    "prices": [
     {
-     "label": "Early access, first 100 adults (kids spots full)",
+     "label": "Early access",
      "amount": "$49.99",
      "member": "$29.99",
-     "until": "2026-11-10"
+     "until": "2026-11-10",
+     "sold_out": true
     },
     {
      "label": "Early",
      "amount": "$79.99",
      "member": "$49.99",
-     "until": "2026-12-02"
+     "until": "2026-12-03"
     },
     {
      "label": "Early",
@@ -574,7 +581,7 @@
      "until": "2027-02-17"
     }
    ],
-   "price_note": "Prices shown are non-member. General and kids registration opens Nov 11. Each additional entry, like Gi plus NoGi, is 30% off.",
+   "price_note": "Prices shown are non-member. Member prices apply only when you register on nabjjf.com. Each additional entry, like Gi plus NoGi, is 30% off.",
    "deadlines": [
     {
      "label": "Registration closes",
@@ -650,7 +657,8 @@
    ],
    "event_url": "https://adcc-official.com/pages/adcc-open-united-states",
    "register_url": "https://adcc.smoothcomp.com/en/event/34249",
-   "register_label": "SmoothComp"
+   "register_label": "SmoothComp",
+   "checked": "2026-11-22"
   },
   {
    "org": "Grappling Industries",
@@ -743,7 +751,348 @@
    ],
    "event_url": "https://grapplingindustries.com/events/",
    "register_url": "https://grapplingindustries.smoothcomp.com/en/event/35332",
-   "register_label": "SmoothComp"
+   "register_label": "SmoothComp",
+   "checked": "2026-11-22"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Orange County Winter International Open 2027",
+   "start": "2027-02-27",
+   "end": "2027-02-28",
+   "city": "Costa Mesa, CA",
+   "venue": "OC Fair & Event Center, The Hangar",
+   "address": "88 Fair Dr, Costa Mesa, CA 92626",
+   "street": "88 Fair Dr",
+   "locality": "Costa Mesa",
+   "style": [
+    "Gi"
+   ],
+   "style_note": "Gi championship. Kids compete in their own event on Feb 28. No NoGi event is listed.",
+   "kids": false,
+   "adults": true,
+   "levels_short": "Juvenile to master",
+   "divisions": "Juvenile (born 2010 and 2011), adult and masters 1 to 8",
+   "levels": "Juveniles white to purple; adults and masters 1 to 5 white to black; masters 6 to 8 blue to black.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$143",
+     "until": "2027-01-29"
+    },
+    {
+     "label": "Regular",
+     "amount": "$174",
+     "until": "2027-02-19"
+    }
+   ],
+   "price_note": "Spectators free.",
+   "deadlines": [
+    {
+     "label": "Team affiliation deadline",
+     "date": "2027-02-04"
+    },
+    {
+     "label": "Registration closes",
+     "date": "2027-02-19",
+     "text": "or earlier if it fills"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2027-02-20"
+    },
+    {
+     "label": "Registration check day",
+     "date": "2027-02-24"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2027-02-26"
+    }
+   ],
+   "notes": [
+    "Right here in Costa Mesa, a few minutes from the gym.",
+    "You need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/orange-county-winter-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_url": "https://ibjjf.com/events/orange-county-winter-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_label": "IBJJF"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Orange County Winter Kids International Open 2027",
+   "start": "2027-02-28",
+   "end": "2027-02-28",
+   "city": "Costa Mesa, CA",
+   "venue": "OC Fair & Event Center, The Hangar",
+   "address": "88 Fair Dr, Costa Mesa, CA 92626",
+   "street": "88 Fair Dr",
+   "locality": "Costa Mesa",
+   "style": [
+    "Gi"
+   ],
+   "style_note": "Kids Gi championship. No NoGi event is listed.",
+   "kids": true,
+   "adults": false,
+   "levels_short": "Kids only",
+   "divisions": "Kids: Mightymite, Peewee, Junior and Teen (born 2012 to 2023)",
+   "levels": "Mightymites grey belt; Peewees grey and yellow; Juniors up to orange; Teens up to green.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$124",
+     "until": "2027-01-29"
+    },
+    {
+     "label": "Regular",
+     "amount": "$138",
+     "until": "2027-02-19"
+    }
+   ],
+   "price_note": "No open class at the kids events. Spectators free.",
+   "deadlines": [
+    {
+     "label": "Team affiliation deadline",
+     "date": "2027-02-04"
+    },
+    {
+     "label": "Registration closes",
+     "date": "2027-02-19",
+     "text": "or earlier if it fills"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2027-02-20"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2027-02-26"
+    }
+   ],
+   "notes": [
+    "Right here in Costa Mesa, a few minutes from the gym.",
+    "Kids need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/orange-county-winter-kids-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_url": "https://ibjjf.com/events/orange-county-winter-kids-international-open-ibjjf-jiu-jitsu-championship-2027",
+   "register_label": "IBJJF"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "World No-Gi Championship 2026",
+   "start": "2026-12-10",
+   "end": "2026-12-12",
+   "city": "Las Vegas, NV",
+   "venue": "Las Vegas Convention Center, Halls N3/N4",
+   "address": "300 Convention Center Dr, Las Vegas, NV 89109",
+   "street": "300 Convention Center Dr",
+   "locality": "Las Vegas",
+   "style": [
+    "NoGi"
+   ],
+   "style_note": "IBJJF's NoGi world championship. Kids compete in separate events on Dec 11 and 12.",
+   "kids": false,
+   "adults": true,
+   "levels_short": "Blue to black",
+   "divisions": "Juvenile (born 2009 and 2010), adult and masters 1 to 7",
+   "levels": "Juveniles blue and purple; adults and masters blue to black. No white belt divisions. Adult black belts need 30 IBJJF NoGi ranking points.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$153",
+     "until": "2026-08-23"
+    },
+    {
+     "label": "Regular",
+     "amount": "$186",
+     "until": "2026-10-04"
+    },
+    {
+     "label": "Final",
+     "amount": "$204",
+     "until": "2026-11-29"
+    }
+   ],
+   "price_note": "Spectators $25 per day. Kids 12 and under free. Athletes 17 and under can bring one companion free on the day they compete.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2026-11-29",
+     "text": "or earlier if it fills"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2026-11-30"
+    },
+    {
+     "label": "Registration check day",
+     "date": "2026-12-04"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2026-12-09"
+    }
+   ],
+   "notes": [
+    "About a 4 hour drive from Costa Mesa.",
+    "You need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/world-ibjjf-jiu-jitsu-no-gi-championship-2026",
+   "register_url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3033&registrationId=false",
+   "region": "NV"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Kids International Las Vegas 2026",
+   "start": "2026-12-11",
+   "end": "2026-12-12",
+   "city": "Las Vegas, NV",
+   "venue": "Las Vegas Convention Center, Halls N3/N4",
+   "address": "300 Convention Center Dr, Las Vegas, NV 89109",
+   "street": "300 Convention Center Dr",
+   "locality": "Las Vegas",
+   "style": [
+    "Gi",
+    "NoGi"
+   ],
+   "style_note": "Kids Gi on Friday, Dec 11 and kids NoGi on Saturday, Dec 12, alongside the World No-Gi Championship.",
+   "kids": true,
+   "adults": false,
+   "levels_short": "Kids only",
+   "divisions": "Kids: Mightymite, Peewee, Junior and Teen (born 2011 to 2022)",
+   "levels": "Mightymites grey belt; Peewees grey and yellow; Juniors up to orange; Teens up to green.",
+   "prices": [
+    {
+     "label": "Gi or NoGi, early",
+     "amount": "$119",
+     "until": "2026-11-11"
+    },
+    {
+     "label": "Gi or NoGi, regular",
+     "amount": "$133",
+     "until": "2026-11-29"
+    },
+    {
+     "label": "Combo (both events), early",
+     "amount": "$203",
+     "until": "2026-11-11"
+    },
+    {
+     "label": "Combo (both events), regular",
+     "amount": "$227",
+     "until": "2026-11-29"
+    }
+   ],
+   "price_note": "No open class at the kids events. Spectators $25 per day; kids 12 and under free, and each athlete can bring one companion free on the day they compete.",
+   "deadlines": [
+    {
+     "label": "Registration closes",
+     "date": "2026-11-29"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2026-11-30"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2026-12-09"
+    }
+   ],
+   "notes": [
+    "About a 4 hour drive from Costa Mesa.",
+    "Kids need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/kids-international-ibjjf-jiu-jitsu-championship-las-vegas-2026",
+   "register_links": [
+    {
+     "label": "Register: Kids Gi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3381&registrationId=false"
+    },
+    {
+     "label": "Register: Kids NoGi",
+     "url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3382&registrationId=false"
+    }
+   ],
+   "register_url": "https://app.ibjjfdb.com/athletes/championships/registrations/new/combo?championshipId=3381&registrationId=false",
+   "region": "NV"
+  },
+  {
+   "org": "IBJJF",
+   "org_full": "International Brazilian Jiu-Jitsu Federation",
+   "org_url": "https://ibjjf.com",
+   "name": "Pan Championship 2027",
+   "start": "2027-03-16",
+   "end": "2027-03-21",
+   "city": "Kissimmee, FL",
+   "venue": "Silver Spurs Arena, Osceola Heritage Park",
+   "address": "1875 Silver Spur Ln, Kissimmee, FL 34744",
+   "street": "1875 Silver Spur Ln",
+   "locality": "Kissimmee",
+   "style": [
+    "Gi"
+   ],
+   "style_note": "Pans, one of IBJJF's biggest Gi championships of the year. Not a local event: it's in Florida.",
+   "kids": false,
+   "adults": true,
+   "levels_short": "Juvenile to master",
+   "divisions": "Juvenile (born 2010 and 2011), adult and masters 1 to 8",
+   "levels": "Juveniles white to purple; adults and masters 1 to 5 white to black; masters 6 to 8 blue to black. Adult black belts need 40 IBJJF ranking points.",
+   "prices": [
+    {
+     "label": "Early",
+     "amount": "$140",
+     "until": "2026-12-11"
+    },
+    {
+     "label": "Regular",
+     "amount": "$179",
+     "until": "2027-02-05"
+    },
+    {
+     "label": "Final",
+     "amount": "$189",
+     "until": "2027-03-07"
+    }
+   ],
+   "price_note": "Spectators free. Parking is $20.",
+   "deadlines": [
+    {
+     "label": "Team affiliation deadline",
+     "date": "2027-02-09"
+    },
+    {
+     "label": "Registration closes",
+     "date": "2027-03-07",
+     "text": "or earlier if it fills"
+    },
+    {
+     "label": "Athlete correction deadline",
+     "date": "2027-03-08"
+    },
+    {
+     "label": "Registration check day",
+     "date": "2027-03-12"
+    },
+    {
+     "label": "Schedule and brackets released",
+     "date": "2027-03-15"
+    }
+   ],
+   "notes": [
+    "Matches may start as early as March 16 if registrations run high.",
+    "You need an active IBJJF membership and a registered team to compete."
+   ],
+   "event_url": "https://ibjjf.com/events/pan-ibjjf-jiu-jitsu-championship-2027",
+   "register_url": "https://ibjjf.com/events/pan-ibjjf-jiu-jitsu-championship-2027",
+   "region": "FL",
+   "register_label": "IBJJF"
   }
  ]
 }

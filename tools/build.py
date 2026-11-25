@@ -3,7 +3,7 @@
 
 Usage: python3 build.py <repo-dir> <old-pages-dir>
 Writes: assets/site.css, assets/pages.js, the landing pages, terms-of-service,
-privacy-policy (re-wrapped, wording untouched), _redirects, sitemap.xml, robots.txt.
+privacy-policy (from tools/legal-*.html), _redirects, sitemap.xml, robots.txt.
 """
 import html, json, os, re, sys
 
@@ -180,7 +180,7 @@ pages_js = r'''(function () {
     var ok = $('#' + form.getAttribute('data-ok'));
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var bad = $$('[required]', form).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
+      var bad = $$('[required]', form).filter(function (el) { return (el.type === 'checkbox' ? !el.checked : !el.value) || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
       bad.forEach(function (el) { el.style.borderColor = '#ff2a24'; });
       if (bad.length) { bad[0].focus(); return; }
       var name = $('[name="name"]', form), phone = $('[name="phone"]', form);
@@ -305,7 +305,7 @@ def header(active):
 </div>
 '''
 
-FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
+FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Waiver', '/waiver/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
                 ('Kids jiu jitsu', '/kids-jiu-jitsu/'), ('Private lessons', '/private-lessons/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
                 ('FAQ', '/#faq'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
 
@@ -326,7 +326,7 @@ def footer(active_tab=None):
     <div class="footer-links">
       {footer_links_html()}
     </div>
-    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu. 2428 Newport Blvd, Costa Mesa, CA 92627.</p>
+    <p>© <span id="year">2026</span> Costa Mesa Jiu Jitsu. 2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627.</p>
   </div>
 </footer>
 
@@ -338,7 +338,7 @@ def footer(active_tab=None):
 ORG = {"@type": "SportsActivityLocation", "@id": SITE + "/#gym", "name": "Costa Mesa Jiu Jitsu",
        "url": SITE + "/", "telephone": "+1-949-556-1178", "email": EMAIL,
        "image": SHARE + "/photos/brand/og-share-2026.jpg", "logo": SITE + "/photos/brand/cmjj-logo-1600.png",
-       "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd", "addressLocality": "Costa Mesa",
+       "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd, Unit 7", "addressLocality": "Costa Mesa",
                    "addressRegion": "CA", "postalCode": "92627", "addressCountry": "US"}}
 
 def crumbs_ld(name, path):
@@ -402,8 +402,8 @@ HL_TRACKING = '''<!-- HighLevel external tracking: captures site form submission
 <script>window.addEventListener('load',function(){{var s=document.createElement('script');s.src='https://link.msgsndr.com/js/external-tracking.js';s.setAttribute('data-tracking-id','tk_87a0beae75e04bf7aa983cbee612d188');document.body.appendChild(s);}});</script>
 '''
 
-def page(title, desc, path, body, active_nav=None, active_tab=None, **kw):
-    return head(title, desc, path, **kw) + header(active_nav) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + HL_TRACKING + '</body>\n</html>\n'
+def page(title, desc, path, body, active_nav=None, active_tab=None, hl=True, **kw):
+    return head(title, desc, path, **kw) + header(active_nav) + f'\n<main id="main">\n{body}\n</main>\n\n' + footer(active_tab) + '\n<script src="/assets/pages.js" defer></script>\n' + (HL_TRACKING if hl else '') + '</body>\n</html>\n'
 
 def faq_html(qas, first_open=True):
     items = ''.join(f'      <details{" open" if (i == 0 and first_open) else ""}><summary>{q}</summary><div class="answer">{a}</div></details>\n' for i, (q, a) in enumerate(qas))
@@ -422,6 +422,7 @@ trial_ok = '''<div class="form-ok" id="formOk" hidden>
         <p class="kicker">You're in</p>
         <p class="display">See you on the mat</p>
         <p>Thanks, <span data-ok-name>friend</span>. We'll text <span data-ok-phone></span> shortly to confirm <span data-ok-class></span>. Show up 10 minutes early and wear something comfortable with no zippers.</p>
+        <p>Save time at the front desk: <a href="/waiver/">sign your waiver online</a> before you come.</p>
         <p class="form-fine">Questions before then? Call or text 949-556-1178.</p>
       </div>'''
 
@@ -440,10 +441,9 @@ def private_form(coach=None):
             <option{sel("Coach Brady Fink")}>Coach Brady Fink</option>
           </select>
         </div>
-        <div class="field">
-          <label for="pGoal">'''
+        <button class="btn btn-primary btn-block" type="submit">'''
     if BRADY_PRIVATES:
-        f = f.replace('<div class="field">\n          <label for="pGoal">', coach_field, 1)
+        f = f.replace('<button class="btn btn-primary btn-block" type="submit">', coach_field, 1)
         f = f.replace('No payment now. Coach Tony will text you to set it up.', 'No payment now. A coach will text you to set it up. Pricing varies by coach.')
     return f
 private_ok = f'''<div class="form-ok" id="privateOk" hidden>
@@ -461,7 +461,8 @@ ft_faq = [
     ("Do I need any experience?", "No. Most of our students started with zero experience, and the coaches walk you through everything. If you want a slower on-ramp, the <a href=\"/beginners-classes/\">beginners jiu jitsu program</a> is built exactly for that."),
     ("What should I wear?", "Athletic clothes with no zippers, buttons or pockets. A rash guard and shorts work great. Bring a water bottle."),
     ("How old do kids need to be?", "Little Ninjas starts at age 4. Youth Jiu Jitsu is ages 7 to 12. Teens 13 and up train in the adult classes."),
-    ("Where are you?", "2428 Newport Blvd, Costa Mesa, CA 92627."),
+    ("Do I need to sign a waiver?", "Yes. Every student needs a signed waiver before training, and parents or guardians sign for anyone under 18. It takes about 3 minutes <a href=\"/waiver/\">online</a>."),
+    ("Where are you?", "2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627."),
 ]
 ft_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -562,7 +563,7 @@ bg_body = f'''<section class="page-hero">
         <p class="kicker">The details</p>
         <h2 class="display h3">When, where and what to wear</h2>
         <div class="times"><div><b>Tuesday</b><span>6:15 PM</span></div></div>
-        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
+        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Unit 7, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
         <p><b style="color:var(--fg)">How it works:</b> it's an ongoing program, so you can join any week. Your 6 weeks start at your first class. It's not a class pack, so classes can't be skipped or saved for later.</p>
         <p style="margin:0;color:var(--fg)"><b>Please wear proper NoGi attire:</b></p>
         {checks(["Rash guard", "Athletic shorts with no zippers or pockets", "Optional: spats", "Bring a water bottle"])}
@@ -609,7 +610,7 @@ pr_faq = [
     ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
     ("Can I try a class before I buy?", "Yes. Your first class is free, any program, kids or adults. <a href=\"/free-trial/\">Book your free class</a>."),
     ("How does the Family Add-On work?", "Add a second family member to any unlimited membership for $120 a month. Call or text 949-556-1178 or email info@costamesajiujitsu.com to set it up."),
-    ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing and options before anything is booked."),
+    ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing before anything is booked. Lessons are for 1 to 4 people, and groups split the cost."),
 ]
 pr_body = f'''<section class="page-hero">
   <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
@@ -634,10 +635,10 @@ pr_body = f'''<section class="page-hero">
         <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="/beginners-classes/">Learn more</a></div>
       </div>
       <div class="panel reveal">
-        <span class="plan-for">1-on-1</span>
+        <span class="plan-for">Solo or small group</span>
         <div class="plan-name">Private Lessons</div>
-        <div class="plan-price"><b style="font-size:40px">1-on-1</b><span>with Coach Tony</span></div>
-        <p>Kids and adults, any level, built around your goals.</p>
+        <div class="plan-price"><b>1 to 4</b><span>people, split the cost</span></div>
+        <p>Bring a training partner, your kid or the whole family. Kids and adults, any level, with Coach Tony.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="/private-lessons/">Request a private lesson</a></div>
       </div>
     </div>
@@ -651,11 +652,11 @@ pr_body = f'''<section class="page-hero">
 {faq_html(pr_faq)}
   </div>
 </section>'''
-offers = [("Unlimited Adult Jiu Jitsu", "195", "month"), ("Unlimited Kids Jiu Jitsu", "195", "month"), ("Family Add-On", "120", "month"),
+offers = [("Unlimited Adult Jiu Jitsu", "189", "month"), ("Unlimited Kids Jiu Jitsu", "179", "month"), ("Family Add-On", "120", "month"),
           ("10-Class Pack", "260", None), ("Beginners Jiu Jitsu Program (6 weeks)", "99", None)]
 w('pricing/index.html', page(
     'Jiu Jitsu Membership Pricing | Costa Mesa Jiu Jitsu',
-    'Unlimited adult or kids jiu jitsu for $195/month, family add-on $120, 10-class pack $260 and a $99 beginners program. No contracts. Costa Mesa, CA.',
+    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120, 10-class pack $260 and a $99 beginners program. No contracts. Costa Mesa, CA.',
     '/pricing/', pr_body, active_nav='/pricing/', active_tab='/pricing/',
     ld=[ORG, crumbs_ld('Pricing', '/pricing/'), faq_ld(pr_faq),
         {"@type": "OfferCatalog", "name": "Costa Mesa Jiu Jitsu memberships", "itemListElement": [
@@ -699,24 +700,24 @@ BRADY_CTA = r'''<section class="section form-band">
   </div>
 </section>'''
 pl_faq = [
-    ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing and options before anything is booked."),
+    ("How much are private lessons?", "Send a request and Coach Tony will walk you through pricing before anything is booked. Bring up to 3 more people and you split the cost."),
     ("Who are private lessons for?", "Kids and adults at any level, from nervous first-timers who want a head start to competitors fixing a specific position."),
-    ("Can I bring a friend or family member?", "Yes. Lessons can be solo, with a friend, or as a family."),
-    ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Costa Mesa."),
+    ("Can I bring a friend or family member?", "Yes. Private lessons are for 1 to 4 people, and groups split the cost. Parent and kid lessons are popular, and so are family lessons where the parents train along with the kids."),
+    ("Where are lessons held?", "On our mats at 2428 Newport Blvd, Unit 7, Costa Mesa."),
 ]
 pl_body = f'''<section class="page-hero">
   <div class="wrap">
     <div class="page-hero-copy">
       {crumbs('Private lessons')}
-      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true"></span>Kids and adults</p>
-      <h1 class="display h1">Train <em>1-on-1</em></h1>
-      <p class="lead">The fastest way to get better. Tell us a little about what you want to work on, and Coach Tony will reach out to find a time and walk you through options.</p>
+      <p class="kicker">Private lessons<span class="tiny-star" aria-hidden="true"></span>Kids, adults and families</p>
+      <h1 class="display h1">Train private, <em>split the cost</em></h1>
+      <p class="lead">The fastest way to get better, with Coach Tony's full attention. Come solo, or bring up to 3 more people and split the cost: a training partner, your kid, or the whole family.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#request">Request a private lesson</a>
         <a class="btn btn-outline" href="#team">Meet Coach Tony</a>
       </div>
     </div>
-    <div class="page-hero-media"><img src="/photos/g-coaching.webp" width="800" height="800" alt="Coach teaching a kids jiu jitsu technique one-on-one" fetchpriority="high" decoding="async"></div>
+    <div class="page-hero-media"><img src="/photos/g-coaching.webp" width="800" height="800" alt="Coach teaching a kids jiu jitsu technique in a private lesson" fetchpriority="high" decoding="async"></div>
   </div>
 </section>
 
@@ -744,7 +745,7 @@ pl_body = f'''<section class="page-hero">
       <div class="form-side">
         <p class="kicker">Request a lesson</p>
         <h2 class="display h2">Tell us what you want to work on</h2>
-        {checks(["Kids and adults, any level", "Built around your goals, from self-defense to competition", "Great for nervous beginners who want a head start", "Solo, with a friend, or as a family"])}
+        {checks(["Groups of 2, 3 or 4 split the cost", "Parent and kid lessons: learn together, practice at home", "Family lessons when parents train along with the kids", "Kids and adults, any level, built around your goals"])}
         <p class="form-fine">Rather talk now? Call or text <a href="tel:{PHONE_TEL}">{PHONE}</a>.</p>
       </div>
       {private_form()}
@@ -762,7 +763,7 @@ pl_body = f'''<section class="page-hero">
 <script>document.addEventListener('click',function(e){{var a=e.target.closest('[data-coach]');if(!a)return;var s=document.getElementById('pCoach');if(s)s.value=a.getAttribute('data-coach');}});</script>'''
 w('private-lessons/index.html', page(
     'Private BJJ Lessons in Costa Mesa | Costa Mesa Jiu Jitsu',
-    '1-on-1 jiu jitsu lessons for kids and adults with black belt Coach Tony Misitano in Costa Mesa, CA. Self-defense, competition prep or a head start.',
+    'Private jiu jitsu lessons for 1 to 4 people with black belt Coach Tony Misitano in Costa Mesa, CA. Split the cost with a partner, your kid or the whole family.',
     '/private-lessons/', pl_body,
     ld=[ORG, crumbs_ld('Private lessons', '/private-lessons/'), faq_ld(pl_faq)]))
 
@@ -832,7 +833,7 @@ kids_faq = [
     ("How often should my child train?", "Two or three classes a week is a great pace for most kids. The Unlimited Kids membership covers up to four days a week."),
     ("Do kids have to compete?", "No. Competing is totally optional. Kids who want to can train for local tournaments, and we post upcoming events on our <a href=\"/upcoming-tournaments/\">tournaments page</a>."),
     ("Do you work with homeschool families?", "Yes. We partner with iLEAD, Sage Oak and Cabrillo Point Academy, so homeschool families can often use approved education funds for classes."),
-    ("How much does it cost?", "The first class is free. Unlimited Kids is $195 a month, and you can add a second family member for $120 a month. No long-term contracts."),
+    ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month, and you can add a second family member for $120 a month. No long-term contracts."),
 ]
 kids_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -875,7 +876,7 @@ kids_body = f'''<section class="page-hero">
       <div class="panel reveal">
         <span class="plan-for">Kids</span>
         <div class="plan-name">Unlimited Kids</div>
-        <div class="plan-price"><b>$195</b><span>/ month</span></div>
+        <div class="plan-price"><b>$179</b><span>/ month</span></div>
         <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, up to four days a week.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="{BOOK}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
@@ -923,32 +924,55 @@ w('kids-jiu-jitsu/index.html', page(
         {"@type": "Service", "name": "Kids Jiu Jitsu Classes", "serviceType": "Kids Brazilian Jiu Jitsu classes", "provider": {"@id": SITE + "/#gym"},
          "areaServed": "Costa Mesa, CA", "audience": {"@type": "PeopleAudience", "suggestedMinAge": 4, "suggestedMaxAge": 12},
          "offers": [{"@type": "Offer", "name": "Free trial class", "price": "0", "priceCurrency": "USD"},
-                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "195", "priceCurrency": "USD"}]}]))
+                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "179", "priceCurrency": "USD"}]}]))
 
-# ================================================================ legal pages (wording copied exactly)
-def legal_block(fn, start_pat, end_pat):
-    s = open(os.path.join(OLD, fn), encoding='utf-8').read(); b = s.find('<body')
-    a = s.find(start_pat, b); e = s.find(end_pat, a) + len(end_pat)
-    blk = s[a:e]
-    blk = re.sub(r'\s+data-(start|end)="\d+"', '', blk); blk = re.sub(r'\s+class="(isSelectedEnd)?"', '', blk)
-    blk = re.sub(r'<p>[\s ]*</p>\n?', '', blk)
-    blk = blk.replace('<h3 class="wp-block-heading">', '<h3 class="lg">').replace('<br data-start="3605" data-end="3608" />', '<br />')
-    return blk
+# ================================================================ /waiver/
+# Online liability waiver. Agreement text: tools/waiver-terms.html. Page: tools/waiver-page.html. Script: assets/waiver.js.
+# Signed waivers go to the Google Apps Script (tools/google-sheet-backup.gs), which builds the PDF from the
+# frozen copy at /waiver/terms/<WAIVER_VERSION>.html and emails it. DRAFT pending attorney review.
+# Changing the agreement text? Bump WAIVER_VERSION (old versions stay published so old signatures still match).
+WAIVER_VERSION = '2026-11-22'
+ENTITY_LEGAL = ''   # legal name of the company that owns the gym, e.g. 'Example Holdings LLC'. Shown in section 1.
+WAIVER_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyZ0EI_Cq5wvFBlQ_vXDkqYB94jN8FJrmQJZ3XB3CKEXAgRZ8D8JnHimtU3FHQbKXPN/exec'
+_tools = os.path.dirname(os.path.abspath(__file__))
+terms = open(os.path.join(_tools, 'waiver-terms.html'), encoding='utf-8').read()
+terms = re.sub(r'^<!--.*?-->\s*', '', terms, flags=re.S)
+terms = terms.replace('{{ENTITY}}', (', owned and operated by ' + ENTITY_LEGAL) if ENTITY_LEGAL else ', and the business entity that owns and operates it')
+INIT_LABELS = {'risk': 'Assumption of risk', 'release': 'Release', 'indemnity': 'Indemnity', 'info': 'Info sheets', 'minors': 'Minors'}
+def _init_box(m):
+    k = m.group(1)
+    hid = ' hidden' if k == 'minors' else ''
+    req = '' if k == 'minors' else ' required'
+    return (f'<div class="w-init" data-init="{k}"{hid}><label for="init_{k}">Initials <span class="sr-only">for {INIT_LABELS[k]}</span></label>'
+            f'<input id="init_{k}" name="init_{k}" type="text" maxlength="4" autocomplete="off" autocapitalize="characters"{req}></div>')
+terms_page = re.sub(r'<!--INIT:(\w+)-->', _init_box, terms)
+terms_frozen = re.sub(r'\s*<!--INIT:\w+-->', '', terms)
+wv_body = (open(os.path.join(_tools, 'waiver-page.html'), encoding='utf-8').read()
+           .replace('{{CRUMBS}}', crumbs('Waiver')).replace('{{TERMS}}', terms_page)
+           .replace('{{VERSION}}', WAIVER_VERSION).replace('{{SHEET_URL}}', WAIVER_SHEET_URL))
+w('waiver/index.html', page(
+    'Liability Waiver | Costa Mesa Jiu Jitsu',
+    'Sign the Costa Mesa Jiu Jitsu liability waiver online before your first class. Parents or guardians sign for students under 18.',
+    '/waiver/', wv_body, noindex=True, hl=False,
+    ld=[ORG, crumbs_ld('Waiver', '/waiver/')]))
+# Frozen copy for the signed PDFs. Never edit a published version; add a new one.
+w('waiver/terms/' + WAIVER_VERSION + '.html',
+  '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">\n'
+  '<title>Costa Mesa Jiu Jitsu waiver, version ' + WAIVER_VERSION + '</title></head>\n<body>\n<!--TERMS-->\n'
+  + terms_frozen.strip() + '\n<!--/TERMS-->\n</body></html>\n')
 
-if os.path.isdir(OLD):   # legal pages are copied word for word from the old site's saved HTML; skipped if it isn't available
-    pp_block = legal_block('privacy_policy.html', '<h3 class="wp-block-heading"', '949-556-1178</a></p>')
-    _h = pp_block.index('<h3 class="lg">'); _e = pp_block.index('</h3>', _h)
-    pp_block = pp_block[:_h] + '<h1 class="lg">' + pp_block[_h + len('<h3 class="lg">'):_e] + '</h1>' + pp_block[_e + 5:]   # first heading is the page h1; wording unchanged
-    pp_block = re.sub(r'369 E 17th St,? Suite 10', '2428 Newport Blvd', pp_block)   # Nov 2026 move; the only change to the policy text
-    tos_block = legal_block('terms_of_service.html', '<h1>SMS Terms of Service</h1>', 'reply with the keyword <strong>HELP</strong> for assistance.</p>')
-    tos_block = tos_block.replace('<h1>', '<h1 class="tos-title">')
-    for fn, blk, path, title, desc, name in [
-        ('privacy-policy/index.html', pp_block, '/privacy-policy/', 'Privacy Policy | Costa Mesa Jiu Jitsu',
-         'Privacy Policy for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Costa Mesa, CA 92627.', 'Privacy Policy'),
-        ('terms-of-service/index.html', tos_block, '/terms-of-service/', 'SMS Terms of Service | Costa Mesa Jiu Jitsu',
-         'SMS Terms of Service for the Costa Mesa Jiu Jitsu text messaging program: message frequency, rates, opting out with STOP and help with HELP.', 'SMS Terms of Service')]:
-        body = f'<div class="legal-wrap"><div class="wrap"><article class="legal">\n{blk}\n</article></div></div>'
-        w(fn, page(title, desc, path, body, ld=[ORG, crumbs_ld(name, path)]))
+# ================================================================ legal pages
+# Wording lives in tools/legal-privacy.html and tools/legal-sms-terms.html. It matches the El Dojo member
+# portal (eldojo.ossdojo.com/privacy and /sms-terms) and is what the phone carriers review for the texting
+# registration. Do not reword the text messaging lines.
+for fn, src, path, title, desc, name in [
+    ('privacy-policy/index.html', 'legal-privacy.html', '/privacy-policy/', 'Privacy Policy | Costa Mesa Jiu Jitsu',
+     'Privacy Policy for Costa Mesa Jiu Jitsu, including the text messaging program. 2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627.', 'Privacy Policy'),
+    ('terms-of-service/index.html', 'legal-sms-terms.html', '/terms-of-service/', 'SMS Terms | Costa Mesa Jiu Jitsu',
+     'SMS Terms for the Costa Mesa Jiu Jitsu text messaging program: what we text, message frequency, rates, opting out with STOP and help with HELP.', 'SMS Terms')]:
+    blk = open(os.path.join(REPO, 'tools', src), encoding='utf-8').read().strip()
+    body = f'<div class="legal-wrap"><div class="wrap"><article class="legal">\n{blk}\n</article></div></div>'
+    w(fn, page(title, desc, path, body, ld=[ORG, crumbs_ld(name, path)]))
 
 # ================================================================ redirects, sitemap, robots
 redirects = '''# Costa Mesa Jiu Jitsu redirects (Netlify)
@@ -993,7 +1017,6 @@ redirects = '''# Costa Mesa Jiu Jitsu redirects (Netlify)
 /wp-sitemap.xml          /sitemap.xml              301
 
 # Every other old WordPress page goes to the home page
-/waiver                  /                         301
 /class-recaps            /                         301
 /members                 /                         301
 /activate                /                         301

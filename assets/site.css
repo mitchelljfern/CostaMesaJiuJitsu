@@ -781,6 +781,14 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
   .ig-actions { width: 100%; }
 }
 
+/* SMS consent checkbox (last thing in every lead form, just above the submit button) */
+.consent { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; font-size: 12px; line-height: 1.5; color: var(--fg-muted); text-align: left; cursor: pointer; margin: 0; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.consent input { width: 20px; height: 20px; min-width: 20px; margin: 1px 0 0; padding: 0; accent-color: var(--accent); cursor: pointer; border: 1px solid var(--line); }
+.consent a { color: var(--fg); text-decoration: underline; }
+.consent input[style*="border-color"] { outline: 2px solid #ff2a24; outline-offset: 2px; }
+.consent input[style*="border-color"] + span { color: #ff2a24; }
+#rashForm .consent { margin: 14px 0; }
+
 /* ===== Inner pages ===== */
 .header.on-page { --hfg: var(--fg); }
 .page-hero { padding-block: calc(env(safe-area-inset-top, 0px) + 112px) clamp(40px, 6vw, 72px); }

@@ -113,7 +113,7 @@
 
   function invalid(f) {
     var bad = Array.prototype.filter.call(f.querySelectorAll('[required]'), function (el) {
-      return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
+      return (el.type === 'checkbox' ? !el.checked : !el.value) || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
     });
     bad.forEach(function (el) { el.style.borderColor = '#f0544f'; });
     if (bad.length) bad[0].focus();
@@ -156,6 +156,7 @@
       d.set('hp', d.get(HP) || ''); d.delete(HP);
       d.set('ms', String(Date.now() - started)); d.set('touched', touched ? '1' : '0');
       d.set('cf_token', token); d.set('host', location.hostname);
+      if (d.get('people')) d.set('who', [d.get('who'), d.get('people')].filter(Boolean).join(', '));   // group size shows in the sheet and alert email
       var flags = suspect(d), localSpam = flags.length >= 2;
       d.set('client_flags', flags.join(','));
       function finish(spam) {

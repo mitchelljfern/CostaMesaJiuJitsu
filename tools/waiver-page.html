@@ -1,0 +1,171 @@
+<div class="legal-wrap"><div class="wrap">
+  <div class="waiver">
+    {{CRUMBS}}
+    <p class="kicker" style="margin-top:14px">Required before your first class</p>
+    <h1 class="display h1">Liability waiver</h1>
+    <p class="lead">Every student needs a signed waiver on file before training. It takes about 3 minutes. Parents or legal guardians sign for anyone under 18, and one waiver can cover you and your kids. You'll get a copy by email.</p>
+
+    <form class="form w-form" id="waiverForm" novalidate>
+      <fieldset class="w-step">
+        <legend>Who is this waiver for?</legend>
+        <div class="w-choices" role="radiogroup">
+          <label class="w-choice"><input type="radio" name="mode" value="self" required><span><b>Just me</b><small>I'm 18 or older and training myself</small></span></label>
+          <label class="w-choice"><input type="radio" name="mode" value="minors"><span><b>My child or children</b><small>I'm their parent or legal guardian</small></span></label>
+          <label class="w-choice"><input type="radio" name="mode" value="both"><span><b>Me and my child or children</b><small>We're all training</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="w-step">
+        <legend>Your details</legend>
+        <div class="form-row">
+          <div class="field"><label for="wName">Full legal name</label><input id="wName" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="wDob">Your date of birth</label><input id="wDob" name="dob" type="date" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="wEmail">Email</label><input id="wEmail" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+          <div class="field"><label for="wPhone">Phone</label><input id="wPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+        </div>
+        <div class="field" id="wRelBox" hidden>
+          <label for="wRel">Your relationship to the child or children</label>
+          <select id="wRel" name="relationship">
+            <option value="">Choose one</option>
+            <option>Parent</option>
+            <option>Legal guardian</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset class="w-step" id="wMinorsStep" hidden>
+        <legend>Your child or children</legend>
+        <div id="wMinors"></div>
+        <button type="button" class="btn btn-outline btn-sm" id="wAddMinor">Add another child</button>
+        <p class="form-fine">Students 18 and older sign their own waiver.</p>
+      </fieldset>
+
+      <fieldset class="w-step">
+        <legend>Emergency contact and health</legend>
+        <div class="form-row">
+          <div class="field"><label for="wEmName">Emergency contact name</label><input id="wEmName" name="emergency_name" type="text" required></div>
+          <div class="field"><label for="wEmPhone">Emergency contact phone</label><input id="wEmPhone" name="emergency_phone" type="tel" inputmode="tel" required></div>
+        </div>
+        <div class="field"><label for="wEmRel">Relationship to the student</label><input id="wEmRel" name="emergency_relationship" type="text" placeholder="For example: spouse, grandparent, friend" required></div>
+        <div class="field"><label for="wMed">Injuries, medical conditions or allergies a coach should know about</label><textarea id="wMed" name="medical" rows="3" placeholder="Optional. Leave blank if none."></textarea></div>
+        <p class="form-fine">Use a different emergency contact than yourself if you can, in case you're on the mat too.</p>
+      </fieldset>
+
+      <fieldset class="w-step">
+        <legend>Read and initial the agreement</legend>
+        <p class="form-fine" style="margin-top:0">Type your initials in each box to show you've read that section.</p>
+        <article class="w-terms" id="wTerms">
+{{TERMS}}
+        </article>
+      </fieldset>
+
+      <fieldset class="w-step">
+        <legend>Photos and video</legend>
+        <p class="form-fine" style="margin-top:0">May we use photos and video of the student or students in our marketing? See section 14. This doesn't affect training.</p>
+        <div class="w-choices w-choices-2" role="radiogroup">
+          <label class="w-choice"><input type="radio" name="media" value="yes" required><span><b>Yes</b><small>Happy to be featured</small></span></label>
+          <label class="w-choice"><input type="radio" name="media" value="no"><span><b>No</b><small>Please don't feature us</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="w-step">
+        <legend>Sign</legend>
+        <label class="agree"><input type="checkbox" name="agree_esign" value="yes" required> I agree to sign electronically, and that my typed name and drawn signature are my legal signature.</label>
+        <label class="agree"><input type="checkbox" name="agree_read" value="yes" required> I have read this entire agreement. I understand that I am giving up substantial legal rights, including the right to sue for negligence, for myself and any child named above.</label>
+        <div class="field"><label for="wTyped">Type your full legal name</label><input id="wTyped" name="typed_name" type="text" autocomplete="name" required></div>
+        <div class="field">
+          <label for="wSig">Signature <span class="w-hint">Draw with your finger or mouse</span></label>
+          <canvas id="wSig" class="w-sig" aria-label="Signature pad. Draw your signature." role="img"></canvas>
+          <div class="w-sig-foot"><span class="form-fine" id="wDate"></span><button type="button" class="w-clear" id="wSigClear">Clear signature</button></div>
+        </div>
+        <div aria-hidden="true" class="w-trap"><label>Company website<input type="text" name="company_site" tabindex="-1" autocomplete="off"></label></div>
+        <p class="w-error" id="wError" role="alert" hidden></p>
+        <button class="btn btn-primary btn-block" type="submit" id="wSubmit">Sign waiver</button>
+        <p class="form-fine">Questions? Call or text <a href="tel:+19495561178">949-556-1178</a> or email <a href="mailto:info@costamesajiujitsu.com">info@costamesajiujitsu.com</a>.</p>
+      </fieldset>
+    </form>
+
+    <div class="form-ok" id="waiverOk" hidden>
+      <p class="kicker">Waiver signed</p>
+      <p class="display">You're all set</p>
+      <p>Thanks, <span id="wOkName">friend</span>. Your waiver is on file, and a copy is on its way to <span id="wOkEmail"></span>. See you on the mat.</p>
+      <p class="form-fine">Confirmation number: <span id="wOkId"></span></p>
+      <div class="hero-actions"><a class="btn btn-primary" href="/#schedule">See the schedule</a><a class="btn btn-outline" href="/free-trial/">Book a free class</a></div>
+    </div>
+  </div>
+</div></div>
+
+<template id="wMinorTpl">
+  <div class="w-minor">
+    <div class="w-minor-head"><b>Child <span class="w-n"></span></b><button type="button" class="w-clear w-remove">Remove</button></div>
+    <div class="form-row">
+      <div class="field"><label>Child's full name</label><input data-f="name" type="text" required></div>
+      <div class="field"><label>Child's date of birth</label><input data-f="dob" type="date" required></div>
+    </div>
+    <p class="w-note" data-f="adult" hidden>This student is 18 or older and needs to sign their own waiver.</p>
+    <div class="field" data-f="ackbox" hidden>
+      <label>Child's acknowledgment</label>
+      <input data-f="sig" type="text" placeholder="Child types their full name">
+      <p class="form-fine">California law asks students ages 7 to 17 to sign the concussion and cardiac arrest information sheets too. Have your child type their name to confirm they've read them, or had them read aloud.</p>
+    </div>
+  </div>
+</template>
+
+<style>
+.waiver { max-width: 780px; margin-inline: auto; }
+.waiver .lead { margin-top: 12px; }
+.waiver .w-form { margin-top: 28px; gap: 18px; counter-reset: wstep; background: none; border: 0; padding: 0; box-shadow: none; max-width: none; }
+.w-step { border: 1px solid var(--line); background: var(--bg-card); border-radius: var(--radius-lg, 16px); padding: 20px; margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.w-step[hidden] { display: none; }
+.w-step legend { counter-increment: wstep; float: left; width: 100%; padding: 0; margin: 0 0 2px; font-family: var(--font-display); font-weight: 800; font-size: 18px; text-transform: uppercase; color: var(--fg); display: flex; align-items: center; gap: 10px; }
+.w-step legend::before { content: counter(wstep); display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--on-accent, #04171b); font-size: 14px; flex: none; }
+.w-step legend + * { clear: both; }
+.w-choices { display: grid; gap: 10px; }
+@media (min-width: 700px) { .w-choices { grid-template-columns: repeat(3, 1fr); } .w-choices-2 { grid-template-columns: repeat(2, 1fr); } }
+.w-choice { position: relative; display: block; cursor: pointer; }
+.w-choice input { position: absolute; opacity: 0; inset: 0; }
+.w-choice span { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--bg-raised); }
+.w-choice b { color: var(--fg); font-size: 16px; }
+.w-choice small { color: var(--fg-muted); font-size: 14px; }
+.w-choice input:checked + span { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.w-choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.w-choices.bad .w-choice span { border-color: var(--em, #ff2a24); }
+.w-minor { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.w-minor-head { display: flex; justify-content: space-between; align-items: center; color: var(--fg); }
+.w-note { margin: 0; color: var(--em, #ff2a24); font-size: 14px; font-weight: 700; }
+#wMinors { display: flex; flex-direction: column; gap: 12px; }
+#wAddMinor { align-self: flex-start; }
+.w-terms { border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 6px; background: var(--bg); font-size: 15px; line-height: 1.6; color: var(--fg-body); }
+.w-terms h2 { font-family: var(--font-display); font-weight: 800; font-size: 19px; line-height: 1.25; text-transform: uppercase; color: var(--fg); margin: 6px 0 12px; text-wrap: balance; }
+.w-terms h2#info-sheets { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); }
+.w-terms h3 { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--fg); margin: 22px 0 6px; text-transform: none; }
+.w-terms p, .w-terms ul { margin: 0 0 12px; }
+.w-terms ul { padding-left: 20px; }
+.w-terms li { margin-bottom: 6px; }
+.w-terms b { color: var(--fg); }
+.w-warn { border-left: 3px solid var(--em, #ff2a24); padding-left: 12px; font-weight: 700; color: var(--fg); text-transform: uppercase; font-size: 14px; letter-spacing: 0.02em; }
+.w-init { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: -2px 0 14px; }
+.w-init[hidden] { display: none; }
+.w-init label { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink, var(--accent)); }
+.w-init input { width: 92px; min-height: 44px; text-align: center; text-transform: uppercase; font: inherit; font-size: 17px; font-weight: 800; letter-spacing: 0.08em; padding: 6px 10px; background: var(--bg-card); color: var(--fg); border: 1px solid var(--line-strong); border-radius: var(--radius-sm, 8px); }
+.w-init input:focus { border-color: var(--accent); outline: none; }
+.w-hint { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--fg-muted); margin-left: 6px; }
+.w-sig { width: 100%; max-width: 100%; height: 180px; background: #fff; border-radius: 10px; border: 1px solid var(--line-strong); touch-action: none; cursor: crosshair; display: block; }
+.w-sig.bad { border-color: var(--em, #ff2a24); box-shadow: 0 0 0 1px var(--em, #ff2a24); }
+.w-sig-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-top: 6px; }
+.w-clear { background: none; border: 0; padding: 4px 0; cursor: pointer; color: var(--accent-ink, var(--accent)); font: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; }
+.w-trap { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+.w-error { margin: 0; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--em, #ff2a24); color: var(--fg); background: rgba(246,10,5,0.08); font-weight: 600; }
+.waiver .agree { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--fg); line-height: 1.5; }
+.waiver .agree input { width: 22px; height: 22px; margin-top: 1px; flex: none; accent-color: var(--accent); }
+.waiver .agree.bad { color: var(--em, #ff2a24); }
+.waiver .bad:not(.agree):not(.w-choices):not(.w-sig) { border-color: var(--em, #ff2a24) !important; }
+.waiver textarea { width: 100%; resize: vertical; min-height: 96px; padding: 12px 16px; background: var(--bg); color: var(--fg); border: 1px solid var(--line-strong); border-radius: var(--radius-sm, 8px); font: inherit; font-size: 17px; }
+.waiver textarea:focus { border-color: var(--fg); outline: none; }
+#waiverOk { margin-top: 28px; }
+@media (max-width: 599px) { .w-step { padding: 16px 14px; } .w-terms { padding: 14px 14px 4px; font-size: 15px; } }
+</style>
+<script>window.CMJJ_WAIVER = { version: '{{VERSION}}', url: '{{SHEET_URL}}' };</script>
+<script src="/assets/waiver.js" defer></script>

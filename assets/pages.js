@@ -82,7 +82,7 @@
     var ok = $('#' + form.getAttribute('data-ok'));
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var bad = $$('[required]', form).filter(function (el) { return !el.value || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
+      var bad = $$('[required]', form).filter(function (el) { return (el.type === 'checkbox' ? !el.checked : !el.value) || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)); });
       bad.forEach(function (el) { el.style.borderColor = '#ff2a24'; });
       if (bad.length) { bad[0].focus(); return; }
       var name = $('[name="name"]', form), phone = $('[name="phone"]', form);

@@ -36,6 +36,7 @@ def style_chips(styles):
 for ev in events:   # current price as of the check date (the page updates it live in the browser)
     tier = next((t for t in ev.get('prices', []) if not t.get('sold_out') and (not t.get('until') or t['until'] >= CHECKED)), None)
     ev['price_from'] = tier['amount'] if tier else ''
+    ev['checked_label'] = dt.date.fromisoformat(ev.get('checked', CHECKED)).strftime('%B %-d, %Y')   # optional per-event "checked" date in the JSON
     ev['price_from_num'] = float(tier['amount'].strip('$').replace(',', '')) if tier else None
 
 cards = []
@@ -148,7 +149,7 @@ body = f'''<section class="page-hero">
       {crumbs('Upcoming tournaments')}
       <p class="kicker">Southern California<span class="tiny-star" aria-hidden="true">★</span>Updated {dt.date.fromisoformat(CHECKED).strftime('%B %-d, %Y')}</p>
       <h1 class="display h1">Upcoming <em>tournaments</em></h1>
-      <p class="lead">IBJJF, NABJJF, NAGA, JJWL, ADCC and Grappling Industries events near Costa Mesa. Tap any event for divisions, prices, deadlines and the registration link.</p>
+      <p class="lead">IBJJF, NABJJF, NAGA, JJWL, ADCC and Grappling Industries events near Costa Mesa, plus the big IBJJF championships worth traveling for. Tap any event for divisions, prices, deadlines and the registration link.</p>
     </div>
   </div>
 </section>
@@ -279,7 +280,7 @@ body = f'''<section class="page-hero">
       + '<a class="btn btn-ghost" href="' + gcal(e) + '" target="_blank" rel="noopener">Add to Google Calendar</a>'
       + '</div>'
       + '<div class="t-coach">Signing up? Tell a coach so we can help you prepare, or <a href="/private-lessons/">book a private lesson</a> before the event.</div>'
-      + '<p class="t-src" style="margin:0">Details checked {dt.date.fromisoformat(CHECKED).strftime('%B %-d, %Y')} on the ' + esc(e.org) + ' website. Confirm on the event page before registering.</p>';
+      + '<p class="t-src" style="margin:0">Details checked ' + esc(e.checked_label) + ' on the ' + esc(e.org) + ' website. Confirm on the event page before registering.</p>';
     body.innerHTML = html;
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     body.scrollTop = 0; dlg.scrollTop = 0;
@@ -296,7 +297,7 @@ body = f'''<section class="page-hero">
 def event_ld(ev):
     loc = {"@type": "Place", "name": ev.get('venue') or ev['city'],
            "address": {"@type": "PostalAddress", "streetAddress": ev.get('street', ''), "addressLocality": ev.get('locality') or ev['city'].split(',')[0],
-                       "addressRegion": "CA", "addressCountry": "US"}}
+                       "addressRegion": ev.get('region', 'CA'), "addressCountry": "US"}}
     if not ev.get('street'): del loc['address']['streetAddress']
     o = {"@type": "SportsEvent", "name": f"{ev['org']} {ev['name']}" if not ev['name'].startswith(ev['org']) else ev['name'],
          "startDate": ev['start'], "endDate": ev.get('end') or ev['start'], "eventStatus": "https://schema.org/EventScheduled",
@@ -311,7 +312,7 @@ def event_ld(ev):
     return o
 
 html_page = page('Upcoming BJJ Tournaments in SoCal | Costa Mesa Jiu Jitsu',
-    'Upcoming IBJJF, NABJJF, NAGA, JJWL and ADCC jiu jitsu tournaments in Southern California: dates, Gi or NoGi, belts, prices, deadlines and how to register.',
+    'Upcoming IBJJF, NABJJF, NAGA, JJWL and ADCC jiu jitsu tournaments in Southern California, plus IBJJF majors like Pans and No-Gi Worlds: dates, Gi or NoGi, belts, prices, deadlines and how to register.',
     '/upcoming-tournaments/', body,
     ld=[ORG, crumbs_ld('Upcoming tournaments', '/upcoming-tournaments/'),
         {"@type": "ItemList", "name": "Upcoming jiu jitsu tournaments in Southern California",

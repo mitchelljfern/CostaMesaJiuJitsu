@@ -525,8 +525,8 @@ w('free-trial/index.html', page(
 pricing_sec = grab('<div class="plans has-grip">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
 pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"').replace('src="photos/', 'src="/photos/')
 pr_faq = [
-    ("Are there contracts?", "No long-term contracts. Memberships are monthly and the 10-class pack is a one-time purchase."),
-    ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
+    ("Are there contracts?", "You choose. Save with a 12-month contract, or go month-to-month at a slightly higher rate."),
+    ("Is there a sign-up fee?", "No. You pay for the membership you choose, and that's it."),
     ("Can I try a class before I buy?", "Yes. Your first class is free, any program, kids or adults. <a href=\"/free-trial/\">Book your free class</a>."),
     ("How does the Family Add-On work?", "Add a second family member to any unlimited membership for $120 a month. Call or text 949-556-1178 or email info@costamesajiujitsu.com to set it up."),
     ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing before anything is booked. Lessons are for 1 to 4 people, and groups split the cost."),
@@ -535,9 +535,9 @@ pr_body = f'''<section class="page-hero">
   <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
     <div class="page-hero-copy">
       {crumbs('Pricing')}
-      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true"></span>No long-term contracts</p>
+      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true"></span>12-month or month-to-month</p>
       <h1 class="display h1">Simple <em>pricing</em></h1>
-      <p class="lead">Costa Mesa Jiu Jitsu membership options. Train unlimited, add a family member, or grab a class pack. Your first class is always free.</p>
+      <p class="lead">Costa Mesa Jiu Jitsu membership options. Train unlimited, or add a family member. Your first class is always free.</p>
     </div>
   </div>
 </section>
@@ -571,11 +571,14 @@ pr_body = f'''<section class="page-hero">
 {faq_html(pr_faq)}
   </div>
 </section>'''
-offers = [("Unlimited Adult Jiu Jitsu", "189", "month"), ("Unlimited Kids Jiu Jitsu", "179", "month"), ("Family Add-On", "120", "month"),
-          ("10-Class Pack", "250", None)]
+offers = [("Unlimited Adult Jiu Jitsu, 12-month contract", "189", "month"),
+          ("Unlimited Adult Jiu Jitsu, month-to-month", "229", "month"),
+          ("Unlimited Kids Jiu Jitsu, 12-month contract", "179", "month"),
+          ("Unlimited Kids Jiu Jitsu, month-to-month", "219", "month"),
+          ("Family Add-On", "120", "month")]
 w('pricing/index.html', page(
     'Jiu Jitsu Membership Pricing | Costa Mesa Jiu Jitsu',
-    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120 and a 10-class pack for $250. No contracts. Costa Mesa, CA.',
+    'Unlimited adult jiu jitsu $189/month on a 12-month contract or $229/month month-to-month. Unlimited kids $179/month on a 12-month contract or $219/month month-to-month. Family add-on $120. Costa Mesa, CA.',
     '/pricing/', pr_body, active_nav='/pricing/', active_tab='/pricing/',
     ld=[ORG, crumbs_ld('Pricing', '/pricing/'), faq_ld(pr_faq),
         {"@type": "OfferCatalog", "name": "Costa Mesa Jiu Jitsu memberships", "itemListElement": [
@@ -752,7 +755,7 @@ kids_faq = [
     ("How often should my child train?", "Two or three classes a week is a great pace for most kids. The Unlimited Kids membership covers classes five days a week."),
     ("Do kids have to compete?", "No. Competing is totally optional. Kids who want to can train for local tournaments, and we post upcoming events on our <a href=\"/upcoming-tournaments/\">tournaments page</a>."),
     ("Do you work with homeschool families?", "Yes. We partner with iLEAD, Sage Oak and Cabrillo Point Academy, so homeschool families can often use approved education funds for classes."),
-    ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month, and you can add a second family member for $120 a month. No long-term contracts."),
+    ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month on a 12-month contract, or $219 a month month-to-month. You can add a second family member for $120 a month."),
 ]
 kids_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -765,7 +768,7 @@ kids_body = f'''<section class="page-hero">
         <a class="btn btn-primary" href="#book">Book a free kids class</a>
         <a class="btn btn-outline" href="#programs">See class times</a>
       </div>
-      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true"></span>No contracts<span class="tiny-star" aria-hidden="true"></span>Parents welcome to watch</p>
+      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true"></span>12-month or month-to-month<span class="tiny-star" aria-hidden="true"></span>Parents welcome to watch</p>
     </div>
     <div class="page-hero-media"><img src="/photos/g-highfive.webp" width="800" height="800" alt="Two kids in white gis high-fiving at Costa Mesa Jiu Jitsu" fetchpriority="high" decoding="async"></div>
   </div>
@@ -795,7 +798,7 @@ kids_body = f'''<section class="page-hero">
       <div class="panel reveal">
         <span class="plan-for">Kids</span>
         <div class="plan-name">Unlimited Kids</div>
-        <div class="plan-price"><b>$179</b><span>/ month</span></div>
+        <div class="plan-price" style="display:block"><b>$179</b><span>/ month</span><span style="display:block;margin-top:8px">12-month contract, or $219/mo month-to-month</span></div>
         <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, five days a week.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_KIDS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
@@ -843,7 +846,8 @@ w('kids-jiu-jitsu/index.html', page(
         {"@type": "Service", "name": "Kids Jiu Jitsu Classes", "serviceType": "Kids Brazilian Jiu Jitsu classes", "provider": {"@id": SITE + "/#gym"},
          "areaServed": "Costa Mesa, CA", "audience": {"@type": "PeopleAudience", "suggestedMinAge": 4, "suggestedMaxAge": 12},
          "offers": [{"@type": "Offer", "name": "Free trial class", "price": "0", "priceCurrency": "USD"},
-                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "179", "priceCurrency": "USD"}]}]))
+                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "179", "priceCurrency": "USD"},
+                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu, month-to-month", "price": "219", "priceCurrency": "USD"}]}]))
 
 # ================================================================ /waiver/
 # Online liability waiver. Agreement text: tools/waiver-terms.html. Page: tools/waiver-page.html. Script: assets/waiver.js.

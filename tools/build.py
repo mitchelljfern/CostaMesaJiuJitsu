@@ -524,27 +524,6 @@ w('free-trial/index.html', page(
 # ================================================================ /pricing/
 pricing_sec = grab('<div class="plans has-grip">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
 pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"').replace('src="photos/', 'src="/photos/')
-# This page only. The home page cards stay as they are.
-def _rate_line(sec, amount, note):
-    old = f'<div class="plan-price"><b>${amount}</b><span>/ month</span></div>'
-    new = ('<div class="plan-price" style="display:block"><b>$%s</b><span>/ month</span>'
-           '<span style="display:block;margin-top:8px">%s</span></div>') % (amount, note)
-    if old not in sec:
-        sys.exit(f'pricing page: could not find the ${amount} price line')
-    return sec.replace(old, new, 1)
-pricing_sec = _rate_line(pricing_sec, '189', '12-month contract, or $229/mo month-to-month')
-pricing_sec = _rate_line(pricing_sec, '179', '12-month contract, or $219/mo month-to-month')
-pack_card = '''      <div class="plan reveal">
-        <span class="plan-for">Flexible</span>
-        <div class="plan-name">10-Class Pack</div>
-        <div class="plan-price"><b>$250</b><span>one time</span></div>
-        <p>Ten jiu jitsu classes, used whenever your schedule allows.</p>
-        <a class="btn btn-primary" href="https://buy.stripe.com/6oU28qgNr9h12Wd20g3Nm1Y" target="_blank" rel="noopener">Buy a pack</a>
-        <p class="plan-foot">Great for travelers and shift workers</p>
-      </div>'''
-if pack_card not in pricing_sec:
-    sys.exit('pricing page: could not find the 10-class pack card')
-pricing_sec = pricing_sec.replace(pack_card, '').replace('\n\n\n', '\n\n')
 pr_faq = [
     ("Are there contracts?", "You choose. Save with a 12-month contract, or go month-to-month at a slightly higher rate."),
     ("Is there a sign-up fee?", "No. You pay for the membership you choose, and that's it."),
@@ -776,7 +755,7 @@ kids_faq = [
     ("How often should my child train?", "Two or three classes a week is a great pace for most kids. The Unlimited Kids membership covers classes five days a week."),
     ("Do kids have to compete?", "No. Competing is totally optional. Kids who want to can train for local tournaments, and we post upcoming events on our <a href=\"/upcoming-tournaments/\">tournaments page</a>."),
     ("Do you work with homeschool families?", "Yes. We partner with iLEAD, Sage Oak and Cabrillo Point Academy, so homeschool families can often use approved education funds for classes."),
-    ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month, and you can add a second family member for $120 a month. No long-term contracts."),
+    ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month on a 12-month contract, or $219 a month month-to-month. You can add a second family member for $120 a month."),
 ]
 kids_body = f'''<section class="page-hero">
   <div class="wrap">
@@ -789,7 +768,7 @@ kids_body = f'''<section class="page-hero">
         <a class="btn btn-primary" href="#book">Book a free kids class</a>
         <a class="btn btn-outline" href="#programs">See class times</a>
       </div>
-      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true"></span>No contracts<span class="tiny-star" aria-hidden="true"></span>Parents welcome to watch</p>
+      <p class="kicker">First class free<span class="tiny-star" aria-hidden="true"></span>12-month or month-to-month<span class="tiny-star" aria-hidden="true"></span>Parents welcome to watch</p>
     </div>
     <div class="page-hero-media"><img src="/photos/g-highfive.webp" width="800" height="800" alt="Two kids in white gis high-fiving at Costa Mesa Jiu Jitsu" fetchpriority="high" decoding="async"></div>
   </div>
@@ -819,7 +798,7 @@ kids_body = f'''<section class="page-hero">
       <div class="panel reveal">
         <span class="plan-for">Kids</span>
         <div class="plan-name">Unlimited Kids</div>
-        <div class="plan-price"><b>$179</b><span>/ month</span></div>
+        <div class="plan-price" style="display:block"><b>$179</b><span>/ month</span><span style="display:block;margin-top:8px">12-month contract, or $219/mo month-to-month</span></div>
         <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, five days a week.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_KIDS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
@@ -867,7 +846,8 @@ w('kids-jiu-jitsu/index.html', page(
         {"@type": "Service", "name": "Kids Jiu Jitsu Classes", "serviceType": "Kids Brazilian Jiu Jitsu classes", "provider": {"@id": SITE + "/#gym"},
          "areaServed": "Costa Mesa, CA", "audience": {"@type": "PeopleAudience", "suggestedMinAge": 4, "suggestedMaxAge": 12},
          "offers": [{"@type": "Offer", "name": "Free trial class", "price": "0", "priceCurrency": "USD"},
-                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "179", "priceCurrency": "USD"}]}]))
+                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu", "price": "179", "priceCurrency": "USD"},
+                    {"@type": "Offer", "name": "Unlimited Kids Jiu Jitsu, month-to-month", "price": "219", "priceCurrency": "USD"}]}]))
 
 # ================================================================ /waiver/
 # Online liability waiver. Agreement text: tools/waiver-terms.html. Page: tools/waiver-page.html. Script: assets/waiver.js.

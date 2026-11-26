@@ -14,106 +14,96 @@ The website for Costa Mesa Jiu Jitsu, 2428 Newport Blvd, Unit 7, Costa Mesa, CA 
 | **Staging site** | https://staging--costa-mesa-jiu-jitsu.netlify.app | Anyone merges or pushes to `staging` |
 
 > **The one rule:** never push to `main`. `main` is the live site and is locked. Do your work on `staging`. Mitchell reviews it there and decides when it goes live.
+>
+> **Using an AI tool (Cursor, Claude, Grok, Copilot)?** It must read [`AGENTS.md`](AGENTS.md) first. That file is the full rulebook: where things live, what never to touch, and the check to run before every push. Cursor and Claude pick it up on their own. For any other tool, tell it: "Read AGENTS.md and follow it."
 
 ---
 
 ## How a change goes live
 
 ```
-your branch ──► staging ──► (staging site, check it) ──► pull request into main ──► Mitchell approves + merges ──► live site
+edit on staging ──► python3 tools/check.py ──► push to staging ──► check the staging site ──► pull request into main ──► Mitchell approves ──► live site
 ```
 
-1. **Start from staging**
-   ```bash
-   git checkout staging
-   git pull
-   git checkout -b update-saturday-times     # name it after what you're changing
-   ```
-2. **Make your edit** (see "Common edits" below) and preview it locally.
-3. **Push your branch and open a pull request into `staging`.** You can merge it yourself once it looks right.
-   Your branch on its own does **not** build on Netlify. Only `staging` and `main` do.
-4. **Check the staging site** on desktop and on your phone:
-   https://staging--costa-mesa-jiu-jitsu.netlify.app
-   (It updates about a minute after `staging` changes.)
-5. **Open a pull request from `staging` into `main`** and tag @mitchelljfern.
-   Use the checklist in the pull request template.
+1. **Start from `staging`.** Either work on `staging` directly, or make a branch from it and open a pull request back into `staging` (you can merge that one yourself). AI tools that open their own pull requests must use `staging` as the base branch.
+2. **Make your edit.** See "Common edits" below and the full rules in [`AGENTS.md`](AGENTS.md).
+3. **Run the check:** `python3 tools/check.py`. It rebuilds the generated pages and looks for the common mistakes (a class time changed in one place but not another, a hand-edited generated page, a missing consent checkbox). Fix anything it reports.
+4. **Push to `staging`** and look at the staging site on a computer and a phone:
+   https://staging--costa-mesa-jiu-jitsu.netlify.app (updates about a minute after the push).
+5. **Open a pull request from `staging` into `main`** and say in plain English what changed.
 6. **Mitchell approves and merges.** That is the only way the live site changes.
+
+### Simplest way, no tools needed
+
+For a small text change you can edit right on github.com: switch the branch dropdown to `staging`, open the file, click the pencil, and commit to `staging`. Then tell Mitchell, because generated pages will need a rebuild before it goes live.
 
 ### Why it's set up this way
 
-- **Mitchell approves every live change.** `main` is protected on GitHub. Nobody can push to it directly, and every pull request into it needs Mitchell's approval (see `.github/CODEOWNERS`).
-- **It saves Netlify build credits.** Netlify only builds `main` and `staging`. Every other branch and every pull request preview is skipped by the `ignore` rule in `netlify.toml`.
-- **Batch your changes.** Each push to `staging` is one Netlify build, so group several edits into one push instead of pushing every small tweak.
+- **Mitchell approves every live change.** `main` is protected by a GitHub ruleset ("Protect main"). Nobody can push to it directly, and every pull request into it needs Mitchell's own approval as Code Owner (see `.github/CODEOWNERS`). Another collaborator's approval does not count.
+- **It saves Netlify credits.** Each publish to the live site costs 15 credits. Staging builds are free. Netlify only builds `main` and `staging`; every other branch and every pull request preview is skipped by the `ignore` rule in `netlify.toml`.
+- **Batch your changes.** Put a whole day's edits into one pull request into `main`, so they go live with one publish.
 
 ---
 
 ## Preview on your own computer
 
-There's no build step. It's one HTML file and a folder of photos.
-
 ```bash
 # from the repo folder
-python3 -m http.server 8000
-# then open http://localhost:8000
+python3 tools/check.py          # rebuild the generated pages and run the checks
+python3 -m http.server 8000     # then open http://localhost:8000
 ```
 
-Opening `index.html` straight from your file browser mostly works too, but the videos and fonts behave better through the little server above.
+You only need Python 3. There is nothing to install.
 
 ---
 
 ## What's in here
 
+**Edit these (source):**
+
 ```
-index.html               home page: content, styles and scripts in one file
-free-trial/              /free-trial/ landing page (free class sign-up)
-pricing/                 /pricing/ memberships page
-private-lessons/         /private-lessons/ request page
-brady-fink/              /brady-fink/ Coach Brady Fink bio
-upcoming-tournaments/    /upcoming-tournaments/ SoCal tournament cards (built from tools/tournaments.json)
-privacy-policy/          privacy policy (built from tools/legal-privacy.html)
-terms-of-service/        SMS terms (built from tools/legal-sms-terms.html)
-assets/site.css          shared styles for the inner pages (a copy of the styles in index.html plus inner-page styles)
-assets/pages.js          shared script for the inner pages (menu, theme, FAQ, forms, chat widget)
-_redirects               every old WordPress URL forwarded to its new page or the home page (no 404s)
-sitemap.xml, robots.txt  search engine files (robots.txt welcomes Google, Bing and the AI assistants by name)
-llms.txt                 plain-English summary of the gym for AI assistants (ChatGPT, Claude, Perplexity, Gemini)
-tools/                   page builder scripts and the tournament list (see "Updating tournaments")
+index.html               home page, plus the shared header, footer, styles, forms and pricing cards every other page copies
+tools/build.py           builds the inner pages, redirects, sitemap and robots.txt
+tools/tournaments.json   the tournament list (tools/tournaments.py turns it into the page)
+tools/llms.txt           plain-English summary of the gym for AI assistants
+tools/legal-*.html       privacy policy and SMS terms wording
+tools/check.py           rebuilds everything and checks for mistakes. Run before every push.
+brand-kit/index.html     brand kit page (hand-written)
 photos/                  images (.webp), videos (.mp4), logos and icons
-netlify.toml             Netlify settings: what deploys, caching, security headers
-.github/CODEOWNERS       makes Mitchell the required reviewer for main
+AGENTS.md                the rulebook for AI tools and editors
 ```
 
-**Styles:** the home page keeps its styles inline for speed. Inner pages load `assets/site.css`. If you change a shared style (buttons, colors, header) in `index.html`, make the same change in `assets/site.css`.
+**Do not edit these by hand (the build writes them):**
 
-**Header, footer and menu** are repeated in every page. If you change a nav link or footer link, update it in each page folder too.
+```
+free-trial/  kids-jiu-jitsu/  pricing/  private-lessons/  brady-fink/
+upcoming-tournaments/  privacy-policy/  terms-of-service/  waiver/
+assets/site.css  assets/pages.js
+_redirects  sitemap.xml  robots.txt  404.html  llms.txt
+```
+
+**Settings (ask Mitchell first):** `netlify.toml`, `.github/CODEOWNERS`, `.cursor/rules/`.
+
+**Styles** live in the `<style>` block of `index.html`. The build copies them to `assets/site.css` for the inner pages, so change them in `index.html` only.
+
+**Header, footer and menu** come from `index.html` and `tools/build.py`. Change them there and rebuild, and every page updates.
 
 ---
 
 ## Common edits
 
-Everything lives in `index.html`. Search the file for the text you want to change.
+Search the source file for the text you want to change, edit it, then run `python3 tools/check.py`.
 
-### Changing the schedule (three places)
+### Changing the schedule
 
-A class time shows up in three spots. Update all three or they'll disagree:
+A class time shows up in eight places. The full list, with what to search for, is in [`AGENTS.md`](AGENTS.md) under "Changing the schedule". `tools/check.py` compares them and tells you if any disagree.
 
-1. **The weekly schedule cards.** Search for `id="week"`. Each day is a `<div class="day" data-day="...">` with one link per class:
-   ```html
-   <a class="cls t-adult" href="https://eldojo.ossdojo.com/member" ...>
-     <span class="cls-time">6:15 PM</span> ... Adult Jiu Jitsu ... NoGi
-   </a>
-   ```
-   The color comes from the second class name:
-   `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult), `t-open` green (Open Mat).
-2. **The "Next Class" box in the hero.** Search for `var SCHED`. One line per class:
-   `[day, hour, minute, 'Name', 'Detail']`. Day: 0 is Sunday, 1 Monday, ... 6 Saturday. Hours are 24-hour (6:15 PM is `18,15`).
-3. **The free class form's class list.** Search for `id="cls"`. Each option is one class time. The same list is also in `free-trial/index.html`, so update both.
-
-The program cards (Little Ninjas, Youth, Adult) also list their days and times. Search for `class="times"`.
+The color of a schedule card comes from its second class name:
+`t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult), `t-open` green (Open Mat).
 
 ### Prices and purchase links
 
-Search for `id="pricing"`. Each membership card has its price and a **Sign up** link that goes to the El Dojo member portal.
+A price shows up in four places: the pricing cards and the Google data in `index.html`, `tools/build.py`, and `tools/llms.txt`. See "Changing a price" in [`AGENTS.md`](AGENTS.md). Each membership card's **Sign up** link goes to the El Dojo member portal.
 
 ### Photos
 
@@ -125,43 +115,47 @@ Search for `id="pricing"`. Each membership card has its price and a **Sign up** 
 
 When someone shares the link (iMessage, Facebook, Instagram DMs, Google results), this is what shows:
 
-- **Image:** `photos/og-share.jpg`, 1200 × 630 px. Keep the title and blurb inside the left half so nothing gets cropped.
+- **Image:** `photos/brand/og-share-2026b.jpg`, 1200 × 630 px. Its source is `tools/brand/og-share.html` (open it in a browser at 1200 × 630 and screenshot it).
 - **Tags:** the `og:` and `twitter:` lines at the top of `index.html`, plus `<title>` and the meta description.
-- **Changing the image:** use a **new file name** (for example `og-share-2.jpg`) and update all three image URLs in `index.html`. Facebook and iMessage cache the old image for weeks, and a new name forces a refresh.
+- **Changing the image:** save it under a **new file name** and replace the old name everywhere it appears in `index.html`, `tools/build.py` and `brand-kit/index.html`, then rebuild. Facebook and iMessage cache the old image for weeks, and a new name forces a refresh.
 - After it's live, paste the URL into https://developers.facebook.com/tools/debug/ and click **Scrape Again** to refresh Facebook's preview.
 
 ### SEO and redirects
 
 - Every page has its own `<title>`, meta description, canonical URL, Open Graph tags and structured data (JSON-LD) in its `<head>`.
 - Canonical URLs and `sitemap.xml` use `https://costamesajiujitsu.com`. Share previews (`og:url`, `og:image`) use it too.
-- **When the domain moves:** find and replace `https://costa-mesa-jiu-jitsu.netlify.app` with `https://costamesajiujitsu.com` in every page, then submit `https://costamesajiujitsu.com/sitemap.xml` in Google Search Console.
 - Google tag `GT-5TGJHX46` (same as the old site) is in every page's `<head>`.
-- **Adding a new page:** create `new-page/index.html`, add it to `sitemap.xml`, and it will automatically take priority over the catch-all redirect.
+- **Adding a new page:** ask Mitchell first. New pages are added in `tools/build.py` so they share the header, footer and styles.
 - **`llms.txt` and `robots.txt` are generated** by `tools/build.py`. Edit `tools/llms.txt` (schedule, prices, links), then rebuild. Keep it in step with the site when the schedule or prices change.
 - **Staging is hidden from Google.** Staging builds add an `X-Robots-Tag: noindex` header (see `[context.staging]` in `netlify.toml`). The live site never gets it.
-- **Redirects** live in `_redirects`. Real pages always win over redirect rules, and the last rule sends any unknown URL to the home page.
+- **Redirects** are written by `tools/build.py` into `_redirects`. Real pages always win over redirect rules, and the last rule sends any unknown URL to the home page.
 
 ### Updating tournaments
 
 The tournament cards are built from `tools/tournaments.json`. Each event has its dates, venue, Gi/NoGi, divisions, price tiers (with "until" dates) and registration links.
 
 1. Edit `tools/tournaments.json` (add, change or remove events).
-2. Rebuild the page: `python3 tools/tournaments.py . /no-old-pages tools/tournaments.json YYYY-MM-DD` (use today's date; it shows as "Updated" on the page).
-3. Check it locally, then push to `staging`.
+2. If you re-checked the events against the organizers' sites, set `"checked"` at the top of the file to today's date (it shows as "Updated" on the page).
+3. Rebuild and check: `python3 tools/check.py`.
+4. Look at it locally, then push to `staging`.
 
 Past events hide themselves automatically, and each card's price moves to the next tier on its own as deadlines pass. Prices and dates change, so re-check the organizations' sites every month or so.
 
 ### Coming back in January
 
-- **Coach Brady privates:** set `BRADY_PRIVATES = True` in `tools/build.py` and rebuild (`python3 tools/build.py . /no-old-pages`). This adds him back to the private lessons page, the private lesson forms and his own page.
-- **Waiver:** a ready-made online waiver is saved on the `waiver-draft` branch. Connect its form first (like the other forms), then merge it into `staging`.
+- **Coach Brady privates:** set `BRADY_PRIVATES = True` in `tools/build.py` and rebuild. This adds him back to the private lessons page, the private lesson forms and his own page.
 - **Kickboxing and yoga:** add them back to the schedule, programs and FAQ when they return.
+
+### Removed, do not add back
+
+- **The $99 Beginners Jiu Jitsu Program** (removed November 2026). Its old address redirects to the free trial page.
 
 ### Brand rules
 
-- Colors: near-black and white with one red accent (`#f0544f`). Red is only for buttons, stars and small highlights.
-- Fonts: Montserrat ExtraBold for headlines, Manrope for body text, Bebas Neue for prices, times and day names.
+- Colors, fonts, logos and icons are documented on the brand kit page, `/brand-kit/`. Use what is there.
 - Never use em dashes in site copy.
+- The address is always "2428 Newport Blvd, Unit 7, Costa Mesa, CA 92627".
+- Real gym photos only, no stock.
 - The site has a light and a dark mode. Check both after design changes (moon/sun button in the header).
 
 ---

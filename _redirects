@@ -4,6 +4,11 @@
 
 # Builder scripts and data are in the repo but not meant to be browsed
 /tools/*                 /                         301!
+/README.md               /                         301!
+/AGENTS.md               /                         301!
+/CLAUDE.md               /                         301!
+/.cursor/*               /                         301!
+/.github/*               /                         301!
 
 # Old pages that have a new home
 /coach-brady-fink        /brady-fink/              301

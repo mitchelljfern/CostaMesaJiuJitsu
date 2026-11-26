@@ -1,0 +1,15 @@
+---
+description: House rules for the Costa Mesa Jiu Jitsu website. Applies to every change.
+alwaysApply: true
+---
+
+Read `AGENTS.md` in the repo root before changing anything, and follow it exactly. The short version:
+
+1. Work on the `staging` branch. Never commit to, push to, or open a pull request you intend to merge yourself into `main`. Pull requests from your work use `staging` as the base branch.
+2. Edit the existing code. Do not add frameworks, build tools, packages, new stylesheets or new script files. Do not rewrite or restructure the site.
+3. Never hand-edit generated files (`free-trial/`, `kids-jiu-jitsu/`, `pricing/`, `private-lessons/`, `brady-fink/`, `upcoming-tournaments/`, `privacy-policy/`, `terms-of-service/`, `waiver/`, `assets/site.css`, `assets/pages.js`, `_redirects`, `sitemap.xml`, `robots.txt`, `404.html`, top-level `llms.txt`). Edit `index.html` or the files in `tools/`, then rebuild.
+4. Keep changes small. Do not reformat or clean up code you were not asked to change.
+5. Run `python3 tools/check.py` before every push and fix everything it reports.
+6. Do not touch the text message consent checkbox, the privacy or SMS terms wording, form handling, tracking scripts, `netlify.toml`, `.github/` or `_redirects` without Mitchell's say-so.
+7. Never use em dashes in site copy. The address is always "2428 Newport Blvd, Unit 7".
+8. Only Mitchell approves and merges into `main`. When the work is ready, open a pull request from `staging` into `main` with a plain-English summary and stop there.

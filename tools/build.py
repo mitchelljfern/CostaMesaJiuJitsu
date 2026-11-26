@@ -830,7 +830,7 @@ kids_faq = [
     ("What should my child wear?", "Athletic clothes with no zippers, buttons or pockets, and a water bottle. Gi classes use a kimono, which we sell in kid sizes, but athletic clothes are fine for the free class."),
     ("Can parents watch?", "Yes. Parents are welcome to watch from the edge of the mat."),
     ("Is jiu jitsu safe for kids?", "Jiu jitsu is a grappling art, so there is no striking in our kids classes. Kids learn to tap, keep good posture and protect their training partners from day one, with coaches watching every pairing."),
-    ("How often should my child train?", "Two or three classes a week is a great pace for most kids. The Unlimited Kids membership covers up to four days a week."),
+    ("How often should my child train?", "Two or three classes a week is a great pace for most kids. The Unlimited Kids membership covers classes five days a week."),
     ("Do kids have to compete?", "No. Competing is totally optional. Kids who want to can train for local tournaments, and we post upcoming events on our <a href=\"/upcoming-tournaments/\">tournaments page</a>."),
     ("Do you work with homeschool families?", "Yes. We partner with iLEAD, Sage Oak and Cabrillo Point Academy, so homeschool families can often use approved education funds for classes."),
     ("How much does it cost?", "The first class is free. Unlimited Kids is $179 a month, and you can add a second family member for $120 a month. No long-term contracts."),
@@ -877,7 +877,7 @@ kids_body = f'''<section class="page-hero">
         <span class="plan-for">Kids</span>
         <div class="plan-name">Unlimited Kids</div>
         <div class="plan-price"><b>$179</b><span>/ month</span></div>
-        <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, up to four days a week.</p>
+        <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, five days a week.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="{BOOK}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
       <div class="panel reveal">

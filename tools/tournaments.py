@@ -7,7 +7,11 @@ Reuses the shared parts (head, header, footer, page) from build.py in the same f
 import datetime as dt, html, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO, OLD, EVENTS, CHECKED = sys.argv[1:5]
+_a = sys.argv[1:5]
+REPO = _a[0] if len(_a) > 0 else os.path.dirname(HERE)   # repo root
+OLD = _a[1] if len(_a) > 1 else '/no-old-pages'
+EVENTS = _a[2] if len(_a) > 2 else os.path.join(HERE, 'tournaments.json')
+CHECKED = _a[3] if len(_a) > 3 else json.load(open(EVENTS, encoding='utf-8'))['checked']   # date the events were last verified
 src = open(os.path.join(HERE, 'build.py'), encoding='utf-8').read()
 shared = src.split('# ================================================================ /free-trial/')[0]
 sys.argv = [sys.argv[0], REPO, OLD]

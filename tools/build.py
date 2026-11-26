@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Builds the Costa Mesa Jiu Jitsu landing pages from shared parts.
 
-Usage: python3 build.py <repo-dir> <old-pages-dir>
+Usage: python3 tools/build.py        (run from anywhere; no arguments needed)
 Writes: assets/site.css, assets/pages.js, the landing pages, terms-of-service,
 privacy-policy (from tools/legal-*.html), _redirects, sitemap.xml, robots.txt.
 """
 import html, json, os, re, sys
 
-REPO, OLD = sys.argv[1], sys.argv[2]
+REPO = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # repo root
+OLD = sys.argv[2] if len(sys.argv) > 2 else '/no-old-pages'   # folder of old WordPress pages, no longer used
 SITE = 'https://costamesajiujitsu.com'            # canonical domain (search engines)
 SHARE = SITE  # domain now on Netlify
 TODAY = '2026-11-03'
@@ -898,6 +899,11 @@ redirects = '''# Costa Mesa Jiu Jitsu redirects (Netlify)
 
 # Builder scripts and data are in the repo but not meant to be browsed
 /tools/*                 /                         301!
+/README.md               /                         301!
+/AGENTS.md               /                         301!
+/CLAUDE.md               /                         301!
+/.cursor/*               /                         301!
+/.github/*               /                         301!
 
 # Old pages that have a new home
 /coach-brady-fink        /brady-fink/              301

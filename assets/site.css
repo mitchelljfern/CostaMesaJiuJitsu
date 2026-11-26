@@ -671,15 +671,11 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 /* Reveal: visible at rest, gentle lift on enter */
 .reveal { transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
 .reveal.pre { opacity: 0; transform: translateY(14px); }
-/* Open Mat: compact row right under the programs */
-#programs { padding-bottom: clamp(16px, 2vw, 24px); }
-#openmat-row { padding-top: 0; padding-bottom: clamp(56px, 8vw, 96px); }
 /* Desktop: tighter rhythm between sections (about 100px between the top sections) */
 @media (min-width: 900px) {
   :root { --section: 72px; }
   .hero .wrap { padding-bottom: 32px; }
   #programs { padding-top: 64px; }
-  #openmat-row { padding-bottom: 32px; }
   #schedule { padding-bottom: 32px; }
 }
 .feature-photo { aspect-ratio: 2.6 / 1; }

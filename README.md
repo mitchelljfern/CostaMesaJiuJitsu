@@ -66,7 +66,6 @@ Opening `index.html` straight from your file browser mostly works too, but the v
 ```
 index.html               home page: content, styles and scripts in one file
 free-trial/              /free-trial/ landing page (free class sign-up)
-beginners-classes/       /beginners-classes/ landing page ($99 for 6 weeks)
 pricing/                 /pricing/ memberships page
 private-lessons/         /private-lessons/ request page
 brady-fink/              /brady-fink/ Coach Brady Fink bio
@@ -105,7 +104,7 @@ A class time shows up in three spots. Update all three or they'll disagree:
    </a>
    ```
    The color comes from the second class name:
-   `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult and Beginners), `t-open` green (Open Mat).
+   `t-ninja` purple (Little Ninjas), `t-youth` blue (Youth), `t-adult` red (Adult), `t-open` green (Open Mat).
 2. **The "Next Class" box in the hero.** Search for `var SCHED`. One line per class:
    `[day, hour, minute, 'Name', 'Detail']`. Day: 0 is Sunday, 1 Monday, ... 6 Saturday. Hours are 24-hour (6:15 PM is `18,15`).
 3. **The free class form's class list.** Search for `id="cls"`. Each option is one class time. The same list is also in `free-trial/index.html`, so update both.
@@ -114,7 +113,7 @@ The program cards (Little Ninjas, Youth, Adult) also list their days and times. 
 
 ### Prices and purchase links
 
-Search for `id="pricing"`. Each membership card has its price and a **Sign up** link that goes to the El Dojo member portal. The Beginners Jiu Jitsu Program card (search `id="beginners"`) links to its Stripe checkout.
+Search for `id="pricing"`. Each membership card has its price and a **Sign up** link that goes to the El Dojo member portal.
 
 ### Photos
 

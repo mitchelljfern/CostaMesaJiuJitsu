@@ -42,9 +42,12 @@ for script in ('build.py', 'tournaments.py'):
         bad(f'tools/{script} crashed:\n' + (r.stderr.strip().splitlines() or ['(no error text)'])[-1])
 after = git('status', '--porcelain')
 stale = sorted(set(l[3:] for l in after.splitlines()) - set(l[3:] for l in before.splitlines()))
-if stale:
-    bad('These generated files were out of date and have just been rebuilt. Commit them:\n    ' + '\n    '.join(stale)
-        + '\n    (If you edited one of them by hand, your edit is gone. Make the change in index.html or tools/ instead.)')
+if stale and not before.strip():
+    # Nothing was being edited, yet the build changed files: what was committed did not match its source.
+    bad('These generated files did not match their source and have just been rebuilt. Commit them:\n    ' + '\n    '.join(stale)
+        + '\n    (If one was edited by hand, that edit is gone. Make the change in index.html or tools/ instead.)')
+elif stale:
+    notes.append('Rebuilt from your edits (commit these along with your change): ' + ', '.join(stale))
 
 pages = [p for p in ('index.html', 'free-trial/index.html', 'kids-jiu-jitsu/index.html', 'pricing/index.html',
                      'private-lessons/index.html', 'brady-fink/index.html', 'upcoming-tournaments/index.html',
@@ -185,8 +188,12 @@ for p in pages:
 
 # ---------------------------------------------------------------- report
 if problems:
+    for n in notes:
+        print(n)
     print(f'\n{len(problems)} problem(s) found:\n')
     for i, p in enumerate(problems, 1):
         print(f'{i}. {p}\n')
     sys.exit(1)
+for n in notes:
+    print(n)
 print(f'All checks passed. {len(sched)} classes a week, {len(pages)} pages checked.')

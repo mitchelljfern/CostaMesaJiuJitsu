@@ -103,7 +103,7 @@ The color of a schedule card comes from its second class name:
 
 ### Prices and purchase links
 
-A price shows up in four places: the pricing cards and the Google data in `index.html`, `tools/build.py`, and `tools/llms.txt`. See "Changing a price" in [`AGENTS.md`](AGENTS.md). Each membership card's **Sign up** link goes to the El Dojo member portal.
+A price shows up in four places: the pricing cards and the Google data in `index.html`, `tools/build.py`, and `tools/llms.txt`. See "Changing a price" in [`AGENTS.md`](AGENTS.md). The **Sign up** and **Buy a pack** buttons go to Stripe checkout links, one per plan. A price change needs a new Stripe link to match.
 
 ### Photos
 

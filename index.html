@@ -766,15 +766,11 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 /* Reveal: visible at rest, gentle lift on enter */
 .reveal { transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
 .reveal.pre { opacity: 0; transform: translateY(14px); }
-/* Open Mat: compact row right under the programs */
-#programs { padding-bottom: clamp(16px, 2vw, 24px); }
-#openmat-row { padding-top: 0; padding-bottom: clamp(56px, 8vw, 96px); }
 /* Desktop: tighter rhythm between sections (about 100px between the top sections) */
 @media (min-width: 900px) {
   :root { --section: 72px; }
   .hero .wrap { padding-bottom: 32px; }
   #programs { padding-top: 64px; }
-  #openmat-row { padding-bottom: 32px; }
   #schedule { padding-bottom: 32px; }
 }
 .feature-photo { aspect-ratio: 2.6 / 1; }
@@ -1054,22 +1050,6 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
         </div>
       </a>
 
-    </div>
-  </div>
-</section>
-
-<section class="section" id="openmat-row">
-  <div class="wrap">
-    <div class="duo duo-solo">
-      <div class="openmat reveal" id="open-mat">
-        <div class="openmat-photo"><img src="photos/open-mat.webp" width="1400" height="788" alt="Adults grappling during Saturday open mat at Costa Mesa Jiu Jitsu" loading="lazy" decoding="async"></div>
-        <div class="openmat-body">
-          <div class="om-top"><h3 class="display h3">Open Mat</h3><span class="badge badge-accent">Free</span></div>
-          <p>Roll, drill or just come watch. Members or not, everyone is welcome.</p>
-          <div class="times"><div><b>Saturday</b><span>11:00 AM</span></div></div>
-          <a class="btn btn-primary btn-sm" href="https://eldojo.ossdojo.com/member" target="_blank" rel="noopener">Reserve a spot</a>
-        </div>
-      </div>
     </div>
   </div>
 </section>

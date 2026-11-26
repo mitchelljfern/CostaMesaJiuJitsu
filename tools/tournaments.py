@@ -304,7 +304,7 @@ def event_ld(ev):
          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": loc,
          "organizer": {"@type": "Organization", "name": ev.get('org_full') or ev['org'], "url": ev.get('org_url', ev.get('event_url'))},
          "url": ev.get('event_url') or ev.get('register_url'), "sport": "Brazilian Jiu Jitsu",
-         "image": SHARE + '/photos/brand/og-share-2026.jpg',
+         "image": SHARE + '/photos/brand/og-share-2026b.jpg',
          "description": f"{' and '.join(ev['style'])} jiu jitsu tournament in {ev['city']}. {ev.get('divisions') or ''}".strip()}
     if ev.get('price_from_num'):
         o['offers'] = {"@type": "Offer", "price": str(ev['price_from_num']), "priceCurrency": "USD", "url": ev.get('register_url') or ev.get('event_url'),

@@ -671,15 +671,15 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 /* Reveal: visible at rest, gentle lift on enter */
 .reveal { transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
 .reveal.pre { opacity: 0; transform: translateY(14px); }
-/* Beginners + Open Mat: compact row right under the programs */
+/* Open Mat: compact row right under the programs */
 #programs { padding-bottom: clamp(16px, 2vw, 24px); }
-#beginners { padding-top: 0; padding-bottom: clamp(56px, 8vw, 96px); }
+#openmat-row { padding-top: 0; padding-bottom: clamp(56px, 8vw, 96px); }
 /* Desktop: tighter rhythm between sections (about 100px between the top sections) */
 @media (min-width: 900px) {
   :root { --section: 72px; }
   .hero .wrap { padding-bottom: 32px; }
   #programs { padding-top: 64px; }
-  #beginners { padding-bottom: 32px; }
+  #openmat-row { padding-bottom: 32px; }
   #schedule { padding-bottom: 32px; }
 }
 .feature-photo { aspect-ratio: 2.6 / 1; }
@@ -788,6 +788,14 @@ html[data-mode="light"] .faq-band { --scrim: rgba(245,245,246,0.86); }
 .consent input[style*="border-color"] { outline: 2px solid #ff2a24; outline-offset: 2px; }
 .consent input[style*="border-color"] + span { color: #ff2a24; }
 #rashForm .consent { margin: 14px 0; }
+
+/* Open Mat on its own row: full-width photo card with the copy on the left */
+@media (min-width: 760px) {
+  .duo.duo-solo { grid-template-columns: 1fr; }
+  .duo-solo .openmat { min-height: 340px; }
+  .duo-solo .openmat-photo::after { background: linear-gradient(90deg, rgba(10,10,11,0.94) 0%, rgba(10,10,11,0.82) 32%, rgba(10,10,11,0.12) 78%); }
+  .duo-solo .openmat-body { max-width: 460px; padding: 32px; }
+}
 
 /* ===== Inner pages ===== */
 .header.on-page { --hfg: var(--fg); }

@@ -13,7 +13,6 @@ SHARE = SITE  # domain now on Netlify
 TODAY = '2026-11-03'
 GTAG = 'GT-5TGJHX46'
 PHONE, PHONE_TEL, EMAIL = '949-556-1178', '+19495561178', 'info@costamesajiujitsu.com'
-STRIPE_BEGINNERS = 'https://buy.stripe.com/14AeVc7cR1OzcwNcEU3Nm00'
 BOOK = 'https://eldojo.ossdojo.com/member'   # El Dojo member portal: booking, memberships, payments
 
 index = open(os.path.join(REPO, 'index.html'), encoding='utf-8').read()
@@ -239,13 +238,13 @@ header_socials = grab('<div class="header-socials">', '</div>')
 theme_btn = grab('<button class="icon-btn theme-btn" type="button" data-theme-toggle', '</button>')
 menu_socials = grab('<div class="menu-socials">', '</div>')
 account_btn = grab('<a class="icon-btn account-btn"', '</a>')
-cta_svgs = re.findall(r'<a class="tab[^"]*" href="#[^"]+">(<svg.*?</svg>)', grab('<nav class="cta-bar"', '</nav>'), re.S)
+cta_svgs = re.findall(r'<a class="tab[^"]*" href="[^"]+">(<svg.*?</svg>)', grab('<nav class="cta-bar"', '</nav>'), re.S)
 
-NAV = [('Programs', '/#programs'), ('Beginners', '/beginners-classes/'), ('Schedule', '/#schedule'),
+NAV = [('Programs', '/#programs'), ('Schedule', '/#schedule'),
        ('Pricing', '/pricing/'), ('Kids', '/kids-jiu-jitsu/'), ('FAQ', '/#faq'), ('Contact', '/#contact')]
 
 QUICK_TABS = [('tab tab-primary', '/free-trial/', 'Free class'), ('tab', '/#schedule', 'Schedule'),
-              ('tab', '/pricing/', 'Pricing'), ('tab', '/beginners-classes/', 'Beginners')]
+              ('tab', '/pricing/', 'Pricing'), ('tab', '/#programs', 'Programs')]
 
 def quick_tabs(active_tab):
     return '\n'.join(f'    <a class="{c}{" active" if h == active_tab else ""}" href="{h}"{" aria-current=\"page\"" if h == active_tab else ""}>{cta_svgs[i]}{t}</a>' for i, (c, h, t) in enumerate(QUICK_TABS))
@@ -288,7 +287,6 @@ def header(active):
     <li><a href="/#programs">Programs <span>→</span></a></li>
     <li><a href="/#schedule">Schedule <span>→</span></a></li>
     <li><a href="/pricing/">Pricing <span>→</span></a></li>
-    <li><a href="/beginners-classes/">Beginners program <span>→</span></a></li>
     <li><a href="/kids-jiu-jitsu/">Kids jiu jitsu <span>→</span></a></li>
     <li><a href="/private-lessons/">Private lessons <span>→</span></a></li>
     <li><a href="/upcoming-tournaments/">Tournaments <span>→</span></a></li>
@@ -305,7 +303,7 @@ def header(active):
 </div>
 '''
 
-FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Waiver', '/waiver/'), ('Beginners program', '/beginners-classes/'), ('Pricing', '/pricing/'),
+FOOTER_LINKS = [('Member account', 'https://eldojo.ossdojo.com/member'), ('Home', '/'), ('Free trial', '/free-trial/'), ('Waiver', '/waiver/'), ('Pricing', '/pricing/'),
                 ('Kids jiu jitsu', '/kids-jiu-jitsu/'), ('Private lessons', '/private-lessons/'), ('Tournaments', '/upcoming-tournaments/'), ('Schedule', '/#schedule'),
                 ('FAQ', '/#faq'), ('SMS terms', '/terms-of-service/'), ('Privacy', '/privacy-policy/')]
 
@@ -337,7 +335,7 @@ def footer(active_tab=None):
 
 ORG = {"@type": "SportsActivityLocation", "@id": SITE + "/#gym", "name": "Costa Mesa Jiu Jitsu",
        "url": SITE + "/", "telephone": "+1-949-556-1178", "email": EMAIL,
-       "image": SHARE + "/photos/brand/og-share-2026.jpg", "logo": SITE + "/photos/brand/cmjj-logo-1600.png",
+       "image": SHARE + "/photos/brand/og-share-2026b.jpg", "logo": SITE + "/photos/brand/cmjj-logo-1600.png",
        "address": {"@type": "PostalAddress", "streetAddress": "2428 Newport Blvd, Unit 7", "addressLocality": "Costa Mesa",
                    "addressRegion": "CA", "postalCode": "92627", "addressCountry": "US"}}
 
@@ -350,7 +348,7 @@ def faq_ld(qas):
     return {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q,
             "acceptedAnswer": {"@type": "Answer", "text": re.sub('<[^>]+>', '', a)}} for q, a in qas]}
 
-def head(title, desc, path, og_title=None, og_desc=None, image='/photos/brand/og-share-2026.jpg', ld=None, og_type='website', noindex=False):
+def head(title, desc, path, og_title=None, og_desc=None, image='/photos/brand/og-share-2026b.jpg', ld=None, og_type='website', noindex=False):
     og_title = og_title or title; og_desc = og_desc or desc
     e = html.escape
     graph = {"@context": "https://schema.org", "@graph": ld or []}
@@ -457,8 +455,8 @@ mat_bg = '<div class="mat-bg" aria-hidden="true"><picture><source media="(max-wi
 
 # ================================================================ /free-trial/
 ft_faq = [
-    ("Is the free class really free?", "Yes. One class, any program, no card required and no pressure to join. The only thing it does not cover is the beginners jiu jitsu program, which is its own $99 program."),
-    ("Do I need any experience?", "No. Most of our students started with zero experience, and the coaches walk you through everything. If you want a slower on-ramp, the <a href=\"/beginners-classes/\">beginners jiu jitsu program</a> is built exactly for that."),
+    ("Is the free class really free?", "Yes. One class, any program, no card required and no pressure to join."),
+    ("Do I need any experience?", "No. Most of our students started with zero experience, and the coaches walk you through everything."),
     ("What should I wear?", "Athletic clothes with no zippers, buttons or pockets. A rash guard and shorts work great. Bring a water bottle."),
     ("How old do kids need to be?", "Little Ninjas starts at age 4. Youth Jiu Jitsu is ages 7 to 12. Teens 13 and up train in the adult classes."),
     ("Do I need to sign a waiver?", "Yes. Every student needs a signed waiver before training, and parents or guardians sign for anyone under 18. It takes about 3 minutes <a href=\"/waiver/\">online</a>."),
@@ -500,7 +498,7 @@ ft_body = f'''<section class="page-hero">
         <h2 class="display h2">Pick your class</h2>
         <p class="lead">Show up 10 minutes early and we will take it from there.</p>
         {checks(["Any program, kids or adults", "Small classes, so coaches actually know your name", "Gear available in adult and kid sizes if you need it", "Parents welcome to watch from the mat edge"])}
-        <p class="form-fine">The free trial is not valid for the beginners program. Prefer to talk to a person? Call or text <a href="tel:{PHONE_TEL}" style="color:var(--fg)">{PHONE}</a>.</p>
+        <p class="form-fine">Prefer to talk to a person? Call or text <a href="tel:{PHONE_TEL}" style="color:var(--fg)">{PHONE}</a>.</p>
       </div>
       {trial_form}
       {trial_ok}
@@ -521,92 +519,11 @@ w('free-trial/index.html', page(
     og_title='Your First Jiu Jitsu Class Is Free | Costa Mesa Jiu Jitsu',
     ld=[ORG, crumbs_ld('Free trial', '/free-trial/'), faq_ld(ft_faq)]))
 
-# ================================================================ /beginners-classes/
-bg_faq = [
-    ("Do I need any experience to join?", "None. That's the whole point. Everyone in this program is starting on day one with you, so nobody is ahead of you and nobody is watching you struggle. If you've never touched a mat before, you're exactly who this was built for."),
-    ("Is $99 the total price?", "Yes, $99 covers the full 6 weeks. No signup fee, no contract, no auto-renew."),
-    ("When does the program start?", "Any week. It's an ongoing program, so you can join on any Tuesday. Your 6 weeks start at your first class."),
-    ("Will I be sparring or rolling live right away?", "No. Your first classes are movement, position, and safety. Live rolling can be introduced later and is totally optional, only when you're ready for it. You will never get thrown into something you haven't been taught."),
-    ("What happens when the 6 weeks are done?", "You'll have a real foundation and a decision to make. Most people roll into a regular membership and keep training with the same crew they started with. There's no obligation and no pressure."),
-    ("What if I miss a class?", "Life happens. We'll get you caught up at the next class. Your 6 weeks keep running from your first class, so missed classes can't be saved or added on at the end."),
-    ("I'm out of shape. Should I get in better shape first?", "No. Waiting until you're in shape to start is how people never start. The program is built for beginners and you go at your own pace. Jiu jitsu is what gets you in shape, not the other way around."),
-    ("Who's teaching the program?", "Anthony Misitano, a black belt with more than a decade of experience on the mats. He's coached hundreds of people through their first classes. This isn't a class handed off to an assistant."),
-    ("What does a class actually look like?", "Warm up, technique of the day, drilling with a partner, then positional work. Every class builds on the last one so nothing comes out of nowhere. Classes are 60 minutes."),
-]
-bg_body = f'''<section class="page-hero">
-  <div class="wrap">
-    <div class="page-hero-copy">
-      {crumbs('Beginners program')}
-      <p class="kicker">Tuesdays at 6:15 PM<span class="tiny-star" aria-hidden="true"></span>Join any week</p>
-      <h1 class="display h1">Beginners <em>Jiu Jitsu</em> Program</h1>
-      <div class="price-tag"><span class="display">$99</span><small>for 6 weeks</small></div>
-      <p class="lead">Build a real foundation with step-by-step basics and a black belt coach. Join any week: your 6 weeks start at your first class.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Reserve my spot</a>
-        <a class="btn btn-outline" href="#faq">Read the FAQ</a>
-      </div>
-      <p class="kicker">No sign-up fee<span class="tiny-star" aria-hidden="true"></span>No contract<span class="tiny-star" aria-hidden="true"></span>No auto-renew</p>
-    </div>
-    <div class="page-hero-media"><img src="/photos/beginners-tall.webp" width="900" height="1200" alt="Coach demonstrating a jiu jitsu control position to beginners" fetchpriority="high" decoding="async"></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="split2">
-      <div class="panel reveal">
-        <p class="kicker">What you get</p>
-        <h2 class="display h3">Built for true beginners</h2>
-        {checks(["Clear path into regular classes after the program", "No experience needed, built for true beginners", "Learn positions that actually matter (guard, mount, back, side control)", "Escape first so you don't feel stuck or panicked", "Simple submissions and how to finish them safely", "How to stay safe while training (tapping, posture, injury prevention)"])}
-      </div>
-      <div class="panel reveal">
-        <p class="kicker">The details</p>
-        <h2 class="display h3">When, where and what to wear</h2>
-        <div class="times"><div><b>Tuesday</b><span>6:15 PM</span></div></div>
-        <p>You train in our beginner-friendly Tuesday NoGi class at 2428 Newport Blvd, Unit 7, Costa Mesa. Taught by Coach Tony Misitano, BJJ black belt.</p>
-        <p><b style="color:var(--fg)">How it works:</b> it's an ongoing program, so you can join any week. Your 6 weeks start at your first class. It's not a class pack, so classes can't be skipped or saved for later.</p>
-        <p style="margin:0;color:var(--fg)"><b>Please wear proper NoGi attire:</b></p>
-        {checks(["Rash guard", "Athletic shorts with no zippers or pockets", "Optional: spats", "Bring a water bottle"])}
-        <a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Reserve my spot for $99</a>
-        <p class="form-fine">Not part of the free trial. Questions? Text <a href="sms:{PHONE_TEL}">{PHONE}</a>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-dark mat-band faq-band" id="faq">
-  <div class="mat-bg" aria-hidden="true"><picture><source media="(max-width: 767px)" srcset="/photos/faq-tall.webp"><img src="/photos/faq-wide.webp" width="1920" height="1440" alt="" loading="lazy" decoding="async"></picture></div>
-  <div class="wrap">
-    <div class="section-head center"><p class="kicker">Frequently asked questions</p><h2 class="display h2">Good to know</h2></div>
-{faq_html(bg_faq)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap cta-band">
-    <p class="kicker">6 weeks<span class="tiny-star" aria-hidden="true"></span>$99<span class="tiny-star" aria-hidden="true"></span>Join any week</p>
-    <h2 class="display h2">Start from zero, the right way</h2>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Reserve my spot</a>
-      <a class="btn btn-outline" href="/free-trial/">Try a regular class free</a>
-    </div>
-  </div>
-</section>'''
-w('beginners-classes/index.html', page(
-    'Beginners Jiu Jitsu Program in Costa Mesa | 6 Weeks for $99',
-    'New to jiu jitsu? Our beginners program is 6 weeks for $99, Tuesdays at 6:15 PM in Costa Mesa, CA. Join any week. No experience needed, no contract.',
-    '/beginners-classes/', bg_body, active_nav='/beginners-classes/', active_tab='/beginners-classes/',
-    ld=[ORG, crumbs_ld('Beginners program', '/beginners-classes/'), faq_ld(bg_faq),
-        {"@type": "Course", "name": "Beginners Jiu Jitsu Program", "description": "6-week beginner jiu jitsu program, Tuesdays at 6:15 PM in the beginner-friendly NoGi class, taught by a black belt coach. Join any week; your 6 weeks start at your first class.",
-         "provider": {"@id": SITE + "/#gym"},
-         "offers": {"@type": "Offer", "price": "99", "priceCurrency": "USD", "category": "Paid", "url": SITE + "/beginners-classes/"},
-         "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "Onsite", "location": {"@id": SITE + "/#gym"}, "courseSchedule": {"@type": "Schedule", "repeatFrequency": "P1W", "byDay": "https://schema.org/Tuesday", "startTime": "18:15", "duration": "PT1H", "repeatCount": 6}}}]))
-
 # ================================================================ /pricing/
 pricing_sec = grab('<div class="plans has-grip">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
 pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"').replace('src="photos/', 'src="/photos/')
 pr_faq = [
-    ("Are there contracts?", "No long-term contracts. Memberships are monthly, the 10-class pack is a one-time purchase, and the beginners program is a one-time $99 for 6 weeks."),
+    ("Are there contracts?", "No long-term contracts. Memberships are monthly and the 10-class pack is a one-time purchase."),
     ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
     ("Can I try a class before I buy?", "Yes. Your first class is free, any program, kids or adults. <a href=\"/free-trial/\">Book your free class</a>."),
     ("How does the Family Add-On work?", "Add a second family member to any unlimited membership for $120 a month. Call or text 949-556-1178 or email info@costamesajiujitsu.com to set it up."),
@@ -628,11 +545,11 @@ pr_body = f'''<section class="page-hero">
     {pricing_sec}
     <div class="split2" style="margin-top:20px">
       <div class="panel reveal">
-        <span class="plan-for">New to jiu jitsu</span>
-        <div class="plan-name">Beginners Jiu Jitsu Program</div>
-        <div class="plan-price"><b>$99</b><span>for 6 weeks</span></div>
-        <p>Tuesdays at 6:15 PM with a black belt coach. Join any week. No sign-up fee, no contract.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_BEGINNERS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="/beginners-classes/">Learn more</a></div>
+        <span class="plan-for">Not sure yet?</span>
+        <div class="plan-name">Your First Class</div>
+        <div class="plan-price"><b>Free</b><span>no card required</span></div>
+        <p>Try any adult or kids class before you join. No experience needed and no pressure to sign up.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="/free-trial/">Book a free class</a></div>
       </div>
       <div class="panel reveal">
         <span class="plan-for">Solo or small group</span>
@@ -653,10 +570,10 @@ pr_body = f'''<section class="page-hero">
   </div>
 </section>'''
 offers = [("Unlimited Adult Jiu Jitsu", "189", "month"), ("Unlimited Kids Jiu Jitsu", "179", "month"), ("Family Add-On", "120", "month"),
-          ("10-Class Pack", "260", None), ("Beginners Jiu Jitsu Program (6 weeks)", "99", None)]
+          ("10-Class Pack", "260", None)]
 w('pricing/index.html', page(
     'Jiu Jitsu Membership Pricing | Costa Mesa Jiu Jitsu',
-    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120, 10-class pack $260 and a $99 beginners program. No contracts. Costa Mesa, CA.',
+    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120 and a 10-class pack for $260. No contracts. Costa Mesa, CA.',
     '/pricing/', pr_body, active_nav='/pricing/', active_tab='/pricing/',
     ld=[ORG, crumbs_ld('Pricing', '/pricing/'), faq_ld(pr_faq),
         {"@type": "OfferCatalog", "name": "Costa Mesa Jiu Jitsu memberships", "itemListElement": [
@@ -730,7 +647,7 @@ pl_body = f'''<section class="page-hero">
         <div class="coach-body">
           <p class="kicker">Head coach</p>
           <h3>Tony Misitano</h3>
-          <p>BJJ black belt and IBJJF medalist. Tony started at Carlson Gracie Team Chicago and has competed at the highest level since 2018. He leads the beginners program and has coached hundreds of first-timers, kids and adults alike.</p>
+          <p>BJJ black belt and IBJJF medalist. Tony started at Carlson Gracie Team Chicago and has competed at the highest level since 2018. He has coached hundreds of first-timers, kids and adults alike.</p>
           <div class="coach-actions"><a class="btn btn-primary btn-sm" href="#request" data-coach="Coach Tony Misitano">Request a lesson with Tony</a></div>
         </div>
       </div>
@@ -985,8 +902,10 @@ redirects = '''# Costa Mesa Jiu Jitsu redirects (Netlify)
 # Old pages that have a new home
 /coach-brady-fink        /brady-fink/              301
 /author/coach-brady      /brady-fink/              301
-/beginners               /beginners-classes/       301
-/beginner                /beginners-classes/       301
+/beginners               /free-trial/              301
+/beginner                /free-trial/              301
+/beginners-classes       /free-trial/              301
+/beginners-classes/*     /free-trial/              301
 /free-class              /free-trial/              301
 /privates                /private-lessons/         301
 /memberships             /pricing/                 301
@@ -1059,7 +978,7 @@ w('404.html', '''<!doctype html>
 </html>
 ''')
 
-urls = [('/', '1.0', 'weekly'), ('/free-trial/', '0.9', 'monthly'), ('/beginners-classes/', '0.9', 'monthly'), ('/kids-jiu-jitsu/', '0.9', 'monthly'),
+urls = [('/', '1.0', 'weekly'), ('/free-trial/', '0.9', 'monthly'), ('/kids-jiu-jitsu/', '0.9', 'monthly'),
         ('/pricing/', '0.8', 'monthly'), ('/private-lessons/', '0.8', 'monthly'), ('/brady-fink/', '0.6', 'yearly'), ('/upcoming-tournaments/', '0.7', 'weekly'),
         ('/privacy-policy/', '0.2', 'yearly'), ('/terms-of-service/', '0.2', 'yearly')]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(

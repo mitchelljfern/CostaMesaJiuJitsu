@@ -8,8 +8,10 @@
 # Old pages that have a new home
 /coach-brady-fink        /brady-fink/              301
 /author/coach-brady      /brady-fink/              301
-/beginners               /beginners-classes/       301
-/beginner                /beginners-classes/       301
+/beginners               /free-trial/              301
+/beginner                /free-trial/              301
+/beginners-classes       /free-trial/              301
+/beginners-classes/*     /free-trial/              301
 /free-class              /free-trial/              301
 /privates                /private-lessons/         301
 /memberships             /pricing/                 301

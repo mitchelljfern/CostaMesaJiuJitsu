@@ -69,7 +69,9 @@ Current schedule: Monday to Friday, Little Ninjas 4:15 PM, Youth 5:15 PM, Adults
 3. `tools/build.py`: search for the old price. It appears in the pricing page, the kids page and their descriptions.
 4. `tools/llms.txt`: the "Memberships" line.
 
-Current prices: Unlimited Adult $189/month, Unlimited Kids $179/month, Family Add-On $120/month, 10-Class Pack $260.
+Current prices: Unlimited Adult $189/month, Unlimited Kids $179/month, Family Add-On $120/month, 10-Class Pack $250.
+
+The **Sign up** and **Buy a pack** buttons go to Stripe checkout links, one per plan. A Stripe link charges a fixed price, so a price change needs a new Stripe link from Mitchell or Tony. Never change a price on the site without the matching link. The Unlimited Kids link appears twice: on its card in `index.html` and as `STRIPE_KIDS` in `tools/build.py`.
 
 ## Do not touch without asking Mitchell
 

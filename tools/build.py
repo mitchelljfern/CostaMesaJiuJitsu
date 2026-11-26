@@ -14,7 +14,8 @@ SHARE = SITE  # domain now on Netlify
 TODAY = '2026-11-03'
 GTAG = 'GT-5TGJHX46'
 PHONE, PHONE_TEL, EMAIL = '949-556-1178', '+19495561178', 'info@costamesajiujitsu.com'
-BOOK = 'https://eldojo.ossdojo.com/member'   # El Dojo member portal: booking, memberships, payments
+BOOK = 'https://eldojo.ossdojo.com/member'
+STRIPE_KIDS = 'https://buy.stripe.com/14A8wO9kZ0Kv40heN23Nm1X'   # Unlimited Kids checkout (same link as the Kids card in index.html)   # El Dojo member portal: booking, memberships, payments
 
 index = open(os.path.join(REPO, 'index.html'), encoding='utf-8').read()
 
@@ -571,10 +572,10 @@ pr_body = f'''<section class="page-hero">
   </div>
 </section>'''
 offers = [("Unlimited Adult Jiu Jitsu", "189", "month"), ("Unlimited Kids Jiu Jitsu", "179", "month"), ("Family Add-On", "120", "month"),
-          ("10-Class Pack", "260", None)]
+          ("10-Class Pack", "250", None)]
 w('pricing/index.html', page(
     'Jiu Jitsu Membership Pricing | Costa Mesa Jiu Jitsu',
-    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120 and a 10-class pack for $260. No contracts. Costa Mesa, CA.',
+    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120 and a 10-class pack for $250. No contracts. Costa Mesa, CA.',
     '/pricing/', pr_body, active_nav='/pricing/', active_tab='/pricing/',
     ld=[ORG, crumbs_ld('Pricing', '/pricing/'), faq_ld(pr_faq),
         {"@type": "OfferCatalog", "name": "Costa Mesa Jiu Jitsu memberships", "itemListElement": [
@@ -796,7 +797,7 @@ kids_body = f'''<section class="page-hero">
         <div class="plan-name">Unlimited Kids</div>
         <div class="plan-price"><b>$179</b><span>/ month</span></div>
         <p>Unlimited Little Ninjas or Youth Jiu Jitsu classes, five days a week.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="{BOOK}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
+        <div class="hero-actions"><a class="btn btn-primary" href="{STRIPE_KIDS}" target="_blank" rel="noopener">Sign up</a><a class="btn btn-ghost" href="#book">Try a class free</a></div>
       </div>
       <div class="panel reveal">
         <span class="plan-for">Families</span>

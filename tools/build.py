@@ -524,9 +524,30 @@ w('free-trial/index.html', page(
 # ================================================================ /pricing/
 pricing_sec = grab('<div class="plans has-grip">', '<p class="plans-all">')[:-len('<p class="plans-all">')]
 pricing_sec = pricing_sec.replace('href="#free-class"', 'href="/free-trial/"').replace('src="photos/', 'src="/photos/')
+# This page only. The home page cards stay as they are.
+def _rate_line(sec, amount, note):
+    old = f'<div class="plan-price"><b>${amount}</b><span>/ month</span></div>'
+    new = ('<div class="plan-price" style="display:block"><b>$%s</b><span>/ month</span>'
+           '<span style="display:block;margin-top:8px">%s</span></div>') % (amount, note)
+    if old not in sec:
+        sys.exit(f'pricing page: could not find the ${amount} price line')
+    return sec.replace(old, new, 1)
+pricing_sec = _rate_line(pricing_sec, '189', '12-month contract, or $229/mo month-to-month')
+pricing_sec = _rate_line(pricing_sec, '179', '12-month contract, or $219/mo month-to-month')
+pack_card = '''      <div class="plan reveal">
+        <span class="plan-for">Flexible</span>
+        <div class="plan-name">10-Class Pack</div>
+        <div class="plan-price"><b>$250</b><span>one time</span></div>
+        <p>Ten jiu jitsu classes, used whenever your schedule allows.</p>
+        <a class="btn btn-primary" href="https://buy.stripe.com/6oU28qgNr9h12Wd20g3Nm1Y" target="_blank" rel="noopener">Buy a pack</a>
+        <p class="plan-foot">Great for travelers and shift workers</p>
+      </div>'''
+if pack_card not in pricing_sec:
+    sys.exit('pricing page: could not find the 10-class pack card')
+pricing_sec = pricing_sec.replace(pack_card, '').replace('\n\n\n', '\n\n')
 pr_faq = [
-    ("Are there contracts?", "No long-term contracts. Memberships are monthly and the 10-class pack is a one-time purchase."),
-    ("Is there a sign-up fee?", "No. You pay for the membership or pack you choose, and that's it."),
+    ("Are there contracts?", "You choose. Save with a 12-month contract, or go month-to-month at a slightly higher rate."),
+    ("Is there a sign-up fee?", "No. You pay for the membership you choose, and that's it."),
     ("Can I try a class before I buy?", "Yes. Your first class is free, any program, kids or adults. <a href=\"/free-trial/\">Book your free class</a>."),
     ("How does the Family Add-On work?", "Add a second family member to any unlimited membership for $120 a month. Call or text 949-556-1178 or email info@costamesajiujitsu.com to set it up."),
     ("How much are private lessons?", "<a href=\"/private-lessons/\">Send a quick request</a> and Coach Tony will walk you through pricing before anything is booked. Lessons are for 1 to 4 people, and groups split the cost."),
@@ -535,9 +556,9 @@ pr_body = f'''<section class="page-hero">
   <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
     <div class="page-hero-copy">
       {crumbs('Pricing')}
-      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true"></span>No long-term contracts</p>
+      <p class="kicker">Memberships<span class="tiny-star" aria-hidden="true"></span>12-month or month-to-month</p>
       <h1 class="display h1">Simple <em>pricing</em></h1>
-      <p class="lead">Costa Mesa Jiu Jitsu membership options. Train unlimited, add a family member, or grab a class pack. Your first class is always free.</p>
+      <p class="lead">Costa Mesa Jiu Jitsu membership options. Train unlimited, or add a family member. Your first class is always free.</p>
     </div>
   </div>
 </section>
@@ -571,11 +592,14 @@ pr_body = f'''<section class="page-hero">
 {faq_html(pr_faq)}
   </div>
 </section>'''
-offers = [("Unlimited Adult Jiu Jitsu", "189", "month"), ("Unlimited Kids Jiu Jitsu", "179", "month"), ("Family Add-On", "120", "month"),
-          ("10-Class Pack", "250", None)]
+offers = [("Unlimited Adult Jiu Jitsu, 12-month contract", "189", "month"),
+          ("Unlimited Adult Jiu Jitsu, month-to-month", "229", "month"),
+          ("Unlimited Kids Jiu Jitsu, 12-month contract", "179", "month"),
+          ("Unlimited Kids Jiu Jitsu, month-to-month", "219", "month"),
+          ("Family Add-On", "120", "month")]
 w('pricing/index.html', page(
     'Jiu Jitsu Membership Pricing | Costa Mesa Jiu Jitsu',
-    'Unlimited adult jiu jitsu $189/month, unlimited kids $179/month, family add-on $120 and a 10-class pack for $250. No contracts. Costa Mesa, CA.',
+    'Unlimited adult jiu jitsu $189/month on a 12-month contract or $229/month month-to-month. Unlimited kids $179/month on a 12-month contract or $219/month month-to-month. Family add-on $120. Costa Mesa, CA.',
     '/pricing/', pr_body, active_nav='/pricing/', active_tab='/pricing/',
     ld=[ORG, crumbs_ld('Pricing', '/pricing/'), faq_ld(pr_faq),
         {"@type": "OfferCatalog", "name": "Costa Mesa Jiu Jitsu memberships", "itemListElement": [
